@@ -15,7 +15,9 @@
       "@infra/*": ["./src/infra/*"],
       "@presentation/*": ["./src/presentation/*"],
       "@utils/*": ["./src/utils/*"]
-    }
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*"
