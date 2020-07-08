@@ -13,7 +13,8 @@
       "@src/*": ["./src/*"],
       "@domain/*": ["./src/domain/*"],
       "@infra/*": ["./src/infra/*"],
-      "@presentation/*": ["./src/presentation/*"]
+      "@presentation/*": ["./src/presentation/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": [

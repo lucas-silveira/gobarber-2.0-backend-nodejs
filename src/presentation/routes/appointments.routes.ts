@@ -16,13 +16,11 @@ const listAppointmentController = new ListAppointmentController(
 
 appointmentsRouter.get('/', (_, response) => {
   const appointments = listAppointmentController.execute();
-
   return response.json(appointments);
 });
 appointmentsRouter.post('/', (request, response) => {
   try {
     const appointment = createAppointmentController.execute(request.body);
-
     return response.json(appointment);
   } catch (err) {
     return response.status(400).json({ error: err.message });
