@@ -1,12 +1,16 @@
 import { Router } from 'express';
 
+import LocalAppointmentRepository from '@infra/repositories/LocalAppointment.repository';
 import AppointmentRepository from '@infra/repositories/Appointment.repository';
 import CreateAppointmentController from '@presentation/controllers/Appointments/CreateAppointment.controller';
 import ListAppointmentController from '@presentation/controllers/Appointments/ListAppointment.controller';
 
 const appointmentsRouter = Router();
 
-const appointmentRepository = new AppointmentRepository();
+const localAppointmentRepository = new LocalAppointmentRepository();
+const appointmentRepository = new AppointmentRepository(
+  localAppointmentRepository,
+);
 const createAppointmentController = new CreateAppointmentController(
   appointmentRepository,
 );

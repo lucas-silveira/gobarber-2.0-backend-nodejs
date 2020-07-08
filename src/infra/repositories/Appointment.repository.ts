@@ -1,28 +1,24 @@
-import { isEqual } from 'date-fns';
-
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from './Repository.interface';
 
-class Repository implements IRepository {
-  private appointments: IAppointment[];
+class AppointmentRepository implements IRepository {
+  private dbAppointment: IRepository;
 
-  constructor() {
-    this.appointments = [];
+  constructor(dbAppointment: IRepository) {
+    this.dbAppointment = dbAppointment;
   }
 
   public findAll(): IAppointment[] {
-    return this.appointments;
+    return this.dbAppointment.findAll();
   }
 
-  public findByDate(date: Date): IAppointment | undefined {
-    return this.appointments.find(appointment =>
-      isEqual(date, appointment.date),
-    );
+  public findByDate(date: Date): IAppointment | null {
+    return this.dbAppointment.findByDate(date);
   }
 
   public create(appointment: IAppointment): void {
-    this.appointments.push(appointment);
+    this.dbAppointment.create(appointment);
   }
 }
 
-export default Repository;
+export default AppointmentRepository;
