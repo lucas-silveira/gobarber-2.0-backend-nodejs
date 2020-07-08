@@ -1,7 +1,7 @@
 import Appointment from '@domain/entities/Appointment';
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
-import DateManipulatorAdapter from '@utils/DateManipulator.adapter';
+import DateHandlerAdapter from '@utils/DateHandler.adapter';
 import { IAppointmentDomain } from './CreateAppointment.interface';
 
 class CreateAppointment implements IAppointmentDomain {
@@ -15,7 +15,7 @@ class CreateAppointment implements IAppointmentDomain {
     provider_name,
     date,
   }: IAppointmentDomain.Appointment): IAppointment {
-    const appointmentDate = DateManipulatorAdapter.startOfHour(date);
+    const appointmentDate = DateHandlerAdapter.startOfHour(date);
     const findAppointmentInSameDate = this.appointmentRepository.findByDate(
       appointmentDate,
     );
