@@ -19,6 +19,14 @@ appointmentsRouter.get('/', (_, response) => {
 
   return response.json(appointments);
 });
-appointmentsRouter.post('/', createAppointmentController.execute);
+appointmentsRouter.post('/', (request, response) => {
+  try {
+    const appointment = createAppointmentController.execute(request.body);
+
+    return response.json(appointment);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
 
 export default appointmentsRouter;
