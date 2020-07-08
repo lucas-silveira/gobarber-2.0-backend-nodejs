@@ -1,5 +1,3 @@
-import { Request, Response } from 'express';
-
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
 
@@ -10,11 +8,9 @@ class ListAppointmentController {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public execute = (_: Request, response: Response): Response<IAppointment> => {
-    const appointments = this.appointmentRepository.findAll();
-
-    return response.json(appointments);
-  };
+  public execute(): IAppointment[] {
+    return this.appointmentRepository.findAll();
+  }
 }
 
 export default ListAppointmentController;

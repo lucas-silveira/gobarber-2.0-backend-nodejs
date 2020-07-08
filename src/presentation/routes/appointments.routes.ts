@@ -14,7 +14,11 @@ const listAppointmentController = new ListAppointmentController(
   appointmentRepository,
 );
 
-appointmentsRouter.get('/', listAppointmentController.execute);
+appointmentsRouter.get('/', (_, response) => {
+  const appointments = listAppointmentController.execute();
+
+  return response.json(appointments);
+});
 appointmentsRouter.post('/', createAppointmentController.execute);
 
 export default appointmentsRouter;
