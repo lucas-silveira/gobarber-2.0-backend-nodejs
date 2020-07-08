@@ -27,16 +27,12 @@
 	        "ts": "never"
 	      }
       ],
-      "camelcase": "off"
+      "camelcase": "off",
+      "@typescript-eslint/no-namespace": "off"
     },
     "settings": {
-      "import/parsers": {
-        "@typescript-eslint/parser": [".js", ".ts"]
-      },
       "import/resolver": {
-        "node": {
-          "extensions": [".js", ".ts"]
-        }
+        "typescript": {}
       }
     }
 }

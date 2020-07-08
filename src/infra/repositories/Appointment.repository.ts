@@ -1,7 +1,7 @@
 import { isEqual } from 'date-fns';
 
+import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from './Repository.interface';
-import IAppointment from '../entities/Appointment.interface';
 
 class Repository implements IRepository {
   private appointments: IAppointment[];

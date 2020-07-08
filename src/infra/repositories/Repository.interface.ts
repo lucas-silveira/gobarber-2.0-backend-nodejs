@@ -1,4 +1,4 @@
-import IAppointment from '../entities/Appointment.interface';
+import IAppointment from '@domain/entities/Appointment.interface';
 
 export default interface IRepository {
   findAll: () => IAppointment[];
