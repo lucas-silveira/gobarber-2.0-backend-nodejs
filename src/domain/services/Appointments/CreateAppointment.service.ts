@@ -2,21 +2,21 @@ import Appointment from '@domain/entities/Appointment';
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
 import DateHandlerAdapter from '@utils/DateHandler.adapter';
-import { IAppointmentDomain } from './CreateAppointment.interface';
+import { IAppointmentService } from './CreateAppointment.interface';
 
-class CreateAppointment implements IAppointmentDomain {
+class CreateAppointment implements IAppointmentService {
   private appointmentRepository: IRepository;
 
   constructor(appointmentRepository: IRepository) {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public execute({
+  public async execute({
     provider_name,
     date,
-  }: IAppointmentDomain.Appointment): IAppointment {
+  }: IAppointmentService.Appointment): Promise<IAppointment> {
     const appointmentDate = DateHandlerAdapter.startOfHour(date);
-    const findAppointmentInSameDate = this.appointmentRepository.findByDate(
+    const findAppointmentInSameDate = await this.appointmentRepository.findByDate(
       appointmentDate,
     );
 
@@ -24,7 +24,7 @@ class CreateAppointment implements IAppointmentDomain {
       throw Error('This appointment is already booked.');
 
     const appointment = new Appointment(provider_name, appointmentDate);
-    this.appointmentRepository.create(appointment);
+    await this.appointmentRepository.create(appointment);
     return appointment;
   }
 }

@@ -28,7 +28,8 @@
 	      }
       ],
       "camelcase": "off",
-      "@typescript-eslint/no-namespace": "off"
+      "@typescript-eslint/no-namespace": "off",
+      "class-methods-use-this": "off"
     },
     "settings": {
       "import/resolver": {

@@ -8,7 +8,7 @@ class ListAppointmentController {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public execute(): IAppointment[] {
+  public async execute(): Promise<IAppointment[]> {
     return this.appointmentRepository.findAll();
   }
 }

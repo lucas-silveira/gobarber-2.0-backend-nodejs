@@ -11,11 +11,11 @@ class CreateAppointmentController {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public execute(httpBody: any): IAppointment {
+  public async execute(httpBody: any): Promise<IAppointment> {
     const { provider_name, date } = httpBody;
     const parsedDate = parseISO(date);
     const createAppointment = new CreateAppointment(this.appointmentRepository);
-    const appointment = createAppointment.execute({
+    const appointment = await createAppointment.execute({
       provider_name,
       date: parsedDate,
     });

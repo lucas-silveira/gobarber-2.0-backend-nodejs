@@ -8,15 +8,15 @@ class AppointmentRepository implements IRepository {
     this.dbAppointment = dbAppointment;
   }
 
-  public findAll(): IAppointment[] {
+  public async findAll(): Promise<IAppointment[]> {
     return this.dbAppointment.findAll();
   }
 
-  public findByDate(date: Date): IAppointment | null {
+  public async findByDate(date: Date): Promise<IAppointment | null> {
     return this.dbAppointment.findByDate(date);
   }
 
-  public create(appointment: IAppointment): void {
+  public async create(appointment: IAppointment): Promise<void> {
     this.dbAppointment.create(appointment);
   }
 }
