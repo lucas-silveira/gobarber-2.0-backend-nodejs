@@ -1,14 +1,15 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
+import IControllerAppointment from './ControllerAppointment.interface';
 
-class ListAppointmentController {
+class ListAppointmentController implements IControllerAppointment {
   private appointmentRepository: IRepository;
 
   constructor(appointmentRepository: IRepository) {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public async execute(): Promise<IAppointment[]> {
+  public async handle(): Promise<IAppointment[]> {
     return this.appointmentRepository.findAll();
   }
 }
