@@ -16,8 +16,8 @@ class AppointmentRepository implements IRepository {
     return this.dbAppointment.findByDate(date);
   }
 
-  public async create(appointment: IAppointment): Promise<void> {
-    this.dbAppointment.create(appointment);
+  public async create(appointment: IAppointment): Promise<IAppointment> {
+    return this.dbAppointment.create(appointment);
   }
 }
 

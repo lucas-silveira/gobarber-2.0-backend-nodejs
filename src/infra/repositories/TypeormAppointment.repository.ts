@@ -15,9 +15,10 @@ class TypeormAppointmentRepository implements IRepository {
     return appointments || null;
   }
 
-  public async create(appointment: IAppointment): Promise<void> {
+  public async create(appointment: IAppointment): Promise<IAppointment> {
     const newAppointment = TypeormAppointmentSchema.create(appointment);
     await TypeormAppointmentSchema.save(newAppointment);
+    return newAppointment;
   }
 }
 

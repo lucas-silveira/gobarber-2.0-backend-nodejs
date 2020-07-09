@@ -24,8 +24,8 @@ class CreateAppointment implements IAppointmentService {
       throw Error('This appointment is already booked.');
 
     const appointment = new Appointment(provider_name, appointmentDate);
-    await this.appointmentRepository.create(appointment);
-    return appointment;
+    const newAppointment = await this.appointmentRepository.create(appointment);
+    return newAppointment;
   }
 }
 
