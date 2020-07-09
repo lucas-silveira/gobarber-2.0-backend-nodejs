@@ -1,8 +1,9 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
-import IControllerAppointment from './ControllerAppointment.interface';
+import { IControllerAppointment } from './ControllerAppointment.interface';
 
-class ListAppointmentController implements IControllerAppointment {
+class ListAppointmentController
+  implements IControllerAppointment<Promise<IAppointment[]>> {
   private appointmentRepository: IRepository;
 
   constructor(appointmentRepository: IRepository) {
