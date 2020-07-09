@@ -5,9 +5,9 @@ import DateHandlerAdapter from '@utils/DateHandler.adapter';
 import { IAppointmentService } from './CreateAppointment.interface';
 
 class CreateAppointment implements IAppointmentService {
-  private appointmentRepository: IRepository;
+  private appointmentRepository: IRepository<IAppointment>;
 
-  constructor(appointmentRepository: IRepository) {
+  constructor(appointmentRepository: IRepository<IAppointment>) {
     this.appointmentRepository = appointmentRepository;
   }
 

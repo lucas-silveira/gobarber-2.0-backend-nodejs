@@ -4,9 +4,9 @@ import { IControllerAppointment } from './ControllerAppointment.interface';
 
 class ListAppointmentController
   implements IControllerAppointment<Promise<IAppointment[]>> {
-  private appointmentRepository: IRepository;
+  private appointmentRepository: IRepository<IAppointment>;
 
-  constructor(appointmentRepository: IRepository) {
+  constructor(appointmentRepository: IRepository<IAppointment>) {
     this.appointmentRepository = appointmentRepository;
   }
 
