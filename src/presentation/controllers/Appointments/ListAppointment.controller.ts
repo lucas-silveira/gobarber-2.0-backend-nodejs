@@ -1,5 +1,6 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
+import ListAppointment from '@domain/services/Appointments/ListAppointment.service';
 import { IControllerAppointment } from './ControllerAppointment.interface';
 
 class ListAppointmentController
@@ -11,7 +12,8 @@ class ListAppointmentController
   }
 
   public async handle(): Promise<IAppointment[]> {
-    return this.appointmentRepository.findAll();
+    const createAppointment = new ListAppointment(this.appointmentRepository);
+    return createAppointment.execute();
   }
 }
 

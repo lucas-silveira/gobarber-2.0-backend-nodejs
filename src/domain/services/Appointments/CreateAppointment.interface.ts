@@ -1,12 +1,12 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 
-export interface IAppointmentService {
+export interface ICreateAppointmentService {
   execute: (
-    appointment: IAppointmentService.Appointment,
+    appointment: ICreateAppointmentService.Appointment,
   ) => Promise<IAppointment>;
 }
 
-export namespace IAppointmentService {
+export namespace ICreateAppointmentService {
   export type Appointment = {
     provider_name: string;
     date: Date;
