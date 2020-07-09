@@ -7,18 +7,21 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import IAppointment from '@src/domain/entities/Appointment.interface';
+import IUser from '@src/domain/entities/User.interface';
 
-@Entity('appointments')
-class AppointmentSchema extends BaseEntity implements IAppointment {
+@Entity('users')
+class UserSchema extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  provider_name: string;
+  name: string;
 
-  @Column('timestamp with time zone')
-  date: Date;
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -27,4 +30,4 @@ class AppointmentSchema extends BaseEntity implements IAppointment {
   update_at: Date;
 }
 
-export default AppointmentSchema;
+export default UserSchema;

@@ -1,10 +1,10 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from './Repository.interface';
 
-class AppointmentRepository implements IRepository {
-  private dbAppointment: IRepository;
+class AppointmentRepository implements IRepository<IAppointment> {
+  private dbAppointment: IRepository<IAppointment>;
 
-  constructor(dbAppointment: IRepository) {
+  constructor(dbAppointment: IRepository<IAppointment>) {
     this.dbAppointment = dbAppointment;
   }
 

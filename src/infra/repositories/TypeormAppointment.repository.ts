@@ -3,7 +3,7 @@ import IRepository from './Repository.interface';
 
 import TypeormAppointmentSchema from '../schemas/TypeormAppointment.schema';
 
-class TypeormAppointmentRepository implements IRepository {
+class TypeormAppointmentRepository implements IRepository<IAppointment> {
   public async findAll(): Promise<IAppointment[]> {
     return TypeormAppointmentSchema.find();
   }
