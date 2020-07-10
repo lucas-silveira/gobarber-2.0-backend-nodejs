@@ -1,23 +1,23 @@
 import IUser from '@domain/entities/User.interface';
-import IRepository from './Repository.interface';
+import { IRepository } from './Repository.interface';
 
 class UserRepository implements IRepository<IUser> {
-  private dbAppointment: IRepository<IUser>;
+  private dbUser: IRepository<IUser>;
 
-  constructor(dbAppointment: IRepository<IUser>) {
-    this.dbAppointment = dbAppointment;
+  constructor(dbUser: IRepository<IUser>) {
+    this.dbUser = dbUser;
   }
 
   public async findAll(): Promise<IUser[]> {
-    return this.dbAppointment.findAll();
+    return this.dbUser.findAll();
   }
 
-  public async findByDate(date: Date): Promise<IUser | null> {
-    return this.dbAppointment.findByDate(date);
+  public async findOne(where: IRepository.Where): Promise<IUser | null> {
+    return this.dbUser.findOne(where);
   }
 
-  public async create(appointment: IUser): Promise<IUser> {
-    return this.dbAppointment.create(appointment);
+  public async create(user: IUser): Promise<IUser> {
+    return this.dbUser.create(user);
   }
 }
 

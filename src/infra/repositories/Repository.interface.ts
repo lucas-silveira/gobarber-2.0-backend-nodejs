@@ -1,5 +1,11 @@
-export default interface IRepository<T> {
+export interface IRepository<T> {
   findAll: () => Promise<T[]>;
-  findByDate: (date: Date) => Promise<T | null>;
+  findOne: (where: IRepository.Where) => Promise<T | null>;
   create: (appointment: T) => Promise<T>;
+}
+
+export namespace IRepository {
+  export type Where = {
+    [attributes: string]: string | boolean | number | Date;
+  };
 }

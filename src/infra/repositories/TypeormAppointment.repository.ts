@@ -1,5 +1,5 @@
 import IAppointment from '@domain/entities/Appointment.interface';
-import IRepository from './Repository.interface';
+import { IRepository } from './Repository.interface';
 
 import TypeormAppointmentSchema from '../schemas/TypeormAppointment.schema';
 
@@ -8,10 +8,8 @@ class TypeormAppointmentRepository implements IRepository<IAppointment> {
     return TypeormAppointmentSchema.find();
   }
 
-  public async findByDate(date: Date): Promise<IAppointment | null> {
-    const appointments = await TypeormAppointmentSchema.findOne({
-      where: { date },
-    });
+  public async findOne(where: IRepository.Where): Promise<IAppointment | null> {
+    const appointments = await TypeormAppointmentSchema.findOne({ where });
     return appointments || null;
   }
 

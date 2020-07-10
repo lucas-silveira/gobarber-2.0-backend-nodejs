@@ -2,11 +2,11 @@ import { parseISO } from 'date-fns';
 
 import CreateAppointment from '@domain/services/Appointments/CreateAppointment.service';
 import IAppointment from '@domain/entities/Appointment.interface';
-import IRepository from '@infra/repositories/Repository.interface';
-import { IControllerAppointment } from './ControllerAppointment.interface';
+import { IRepository } from '@infra/repositories/Repository.interface';
+import { IAppointmentController } from './AppointmentController.interface';
 
 class CreateAppointmentController
-  implements IControllerAppointment<Promise<IAppointment>> {
+  implements IAppointmentController<Promise<IAppointment>> {
   private appointmentRepository: IRepository<IAppointment>;
 
   constructor(appointmentRepository: IRepository<IAppointment>) {
@@ -14,7 +14,7 @@ class CreateAppointmentController
   }
 
   public async handle(
-    httpBody: IControllerAppointment.httpBody,
+    httpBody: IAppointmentController.httpBody,
   ): Promise<IAppointment> {
     const { provider_id, date } = httpBody;
     const parsedDate = parseISO(date);
