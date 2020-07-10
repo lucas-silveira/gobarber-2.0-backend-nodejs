@@ -1,5 +1,5 @@
 import IAppointment from '@domain/entities/Appointment.interface';
-import TypeormAppointmentSchema from '@infra/schemas/Typeorm/TypeormAppointment.schema';
+import TypeormAppointmentSchema from '@infra/schemas/typeorm/TypeormAppointment.schema';
 import IRepository from '../Repository.interface';
 
 class TypeormAppointmentRepository implements IRepository<IAppointment> {

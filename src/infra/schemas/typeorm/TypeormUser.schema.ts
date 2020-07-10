@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import IUser from '@src/domain/entities/User.interface';
+import IUser from '@domain/entities/User.interface';
 
 @Entity('users')
 class UserSchema extends BaseEntity implements IUser {

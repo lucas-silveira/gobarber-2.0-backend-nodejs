@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import appointmentControllerFactory from '@src/presentation/controllers/Appointments/AppointmentController.factory';
+import appointmentControllerFactory from '@presentation/controllers/Appointments/AppointmentController.factory';
 
 const appointmentsRouter = Router();
 const appointmentController = appointmentControllerFactory();

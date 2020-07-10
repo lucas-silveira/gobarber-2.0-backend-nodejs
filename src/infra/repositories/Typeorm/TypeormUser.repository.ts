@@ -1,5 +1,5 @@
 import IUser from '@domain/entities/User.interface';
-import TypeormUserSchema from '@infra/schemas/Typeorm/TypeormUser.schema';
+import TypeormUserSchema from '@infra/schemas/typeorm/TypeormUser.schema';
 import IRepository from '../Repository.interface';
 
 class TypeormUserRepository implements IRepository<IUser> {

@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import IAppointment from '@src/domain/entities/Appointment.interface';
+import IAppointment from '@domain/entities/Appointment.interface';
 import TypeormUserSchema from './TypeormUser.schema';
 
 @Entity('appointments')
