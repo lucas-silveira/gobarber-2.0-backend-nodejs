@@ -1,9 +1,9 @@
 export interface IAppointmentController<T> {
-  handle: (httpBody: IAppointmentController.httpBody) => T;
+  handle: (body: IAppointmentController.Body) => T;
 }
 
 export namespace IAppointmentController {
-  export interface httpBody {
+  export interface Body {
     provider_id: string;
     date: string;
   }

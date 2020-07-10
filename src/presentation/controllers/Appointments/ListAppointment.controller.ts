@@ -1,10 +1,11 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
 import ListAppointment from '@domain/services/Appointments/ListAppointment.service';
+import { IListAppointmentService } from '@domain/services/Appointments/ListAppointment.interface';
 import { IAppointmentController } from './AppointmentController.interface';
 
 class ListAppointmentController
-  implements IAppointmentController<Promise<IAppointment[]>> {
+  implements IAppointmentController<Promise<IListAppointmentService.Output[]>> {
   private appointmentRepository: IRepository<IAppointment>;
 
   constructor(appointmentRepository: IRepository<IAppointment>) {

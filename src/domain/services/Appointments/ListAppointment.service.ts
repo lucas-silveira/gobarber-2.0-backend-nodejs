@@ -1,6 +1,6 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from '@infra/repositories/Repository.interface';
-import IListAppointmentService from './ListAppointment.interface';
+import { IListAppointmentService } from './ListAppointment.interface';
 
 class ListAppointment implements IListAppointmentService {
   private appointmentRepository: IRepository<IAppointment>;
@@ -9,7 +9,7 @@ class ListAppointment implements IListAppointmentService {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public async execute(): Promise<IAppointment[]> {
+  public async execute(): Promise<IListAppointmentService.Output[]> {
     return this.appointmentRepository.findAll();
   }
 }

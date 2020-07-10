@@ -1,5 +1,15 @@
-import IUser from '@domain/entities/User.interface';
+export interface ICreateUserService {
+  execute: (
+    user: ICreateUserService.Input,
+  ) => Promise<ICreateUserService.Output>;
+}
 
-export default interface ICreateUserService {
-  execute: (user: IUser) => Promise<Omit<IUser, 'password'>>;
+export namespace ICreateUserService {
+  export type Input = {
+    name: string;
+    email: string;
+    password: string;
+  };
+
+  export type Output = Omit<Input, 'password'>;
 }

@@ -1,9 +1,9 @@
 export interface IUserController<T> {
-  handle: (httpBody: IUserController.httpBody) => T;
+  handle: (body: IUserController.Body) => T;
 }
 
 export namespace IUserController {
-  export interface httpBody {
+  export interface Body {
     name: string;
     email: string;
     password: string;

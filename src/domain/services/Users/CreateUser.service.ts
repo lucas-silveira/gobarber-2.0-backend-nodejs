@@ -2,7 +2,7 @@ import User from '@domain/entities/User';
 import IUser from '@domain/entities/User.interface';
 import IRepository from '@infra/repositories/Repository.interface';
 import Encryptor from '@utils/Encryptor/Encryptor';
-import ICreateUserService from './CreateUser.interface';
+import { ICreateUserService } from './CreateUser.interface';
 
 class CreateUser implements ICreateUserService {
   private userRepository: IRepository<IUser>;
@@ -15,7 +15,7 @@ class CreateUser implements ICreateUserService {
     name,
     email,
     password,
-  }: IUser): Promise<Omit<IUser, 'password'>> {
+  }: ICreateUserService.Input): Promise<ICreateUserService.Output> {
     const userExists = await this.userRepository.findOne({ email });
 
     if (userExists) throw new Error('This email address is already in use.');
