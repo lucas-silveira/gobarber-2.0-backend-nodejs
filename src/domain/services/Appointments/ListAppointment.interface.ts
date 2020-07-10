@@ -1,5 +1,5 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 
-export interface IListAppointmentService {
+export default interface IListAppointmentService {
   execute: () => Promise<IAppointment[]>;
 }

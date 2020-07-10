@@ -4,7 +4,7 @@ export interface IControllerAppointment<T> {
 
 export namespace IControllerAppointment {
   export interface httpBody {
-    provider_name: string;
+    provider_id: string;
     date: string;
   }
 }

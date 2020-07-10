@@ -5,9 +5,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import IAppointment from '@src/domain/entities/Appointment.interface';
+import TypeormUserSchema from './TypeormUser.schema';
 
 @Entity('appointments')
 class AppointmentSchema extends BaseEntity implements IAppointment {
@@ -15,7 +18,11 @@ class AppointmentSchema extends BaseEntity implements IAppointment {
   id: string;
 
   @Column()
-  provider_name: string;
+  provider_id: string;
+
+  @ManyToOne(() => TypeormUserSchema)
+  @JoinColumn({ name: 'provider_id' })
+  provider: TypeormUserSchema;
 
   @Column('timestamp with time zone')
   date: Date;

@@ -1,4 +1,4 @@
 export default interface IAppointment {
-  provider_name: string;
+  provider_id: string;
   date: Date;
 }
