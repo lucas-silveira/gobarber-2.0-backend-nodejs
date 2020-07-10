@@ -1,12 +1,12 @@
-import IAuthentication from './Authentication.interface';
+import { IAuthentication } from './Authentication.interface';
 
 class Authentication implements IAuthentication {
-  public readonly email: string;
+  public readonly user: IAuthentication.User;
 
   public readonly token: string;
 
-  constructor(email: string, token: string) {
-    this.email = email;
+  constructor(user: IAuthentication.User, token: string) {
+    this.user = user;
     this.token = token;
   }
 }

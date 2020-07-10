@@ -29,11 +29,12 @@ class CreateAuthentication implements ICreateAuthenticationService {
 
     const token = Authenticate.create({}, 'e4185a1905756dc17f8c8121eeaa75a7', {
       subject: user.id,
-      expiresIn: '7d',
+      expiresIn: '1d',
     });
 
-    const authentication = new Authentication(email, token);
+    delete user.password;
 
+    const authentication = new Authentication(user, token);
     return authentication;
   }
 }
