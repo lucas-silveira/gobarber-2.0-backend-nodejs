@@ -3,17 +3,15 @@ import { Router } from 'express';
 import appointmentControllerFactory from '@presentation/controllers/Appointments/AppointmentController.factory';
 
 const appointmentsRouter = Router();
-const appointmentController = appointmentControllerFactory();
+const { listAppointment, createAppointment } = appointmentControllerFactory();
 
 appointmentsRouter.get('/', async (_, response) => {
-  const appointments = await appointmentController.listAppointment.handle();
+  const appointments = await listAppointment.handle();
   return response.json(appointments);
 });
 appointmentsRouter.post('/', async (request, response) => {
   try {
-    const appointment = await appointmentController.createAppointment.handle(
-      request.body,
-    );
+    const appointment = await createAppointment.handle(request.body);
     return response.json(appointment);
   } catch (err) {
     return response.status(400).json({ error: err.message });
