@@ -8,12 +8,19 @@ class Authenticate implements IAuthenticate {
     this.authenticateAdapter = new JWTAuthenticateAdapter();
   }
 
-  create(
+  public create(
     head: IAuthenticate.Head,
     secretKey: string,
     options: IAuthenticate.Options,
   ): string {
     return this.authenticateAdapter.create(head, secretKey, options);
+  }
+
+  public verify(
+    token: string,
+    secretKey: string,
+  ): IAuthenticate.VerifyResponse | null {
+    return this.authenticateAdapter.verify(token, secretKey);
   }
 }
 

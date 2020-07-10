@@ -15,7 +15,8 @@
       "@domain/*": ["./src/domain/*"],
       "@infra/*": ["./src/infra/*"],
       "@presentation/*": ["./src/presentation/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@configs/*": ["./src/configs/*"],
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true

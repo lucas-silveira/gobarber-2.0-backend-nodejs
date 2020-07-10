@@ -4,6 +4,11 @@ export interface IAuthenticate {
     secretKey: string,
     options: IAuthenticate.Options,
   ) => string;
+
+  verify: (
+    token: string,
+    secretKey: string,
+  ) => IAuthenticate.VerifyResponse | null;
 }
 
 export namespace IAuthenticate {
@@ -14,5 +19,9 @@ export namespace IAuthenticate {
   export type Options = {
     subject?: string;
     expiresIn?: string;
+  };
+
+  export type VerifyResponse = {
+    userId: string;
   };
 }

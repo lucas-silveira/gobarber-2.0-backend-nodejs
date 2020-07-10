@@ -3,6 +3,7 @@ import IUser from '@domain/entities/User.interface';
 import IRepository from '@infra/repositories/Repository.interface';
 import Encryptor from '@utils/Encryptor/Encryptor';
 import Authenticate from '@utils/Authentication/Authenticate';
+import authConfig from '@configs/auth';
 import { ICreateAuthenticationService } from './CreateAuthentication.interface';
 
 class CreateAuthentication implements ICreateAuthenticationService {
@@ -27,9 +28,10 @@ class CreateAuthentication implements ICreateAuthenticationService {
     if (!passwordIsValid)
       throw new Error('Incorrect email/password combination.');
 
-    const token = Authenticate.create({}, 'e4185a1905756dc17f8c8121eeaa75a7', {
+    const { secretKey, expiresIn } = authConfig.jwt;
+    const token = Authenticate.create({}, secretKey, {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn,
     });
 
     delete user.password;

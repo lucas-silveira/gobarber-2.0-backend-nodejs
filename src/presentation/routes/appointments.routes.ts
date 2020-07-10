@@ -1,9 +1,12 @@
 import { Router } from 'express';
 
 import appointmentControllerFactory from '@presentation/controllers/Appointments/AppointmentController.factory';
+import { authenticationMiddleware } from '@presentation/middlewares';
 
 const appointmentsRouter = Router();
 const { listAppointment, createAppointment } = appointmentControllerFactory();
+
+appointmentsRouter.use(authenticationMiddleware);
 
 appointmentsRouter.get('/', async (_, response) => {
   const appointments = await listAppointment.handle();
