@@ -1,4 +1,4 @@
-import { hash } from 'bcryptjs';
+import { hash, compare } from 'bcryptjs';
 
 import IEnctryptor from './Encryptor.interface';
 
@@ -8,6 +8,10 @@ class BcryptEncryptor implements IEnctryptor {
     strength: string | number,
   ): Promise<string> {
     return hash(data, strength);
+  }
+
+  public async compare(data: string, dataHash: string): Promise<boolean> {
+    return compare(data, dataHash);
   }
 }
 

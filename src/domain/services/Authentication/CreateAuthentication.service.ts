@@ -17,12 +17,16 @@ class CreateAuthentication implements ICreateAuthenticationService {
   }: ICreateAuthenticationService.Input): Promise<
     ICreateAuthenticationService.Output
   > {
-    const userExists = await this.authRepository.findOne({ email });
+    const user = await this.authRepository.findOne({ email });
 
-    if (userExists) throw new Error('This email address is already in use.');
+    if (!user) throw new Error('Incorrect email/password combination.');
 
-    const passwordIsValid = await Encryptor.makeHash(password, 8);
-    const token = '';
+    const passwordIsValid = await Encryptor.compare(password, user.password);
+
+    if (!passwordIsValid)
+      throw new Error('Incorrect email/password combination.');
+
+    const token = '123';
     const authentication = new Authentication(email, token);
 
     return authentication;
