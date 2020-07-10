@@ -11,7 +11,11 @@ class CreateUser implements ICreateUserService {
     this.userRepository = userRepository;
   }
 
-  public async execute({ name, email, password }: IUser): Promise<IUser> {
+  public async execute({
+    name,
+    email,
+    password,
+  }: IUser): Promise<Omit<IUser, 'password'>> {
     const userExists = await this.userRepository.findOne({ email });
 
     if (userExists) throw new Error('This email address is already in use.');
@@ -19,6 +23,9 @@ class CreateUser implements ICreateUserService {
     const hashedPassword = await Encryptor.makeHash(password, 8);
     const user = new User(name, email, hashedPassword);
     const newUser = await this.userRepository.create(user);
+
+    delete newUser.password;
+
     return newUser;
   }
 }
