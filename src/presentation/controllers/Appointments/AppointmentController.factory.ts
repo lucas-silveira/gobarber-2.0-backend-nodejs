@@ -1,7 +1,7 @@
 import TypeormAppointmentRepository from '@src/infra/repositories/Typeorm/TypeormAppointment.repository';
 import AppointmentRepository from '@infra/repositories/Appointment.repository';
-import CreateAppointmentController from '@presentation/controllers/Appointments/CreateAppointment.controller';
-import ListAppointmentController from '@presentation/controllers/Appointments/ListAppointment.controller';
+import CreateAppointmentController from './CreateAppointment.controller';
+import ListAppointmentController from './ListAppointment.controller';
 import IAppointmentControllerFactory from './AppointmentControllerFactory.interface';
 
 const appointmentControllerFactory = (): IAppointmentControllerFactory => {

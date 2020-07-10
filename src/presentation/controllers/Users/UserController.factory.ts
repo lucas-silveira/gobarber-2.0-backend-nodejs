@@ -1,6 +1,6 @@
 import TypeormUserRepository from '@infra/repositories/Typeorm/TypeormUser.repository';
 import UserRepository from '@infra/repositories/User.repository';
-import CreateUserController from '@presentation/controllers/Users/CreateUser.controller';
+import CreateUserController from './CreateUser.controller';
 import IUserControllerFactory from './UserControllerFactory.interface';
 
 const userControllerFactory = (): IUserControllerFactory => {

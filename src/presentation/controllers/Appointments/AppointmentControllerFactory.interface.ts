@@ -1,5 +1,5 @@
-import CreateAppointmentController from '@presentation/controllers/Appointments/CreateAppointment.controller';
-import ListAppointmentController from '@presentation/controllers/Appointments/ListAppointment.controller';
+import CreateAppointmentController from './CreateAppointment.controller';
+import ListAppointmentController from './ListAppointment.controller';
 
 export default interface IAppointmentControllerFactory {
   createAppointment: CreateAppointmentController;
