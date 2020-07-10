@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-const authenticateRouter = Router();
+const authenticationRouter = Router();
 
-authenticateRouter.post('/', async (request, response) => {
+authenticationRouter.post('/', async (request, response) => {
   try {
     return response.json({ ok: true });
   } catch (err) {
@@ -10,4 +10,4 @@ authenticateRouter.post('/', async (request, response) => {
   }
 });
 
-export default authenticateRouter;
+export default authenticationRouter;
