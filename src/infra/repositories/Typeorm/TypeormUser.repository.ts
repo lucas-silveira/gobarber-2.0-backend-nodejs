@@ -1,7 +1,6 @@
 import IUser from '@domain/entities/User.interface';
-import IRepository from './Repository.interface';
-
-import TypeormUserSchema from '../schemas/TypeormUser.schema';
+import TypeormUserSchema from '@infra/schemas/Typeorm/TypeormUser.schema';
+import IRepository from '../Repository.interface';
 
 class TypeormUserRepository implements IRepository<IUser> {
   public async findAll(): Promise<IUser[]> {

@@ -1,4 +1,4 @@
-import TypeormUserRepository from '@src/infra/repositories/TypeormUser.repository';
+import TypeormUserRepository from '@src/infra/repositories/Typeorm/TypeormUser.repository';
 import UserRepository from '@infra/repositories/User.repository';
 import CreateUserController from '@presentation/controllers/Users/CreateUser.controller';
 import IUserControllerFactory from './UserControllerFactory.interface';

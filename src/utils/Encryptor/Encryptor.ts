@@ -2,17 +2,17 @@ import IEncryptor from './Encryptor.interface';
 import BcryptEncryptorAdapter from './BcryptEncryptor.adapter';
 
 class Encryptor implements IEncryptor {
-  private bcryptEncryptorAdapter: IEncryptor;
+  private encryptorAdapter: IEncryptor;
 
   constructor() {
-    this.bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
+    this.encryptorAdapter = new BcryptEncryptorAdapter();
   }
 
   public async makeHash(
     data: string,
     strength: string | number,
   ): Promise<string> {
-    return this.bcryptEncryptorAdapter.makeHash(data, strength);
+    return this.encryptorAdapter.makeHash(data, strength);
   }
 }
 

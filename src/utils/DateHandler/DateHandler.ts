@@ -1,11 +1,11 @@
 import IDateHandler from './DateHandler.interface';
-import DateHandlerAdapter from './DateFnsDateHandler.adapter';
+import DateFnsDateHandlerAdapter from './DateFnsDateHandler.adapter';
 
 class DateHandler implements IDateHandler {
   private dateHandlerAdapter: IDateHandler;
 
   constructor() {
-    this.dateHandlerAdapter = new DateHandlerAdapter();
+    this.dateHandlerAdapter = new DateFnsDateHandlerAdapter();
   }
 
   public startOfHour(date: Date): Date {

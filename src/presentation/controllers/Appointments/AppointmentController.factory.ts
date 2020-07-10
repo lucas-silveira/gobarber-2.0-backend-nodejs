@@ -1,4 +1,4 @@
-import TypeormAppointmentRepository from '@src/infra/repositories/TypeormAppointment.repository';
+import TypeormAppointmentRepository from '@src/infra/repositories/Typeorm/TypeormAppointment.repository';
 import AppointmentRepository from '@infra/repositories/Appointment.repository';
 import CreateAppointmentController from '@presentation/controllers/Appointments/CreateAppointment.controller';
 import ListAppointmentController from '@presentation/controllers/Appointments/ListAppointment.controller';
