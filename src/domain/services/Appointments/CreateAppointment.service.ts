@@ -1,7 +1,7 @@
 import Appointment from '@domain/entities/Appointment';
 import IAppointment from '@domain/entities/Appointment.interface';
-import { IRepository } from '@infra/repositories/Repository.interface';
-import DateHandlerAdapter from '@utils/DateHandler.adapter';
+import IRepository from '@infra/repositories/Repository.interface';
+import DateHandler from '@src/utils/DateHandler/DateHandler';
 import ICreateAppointmentService from './CreateAppointment.interface';
 
 class CreateAppointment implements ICreateAppointmentService {
@@ -15,7 +15,7 @@ class CreateAppointment implements ICreateAppointmentService {
     provider_id,
     date,
   }: IAppointment): Promise<IAppointment> {
-    const appointmentDate = DateHandlerAdapter.startOfHour(date);
+    const appointmentDate = DateHandler.startOfHour(date);
     const findAppointmentInSameDate = await this.appointmentRepository.findOne({
       date: appointmentDate,
     });

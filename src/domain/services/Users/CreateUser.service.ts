@@ -1,6 +1,7 @@
 import User from '@domain/entities/User';
 import IUser from '@domain/entities/User.interface';
-import { IRepository } from '@infra/repositories/Repository.interface';
+import IRepository from '@infra/repositories/Repository.interface';
+import Encryptor from '@utils/Encryptor/Encryptor';
 import ICreateUserService from './CreateUser.interface';
 
 class CreateUser implements ICreateUserService {
@@ -11,7 +12,12 @@ class CreateUser implements ICreateUserService {
   }
 
   public async execute({ name, email, password }: IUser): Promise<IUser> {
-    const user = new User(name, email, password);
+    const userExists = await this.userRepository.findOne({ email });
+
+    if (userExists) throw new Error('This email address is already in use.');
+
+    const hashedPassword = await Encryptor.makeHash(password, 8);
+    const user = new User(name, email, hashedPassword);
     const newUser = await this.userRepository.create(user);
     return newUser;
   }

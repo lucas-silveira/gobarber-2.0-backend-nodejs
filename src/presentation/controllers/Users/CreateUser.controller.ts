@@ -1,6 +1,6 @@
 import CreateUser from '@domain/services/Users/CreateUser.service';
 import IUser from '@domain/entities/User.interface';
-import { IRepository } from '@infra/repositories/Repository.interface';
+import IRepository from '@infra/repositories/Repository.interface';
 import { IUserController } from './UserController.interface';
 
 class CreateUserController implements IUserController<Promise<IUser>> {

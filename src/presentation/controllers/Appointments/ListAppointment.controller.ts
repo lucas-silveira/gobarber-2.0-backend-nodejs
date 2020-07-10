@@ -1,5 +1,5 @@
 import IAppointment from '@domain/entities/Appointment.interface';
-import { IRepository } from '@infra/repositories/Repository.interface';
+import IRepository from '@infra/repositories/Repository.interface';
 import ListAppointment from '@domain/services/Appointments/ListAppointment.service';
 import { IAppointmentController } from './AppointmentController.interface';
 

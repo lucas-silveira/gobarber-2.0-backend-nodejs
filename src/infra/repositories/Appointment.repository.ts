@@ -1,5 +1,5 @@
 import IAppointment from '@domain/entities/Appointment.interface';
-import { IRepository } from './Repository.interface';
+import IRepository from './Repository.interface';
 
 class AppointmentRepository implements IRepository<IAppointment> {
   private dbAppointment: IRepository<IAppointment>;
@@ -12,7 +12,9 @@ class AppointmentRepository implements IRepository<IAppointment> {
     return this.dbAppointment.findAll();
   }
 
-  public async findOne(where: IRepository.Where): Promise<IAppointment | null> {
+  public async findOne(
+    where: Partial<IAppointment>,
+  ): Promise<IAppointment | null> {
     return this.dbAppointment.findOne(where);
   }
 

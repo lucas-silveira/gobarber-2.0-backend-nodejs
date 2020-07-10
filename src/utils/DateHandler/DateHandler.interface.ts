@@ -1,3 +1,3 @@
 export default interface IDateHandler {
-  startOfHour?: (date: Date) => Date;
+  startOfHour: (date: Date) => Date;
 }

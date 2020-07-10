@@ -1,5 +1,5 @@
 import IUser from '@domain/entities/User.interface';
-import { IRepository } from './Repository.interface';
+import IRepository from './Repository.interface';
 
 class UserRepository implements IRepository<IUser> {
   private dbUser: IRepository<IUser>;
@@ -12,7 +12,7 @@ class UserRepository implements IRepository<IUser> {
     return this.dbUser.findAll();
   }
 
-  public async findOne(where: IRepository.Where): Promise<IUser | null> {
+  public async findOne(where: Partial<IUser>): Promise<IUser | null> {
     return this.dbUser.findOne(where);
   }
 

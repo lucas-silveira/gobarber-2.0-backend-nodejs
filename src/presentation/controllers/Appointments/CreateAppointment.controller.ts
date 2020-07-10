@@ -2,7 +2,7 @@ import { parseISO } from 'date-fns';
 
 import CreateAppointment from '@domain/services/Appointments/CreateAppointment.service';
 import IAppointment from '@domain/entities/Appointment.interface';
-import { IRepository } from '@infra/repositories/Repository.interface';
+import IRepository from '@infra/repositories/Repository.interface';
 import { IAppointmentController } from './AppointmentController.interface';
 
 class CreateAppointmentController
