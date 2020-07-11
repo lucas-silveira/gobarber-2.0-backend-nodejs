@@ -11,6 +11,10 @@ class DateHandler implements IDateHandler {
   public startOfHour(date: Date): Date {
     return this.dateHandlerAdapter.startOfHour(date);
   }
+
+  public parseISO(date: string): Date {
+    return this.dateHandlerAdapter.parseISO(date);
+  }
 }
 
 export default new DateHandler();

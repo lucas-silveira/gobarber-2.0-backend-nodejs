@@ -8,17 +8,19 @@ const authenticationMiddleware = (
   response: Response,
   next: NextFunction,
 ): Response | void => {
-  const authResponse = verifyAuthentication.execute(
-    request.headers.authorization || '',
-  );
+  try {
+    const authResponse = verifyAuthentication.execute(
+      request.headers.authorization || '',
+    );
 
-  if (!authResponse)
-    return response.status(401).json({ error: 'You does not authorization.' });
+    request.user = {
+      id: authResponse.userId,
+    };
 
-  request.user = {
-    id: authResponse.userId,
-  };
-  return next();
+    return next();
+  } catch (err) {
+    return response.status(401).json({ error: err.message });
+  }
 };
 
 export default authenticationMiddleware;
