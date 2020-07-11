@@ -1,14 +1,20 @@
 import User from '@domain/entities/User';
 import IUser from '@domain/entities/User.interface';
 import IRepository from '@infra/repositories/Repository.interface';
-import Encryptor from '@utils/Encryptor/Encryptor';
+import IEnctryptor from '@src/utils/Encryptor/Encryptor.interface';
 import { ICreateUserService } from './CreateUser.interface';
 
 class CreateUser implements ICreateUserService {
-  private userRepository: IRepository<IUser>;
+  private userRepository: IRepository<IUser, Required<IUser>>;
 
-  constructor(userRepository: IRepository<IUser>) {
+  private encryptor: IEnctryptor;
+
+  constructor(
+    userRepository: IRepository<IUser, Required<IUser>>,
+    encryptor: IEnctryptor,
+  ) {
     this.userRepository = userRepository;
+    this.encryptor = encryptor;
   }
 
   public async execute({
@@ -20,7 +26,7 @@ class CreateUser implements ICreateUserService {
 
     if (userExists) throw new Error('This email address is already in use.');
 
-    const hashedPassword = await Encryptor.makeHash(password, 8);
+    const hashedPassword = await this.encryptor.makeHash(password, 8);
     const user = new User(name, email, hashedPassword);
     const newUser = await this.userRepository.create(user);
 

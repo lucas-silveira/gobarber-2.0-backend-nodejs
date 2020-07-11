@@ -1,3 +1,4 @@
+import IAuthentication from '@src/domain/entities/Authentication.interface';
 import { IAuthenticate } from './Authenticate.interface';
 import JWTAuthenticateAdapter from './JWTAuthenticate.adapter';
 
@@ -8,12 +9,8 @@ class Authenticate implements IAuthenticate {
     this.authenticateAdapter = new JWTAuthenticateAdapter();
   }
 
-  public create(
-    head: IAuthenticate.Head,
-    secretKey: string,
-    options: IAuthenticate.Options,
-  ): string {
-    return this.authenticateAdapter.create(head, secretKey, options);
+  public create(authentication: IAuthentication): string {
+    return this.authenticateAdapter.create(authentication);
   }
 
   public verify(

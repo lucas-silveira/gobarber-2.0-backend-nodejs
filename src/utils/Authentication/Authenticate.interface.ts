@@ -1,9 +1,7 @@
+import IAuthentication from '@src/domain/entities/Authentication.interface';
+
 export interface IAuthenticate {
-  create: (
-    head: IAuthenticate.Head,
-    secretKey: string,
-    options: IAuthenticate.Options,
-  ) => string;
+  create: (authentication: IAuthentication) => string;
 
   verify: (
     token: string,
@@ -12,15 +10,6 @@ export interface IAuthenticate {
 }
 
 export namespace IAuthenticate {
-  export type Head = {
-    [attribute: string]: string | number;
-  };
-
-  export type Options = {
-    subject?: string;
-    expiresIn?: string;
-  };
-
   export type VerifyResponse = {
     userId: string;
   };

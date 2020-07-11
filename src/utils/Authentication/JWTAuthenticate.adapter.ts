@@ -1,14 +1,12 @@
 import { sign, verify } from 'jsonwebtoken';
 
+import IAuthentication from '@src/domain/entities/Authentication.interface';
 import { IAuthenticate } from './Authenticate.interface';
 
 class JWTAuthenticateAdapter implements IAuthenticate {
-  public create(
-    head: IAuthenticate.Head,
-    secretKey: string,
-    options: IAuthenticate.Options,
-  ): string {
-    return sign(head, secretKey, options);
+  public create(authentication: IAuthentication): string {
+    const { secretKey, subject, expiresIn } = authentication;
+    return sign({}, secretKey, { subject, expiresIn });
   }
 
   public verify(

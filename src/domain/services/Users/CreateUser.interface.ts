@@ -11,5 +11,9 @@ export namespace ICreateUserService {
     password: string;
   };
 
-  export type Output = Omit<Input, 'password'>;
+  export type Output = {
+    id: string;
+    name: string;
+    email: string;
+  };
 }

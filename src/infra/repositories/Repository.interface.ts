@@ -1,5 +1,5 @@
-export default interface IRepository<T> {
+export default interface IRepository<T, A> {
   findAll: () => Promise<T[]>;
-  findOne: (where: Partial<T>) => Promise<T | null>;
-  create: (appointment: T) => Promise<T>;
+  findOne: (where: Partial<T>) => Promise<A | null>;
+  create: (appointment: T) => Promise<A>;
 }

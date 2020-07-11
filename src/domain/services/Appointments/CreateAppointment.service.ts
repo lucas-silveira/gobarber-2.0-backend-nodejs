@@ -5,12 +5,15 @@ import IDateHandler from '@src/utils/DateHandler/DateHandler.interface';
 import { ICreateAppointmentService } from './CreateAppointment.interface';
 
 class CreateAppointment implements ICreateAppointmentService {
-  private appointmentRepository: IRepository<IAppointment>;
+  private appointmentRepository: IRepository<
+    IAppointment,
+    Required<IAppointment>
+  >;
 
   private dateHandler: IDateHandler;
 
   constructor(
-    appointmentRepository: IRepository<IAppointment>,
+    appointmentRepository: IRepository<IAppointment, Required<IAppointment>>,
     dateHandler: IDateHandler,
   ) {
     this.appointmentRepository = appointmentRepository;

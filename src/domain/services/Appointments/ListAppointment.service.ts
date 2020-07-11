@@ -3,9 +3,14 @@ import IRepository from '@infra/repositories/Repository.interface';
 import { IListAppointmentService } from './ListAppointment.interface';
 
 class ListAppointment implements IListAppointmentService {
-  private appointmentRepository: IRepository<IAppointment>;
+  private appointmentRepository: IRepository<
+    IAppointment,
+    Required<IAppointment>
+  >;
 
-  constructor(appointmentRepository: IRepository<IAppointment>) {
+  constructor(
+    appointmentRepository: IRepository<IAppointment, Required<IAppointment>>,
+  ) {
     this.appointmentRepository = appointmentRepository;
   }
 

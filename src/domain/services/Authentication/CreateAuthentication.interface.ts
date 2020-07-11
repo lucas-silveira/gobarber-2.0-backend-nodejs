@@ -1,5 +1,3 @@
-import { IAuthentication } from '@domain/entities/Authentication.interface';
-
 export interface ICreateAuthenticationService {
   execute: (
     authenticate: ICreateAuthenticationService.Input,
@@ -13,7 +11,13 @@ export namespace ICreateAuthenticationService {
   };
 
   export type Output = {
-    user: IAuthentication.User;
+    user: User;
     token: string;
+  };
+
+  export type User = {
+    id: string;
+    name: string;
+    email: string;
   };
 }
