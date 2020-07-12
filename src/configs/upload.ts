@@ -4,7 +4,7 @@ import multer from 'multer';
 
 export const storage: string = path.resolve(__dirname, '..', '..');
 
-const config = {
+export const config = {
   directory: path.join(storage, 'tmp'),
   storage: multer.diskStorage({
     destination: path.join(storage, 'tmp'),
