@@ -5,7 +5,7 @@ import VerifyAuthentication from '@domain/services/Authentication/VerifyAuthenti
 const verifyAuthentication = new VerifyAuthentication();
 const authenticationMiddleware = (
   request: Request,
-  response: Response,
+  _: Response,
   next: NextFunction,
 ): Response | void => {
   const authResponse = verifyAuthentication.execute(

@@ -14,7 +14,7 @@ app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 
 app.use(
-  (error: Error, request: Request, response: Response, next: NextFunction) => {
+  (error: Error, request: Request, response: Response, _: NextFunction) => {
     const [statusError, message] = error.message.split(':');
 
     if (statusError) {
