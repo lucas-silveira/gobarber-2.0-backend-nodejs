@@ -1,12 +1,10 @@
 import { Router } from 'express';
-import multer from 'multer';
-import uploadConfig from '@configs/upload';
 
+import upload from '@configs/upload';
 import userControllerFactory from '@presentation/controllers/Users/UserController.factory';
 import { authenticationMiddleware } from '../middlewares';
 
 const usersRouter = Router();
-const upload = multer(uploadConfig);
 const { createUser, updateAvatar } = userControllerFactory();
 
 usersRouter.post('/', async (request, response) => {

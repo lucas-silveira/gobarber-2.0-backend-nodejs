@@ -1,11 +1,18 @@
 import IUserRepository from '@src/infra/repositories/UserRepository.interface';
+import { IStorageHandler } from '@src/utils/StorageHandler/StorageHandler.interface';
 import { IUpdateAvatarService } from './UpdateAvatar.interface';
 
 class UpdateAvatar implements IUpdateAvatarService {
   private userRepository: IUserRepository;
 
-  constructor(userRepository: IUserRepository) {
+  private storageHandler: IStorageHandler;
+
+  constructor(
+    userRepository: IUserRepository,
+    storageHandler: IStorageHandler,
+  ) {
     this.userRepository = userRepository;
+    this.storageHandler = storageHandler;
   }
 
   public async execute({
@@ -15,6 +22,16 @@ class UpdateAvatar implements IUpdateAvatarService {
     const user = await this.userRepository.findOne({ id: userId });
 
     if (!user) throw new Error('Only authenticated users can change avatar.');
+
+    if (user.avatar) {
+      const avatarFileExists = await this.storageHandler.hasFile(
+        'tmp',
+        user.avatar,
+      );
+
+      if (avatarFileExists)
+        await this.storageHandler.deleteFile('tmp', user.avatar);
+    }
 
     user.avatar = avatarName;
     await this.userRepository.update(user);
