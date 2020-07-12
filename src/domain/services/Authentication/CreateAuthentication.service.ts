@@ -1,20 +1,19 @@
 import Authentication from '@domain/entities/Authentication';
-import IUser from '@domain/entities/User.interface';
-import IRepository from '@infra/repositories/Repository.interface';
 import authConfig from '@configs/auth';
 import { IAuthenticate } from '@src/utils/Authentication/Authenticate.interface';
 import IEnctryptor from '@src/utils/Encryptor/Encryptor.interface';
+import IUserRepository from '@src/infra/repositories/UserRepository.interface';
 import { ICreateAuthenticationService } from './CreateAuthentication.interface';
 
 class CreateAuthentication implements ICreateAuthenticationService {
-  private userRepository: IRepository<IUser, Required<IUser>>;
+  private userRepository: IUserRepository;
 
   private authenticate: IAuthenticate;
 
   private encryptor: IEnctryptor;
 
   constructor(
-    userRepository: IRepository<IUser, Required<IUser>>,
+    userRepository: IUserRepository,
     authenticate: IAuthenticate,
     encryptor: IEnctryptor,
   ) {

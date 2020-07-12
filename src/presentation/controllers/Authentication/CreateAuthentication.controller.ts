@@ -1,9 +1,8 @@
 import { ICreateAuthenticationService } from '@domain/services/Authentication/CreateAuthentication.interface';
-import { IAuthenticationController } from './AuthenticationController.interface';
+import { ICreateAuthenticationController } from './CreateAuthenticationController.interface';
 
 class CreateAuthenticationController
-  implements
-    IAuthenticationController<Promise<ICreateAuthenticationService.Output>> {
+  implements ICreateAuthenticationController {
   private createAuthentication: ICreateAuthenticationService;
 
   constructor(createAuthentication: ICreateAuthenticationService) {
@@ -11,7 +10,7 @@ class CreateAuthenticationController
   }
 
   public async handle(
-    body: IAuthenticationController.Body,
+    body: ICreateAuthenticationController.Body,
   ): Promise<ICreateAuthenticationService.Output> {
     const { email, password } = body;
     const authentication = await this.createAuthentication.execute({

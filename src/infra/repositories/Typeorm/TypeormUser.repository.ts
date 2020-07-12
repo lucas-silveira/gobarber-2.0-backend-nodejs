@@ -1,8 +1,8 @@
 import IUser from '@domain/entities/User.interface';
 import TypeormUserSchema from '@infra/schemas/typeorm/TypeormUser.schema';
-import IRepository from '../Repository.interface';
+import IUserRepository from '../UserRepository.interface';
 
-class TypeormUserRepository implements IRepository<IUser, Required<IUser>> {
+class TypeormUserRepository implements IUserRepository {
   public async findAll(): Promise<Required<IUser>[]> {
     return TypeormUserSchema.find();
   }
@@ -16,6 +16,12 @@ class TypeormUserRepository implements IRepository<IUser, Required<IUser>> {
     const newUser = TypeormUserSchema.create(user);
     await TypeormUserSchema.save(newUser);
     return newUser;
+  }
+
+  public async update(user: Required<IUser>): Promise<Required<IUser>> {
+    const userSchema = user as any; // work around
+    await TypeormUserSchema.save(userSchema);
+    return user;
   }
 }
 

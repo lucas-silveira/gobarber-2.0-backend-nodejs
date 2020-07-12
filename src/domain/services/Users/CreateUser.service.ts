@@ -1,18 +1,14 @@
 import User from '@domain/entities/User';
-import IUser from '@domain/entities/User.interface';
-import IRepository from '@infra/repositories/Repository.interface';
 import IEnctryptor from '@src/utils/Encryptor/Encryptor.interface';
+import IUserRepository from '@src/infra/repositories/UserRepository.interface';
 import { ICreateUserService } from './CreateUser.interface';
 
 class CreateUser implements ICreateUserService {
-  private userRepository: IRepository<IUser, Required<IUser>>;
+  private userRepository: IUserRepository;
 
   private encryptor: IEnctryptor;
 
-  constructor(
-    userRepository: IRepository<IUser, Required<IUser>>,
-    encryptor: IEnctryptor,
-  ) {
+  constructor(userRepository: IUserRepository, encryptor: IEnctryptor) {
     this.userRepository = userRepository;
     this.encryptor = encryptor;
   }

@@ -21,6 +21,9 @@ class UserSchema extends BaseEntity implements IUser {
   email: string;
 
   @Column()
+  avatar: string;
+
+  @Column()
   password: string;
 
   @CreateDateColumn()

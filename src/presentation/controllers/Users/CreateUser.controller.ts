@@ -1,8 +1,7 @@
 import { ICreateUserService } from '@domain/services/Users/CreateUser.interface';
-import { IUserController } from './UserController.interface';
+import { ICreateUserController } from './CreateUserController.interface';
 
-class CreateUserController
-  implements IUserController<Promise<ICreateUserService.Output>> {
+class CreateUserController implements ICreateUserController {
   private createUser: ICreateUserService;
 
   constructor(createUser: ICreateUserService) {
@@ -10,7 +9,7 @@ class CreateUserController
   }
 
   public async handle(
-    body: IUserController.Body,
+    body: ICreateUserController.Body,
   ): Promise<ICreateUserService.Output> {
     const { name, email, password } = body;
     const user = await this.createUser.execute({

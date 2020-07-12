@@ -1,16 +1,10 @@
-import IAppointment from '@domain/entities/Appointment.interface';
-import IRepository from '@infra/repositories/Repository.interface';
+import IAppointmentRepository from '@src/infra/repositories/AppointmentRepository.interface';
 import { IListAppointmentService } from './ListAppointment.interface';
 
 class ListAppointment implements IListAppointmentService {
-  private appointmentRepository: IRepository<
-    IAppointment,
-    Required<IAppointment>
-  >;
+  private appointmentRepository: IAppointmentRepository;
 
-  constructor(
-    appointmentRepository: IRepository<IAppointment, Required<IAppointment>>,
-  ) {
+  constructor(appointmentRepository: IAppointmentRepository) {
     this.appointmentRepository = appointmentRepository;
   }
 
