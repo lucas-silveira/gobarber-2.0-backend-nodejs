@@ -8,12 +8,8 @@ const usersRouter = Router();
 const { createUser, updateAvatar } = userControllerFactory();
 
 usersRouter.post('/', async (request, response) => {
-  try {
-    const user = await createUser.handle(request.body);
-    return response.json(user);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const user = await createUser.handle(request.body);
+  return response.json(user);
 });
 
 usersRouter.patch(

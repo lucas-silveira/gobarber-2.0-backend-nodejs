@@ -8,19 +8,15 @@ const authenticationMiddleware = (
   response: Response,
   next: NextFunction,
 ): Response | void => {
-  try {
-    const authResponse = verifyAuthentication.execute(
-      request.headers.authorization || '',
-    );
+  const authResponse = verifyAuthentication.execute(
+    request.headers.authorization || '',
+  );
 
-    request.user = {
-      id: authResponse.userId,
-    };
+  request.user = {
+    id: authResponse.userId,
+  };
 
-    return next();
-  } catch (err) {
-    return response.status(401).json({ error: err.message });
-  }
+  return next();
 };
 
 export default authenticationMiddleware;

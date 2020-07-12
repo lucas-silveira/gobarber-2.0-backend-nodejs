@@ -21,7 +21,10 @@ class UpdateAvatar implements IUpdateAvatarService {
   }: IUpdateAvatarService.Input): Promise<IUpdateAvatarService.Output> {
     const user = await this.userRepository.findOne({ id: userId });
 
-    if (!user) throw new Error('Only authenticated users can change avatar.');
+    if (!user)
+      throw new Error(
+        'unauthorized:Only authenticated users can change avatar.',
+      );
 
     if (user.avatar) {
       const avatarFileExists = await this.storageHandler.hasFile(

@@ -6,12 +6,8 @@ const authenticationRouter = Router();
 const { createAuthentication } = authenticationControllerFactory();
 
 authenticationRouter.post('/', async (request, response) => {
-  try {
-    const authentication = await createAuthentication.handle(request.body);
-    return response.json(authentication);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const authentication = await createAuthentication.handle(request.body);
+  return response.json(authentication);
 });
 
 export default authenticationRouter;

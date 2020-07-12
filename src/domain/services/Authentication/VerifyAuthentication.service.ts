@@ -9,7 +9,8 @@ class VerifyBearerAuthentication implements IAuthentication {
 
     const authResponse = Authenticate.verify(token, secretKey);
 
-    if (!authResponse) throw new Error("You don't have authorization.");
+    if (!authResponse)
+      throw new Error("unauthorized:You don't have authorization.");
 
     return authResponse;
   }

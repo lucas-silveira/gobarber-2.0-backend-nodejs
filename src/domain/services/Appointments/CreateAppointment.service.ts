@@ -28,7 +28,7 @@ class CreateAppointment implements ICreateAppointmentService {
     });
 
     if (findAppointmentInSameDate)
-      throw Error('This appointment is already booked.');
+      throw Error('error:This appointment is already booked.');
 
     const appointment = new Appointment(provider_id, appointmentDate);
     const newAppointment = await this.appointmentRepository.create(appointment);

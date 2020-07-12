@@ -13,12 +13,8 @@ appointmentsRouter.get('/', async (_, response) => {
   return response.json(appointments);
 });
 appointmentsRouter.post('/', async (request, response) => {
-  try {
-    const appointment = await createAppointment.handle(request.body);
-    return response.json(appointment);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const appointment = await createAppointment.handle(request.body);
+  return response.json(appointment);
 });
 
 export default appointmentsRouter;

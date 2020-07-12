@@ -30,7 +30,7 @@ class CreateAuthentication implements ICreateAuthenticationService {
   > {
     const user = await this.userRepository.findOne({ email });
 
-    if (!user) throw new Error('Incorrect email/password combination.');
+    if (!user) throw new Error('error:Incorrect email/password combination.');
 
     const passwordIsValid = await this.encryptor.compare(
       password,
@@ -38,7 +38,7 @@ class CreateAuthentication implements ICreateAuthenticationService {
     );
 
     if (!passwordIsValid)
-      throw new Error('Incorrect email/password combination.');
+      throw new Error('error:Incorrect email/password combination.');
 
     const { secretKey, expiresIn } = authConfig.jwt;
     const authentication = new Authentication(secretKey, user.id, expiresIn);

@@ -20,7 +20,8 @@ class CreateUser implements ICreateUserService {
   }: ICreateUserService.Input): Promise<ICreateUserService.Output> {
     const userExists = await this.userRepository.findOne({ email });
 
-    if (userExists) throw new Error('This email address is already in use.');
+    if (userExists)
+      throw new Error('error:This email address is already in use.');
 
     const hashedPassword = await this.encryptor.makeHash(password, 8);
     const user = new User(name, email, hashedPassword);
