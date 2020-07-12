@@ -10,13 +10,13 @@ class UpdateAvatar implements IUpdateAvatarService {
 
   public async execute({
     userId,
-    avatarUrl,
+    avatarName,
   }: IUpdateAvatarService.Input): Promise<IUpdateAvatarService.Output> {
     const user = await this.userRepository.findOne({ id: userId });
 
     if (!user) throw new Error('Only authenticated users can change avatar.');
 
-    user.avatar = avatarUrl;
+    user.avatar = avatarName;
     await this.userRepository.update(user);
   }
 }

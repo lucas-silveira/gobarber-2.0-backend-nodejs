@@ -9,6 +9,6 @@ export interface IUpdateAvatarController {
 export namespace IUpdateAvatarController {
   export interface Body {
     userId: string;
-    file: string;
+    avatarName: string;
   }
 }

@@ -1,9 +1,12 @@
 import { Router } from 'express';
+import multer from 'multer';
+import uploadConfig from '@configs/upload';
 
 import userControllerFactory from '@presentation/controllers/Users/UserController.factory';
 import { authenticationMiddleware } from '../middlewares';
 
 const usersRouter = Router();
+const upload = multer(uploadConfig);
 const { createUser, updateAvatar } = userControllerFactory();
 
 usersRouter.post('/', async (request, response) => {
@@ -18,8 +21,12 @@ usersRouter.post('/', async (request, response) => {
 usersRouter.patch(
   '/avatar',
   authenticationMiddleware,
+  upload.single('file'),
   async (request, response) => {
-    await updateAvatar.handle({ userId: request.user.id, ...request.body });
+    await updateAvatar.handle({
+      userId: request.user.id,
+      avatarName: request.file.filename,
+    });
     return response.json();
   },
 );

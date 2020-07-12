@@ -7,7 +7,7 @@ export interface IUpdateAvatarService {
 export namespace IUpdateAvatarService {
   export type Input = {
     userId: string;
-    avatarUrl: string;
+    avatarName: string;
   };
 
   export type Output = void;

@@ -11,10 +11,10 @@ class UpdateAvatarController implements IUpdateAvatarController {
   public async handle(
     body: IUpdateAvatarController.Body,
   ): Promise<IUpdateAvatarService.Output> {
-    const { userId, file } = body;
+    const { userId, avatarName } = body;
     await this.updateAvatar.execute({
       userId,
-      avatarUrl: file,
+      avatarName,
     });
   }
 }
