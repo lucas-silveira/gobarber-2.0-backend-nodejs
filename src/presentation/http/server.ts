@@ -1,9 +1,9 @@
 import express from 'express';
 import 'reflect-metadata';
 
-import './configs/database';
+import '@configs/database';
 import { config as uploadConfig } from '@configs/upload';
-import routes from './presentation/routes';
+import routes from './routes';
 
 const app = express();
 

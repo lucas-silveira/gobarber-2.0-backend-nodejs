@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import appointmentControllerFactory from '@presentation/controllers/Appointments/AppointmentController.factory';
-import { authenticationMiddleware } from '@presentation/middlewares';
+import { authenticationMiddleware } from '../middlewares';
 
 const appointmentsRouter = Router();
 const { listAppointment, createAppointment } = appointmentControllerFactory();
