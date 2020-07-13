@@ -1,4 +1,4 @@
-import IAppointment from '@src/domain/entities/Appointment.interface';
+import IAppointment from '@domain/entities/Appointment.interface';
 import IRepository from './Repository.interface';
 
 export default interface IAppointmentRepository {

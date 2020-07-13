@@ -1,5 +1,5 @@
-import { ICreateAppointmentService } from '@domain/services/Appointments/CreateAppointment.interface';
-import IDateHandler from '@src/utils/DateHandler/DateHandler.interface';
+import { ICreateAppointmentService } from '@domain/usecases/Appointments/CreateAppointment.interface';
+import IDateHandler from '@utils/DateHandler/DateHandler.interface';
 import { ICreateAppointmentController } from './CreateAppointmentController.interface';
 
 class CreateAppointmentController implements ICreateAppointmentController {

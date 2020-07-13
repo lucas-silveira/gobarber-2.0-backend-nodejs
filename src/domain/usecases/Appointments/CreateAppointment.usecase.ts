@@ -1,6 +1,6 @@
 import Appointment from '@domain/entities/Appointment';
-import IDateHandler from '@src/utils/DateHandler/DateHandler.interface';
-import IAppointmentRepository from '@src/infra/repositories/AppointmentRepository.interface';
+import IDateHandler from '@utils/DateHandler/DateHandler.interface';
+import IAppointmentRepository from '@infra/repositories/AppointmentRepository.interface';
 import { ICreateAppointmentService } from './CreateAppointment.interface';
 
 class CreateAppointment implements ICreateAppointmentService {

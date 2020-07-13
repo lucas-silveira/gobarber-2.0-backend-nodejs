@@ -1,4 +1,4 @@
-import { ICreateAuthenticationService } from '@domain/services/Authentication/CreateAuthentication.interface';
+import { ICreateAuthenticationService } from '@domain/usecases/Authentication/CreateAuthentication.interface';
 import { ICreateAuthenticationController } from './CreateAuthenticationController.interface';
 
 class CreateAuthenticationController

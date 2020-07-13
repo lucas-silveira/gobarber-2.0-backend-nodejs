@@ -1,4 +1,4 @@
-import IAuthentication from '@src/domain/entities/Authentication.interface';
+import IAuthentication from '@domain/entities/Authentication.interface';
 import { IAuthenticate } from './Authenticate.interface';
 import JWTAuthenticateAdapter from './JWTAuthenticate.adapter';
 

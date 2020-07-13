@@ -1,6 +1,6 @@
 import User from '@domain/entities/User';
-import IEnctryptor from '@src/utils/Encryptor/Encryptor.interface';
-import IUserRepository from '@src/infra/repositories/UserRepository.interface';
+import IEnctryptor from '@utils/Encryptor/Encryptor.interface';
+import IUserRepository from '@infra/repositories/UserRepository.interface';
 import { ICreateUserService } from './CreateUser.interface';
 
 class CreateUser implements ICreateUserService {

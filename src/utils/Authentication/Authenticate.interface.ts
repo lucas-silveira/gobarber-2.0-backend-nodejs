@@ -1,4 +1,4 @@
-import IAuthentication from '@src/domain/entities/Authentication.interface';
+import IAuthentication from '@domain/entities/Authentication.interface';
 
 export interface IAuthenticate {
   create: (authentication: IAuthentication) => string;

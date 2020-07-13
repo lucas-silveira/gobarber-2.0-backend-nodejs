@@ -1,8 +1,8 @@
 import Authentication from '@domain/entities/Authentication';
 import authConfig from '@configs/auth';
-import { IAuthenticate } from '@src/utils/Authentication/Authenticate.interface';
-import IEnctryptor from '@src/utils/Encryptor/Encryptor.interface';
-import IUserRepository from '@src/infra/repositories/UserRepository.interface';
+import { IAuthenticate } from '@utils/Authentication/Authenticate.interface';
+import IEnctryptor from '@utils/Encryptor/Encryptor.interface';
+import IUserRepository from '@infra/repositories/UserRepository.interface';
 import { ICreateAuthenticationService } from './CreateAuthentication.interface';
 
 class CreateAuthentication implements ICreateAuthenticationService {

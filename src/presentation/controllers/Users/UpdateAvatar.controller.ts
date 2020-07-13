@@ -1,4 +1,4 @@
-import { IUpdateAvatarService } from '@domain/services/Users/UpdateAvatar.interface';
+import { IUpdateAvatarService } from '@domain/usecases/Users/UpdateAvatar.interface';
 import { IUpdateAvatarController } from './UpdateAvatar.interface';
 
 class UpdateAvatarController implements IUpdateAvatarController {

@@ -1,4 +1,4 @@
-import IAppointmentRepository from '@src/infra/repositories/AppointmentRepository.interface';
+import IAppointmentRepository from '@infra/repositories/AppointmentRepository.interface';
 import { IListAppointmentService } from './ListAppointment.interface';
 
 class ListAppointment implements IListAppointmentService {

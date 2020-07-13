@@ -1,4 +1,4 @@
-import { ICreateUserService } from '@src/domain/services/Users/CreateUser.interface';
+import { ICreateUserService } from '@domain/usecases/Users/CreateUser.interface';
 
 export interface ICreateUserController {
   handle: (

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import VerifyAuthentication from '@domain/services/Authentication/VerifyAuthentication.service';
+import VerifyAuthentication from '@domain/usecases/Authentication/VerifyAuthentication.usecase';
 
 const verifyAuthentication = new VerifyAuthentication();
 const authenticationMiddleware = (

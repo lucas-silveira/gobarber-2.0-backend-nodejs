@@ -1,5 +1,5 @@
-import IUserRepository from '@src/infra/repositories/UserRepository.interface';
-import { IStorageHandler } from '@src/utils/StorageHandler/StorageHandler.interface';
+import IUserRepository from '@infra/repositories/UserRepository.interface';
+import { IStorageHandler } from '@utils/StorageHandler/StorageHandler.interface';
 import { IUpdateAvatarService } from './UpdateAvatar.interface';
 
 class UpdateAvatar implements IUpdateAvatarService {

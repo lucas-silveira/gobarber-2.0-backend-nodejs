@@ -1,4 +1,4 @@
-import IUser from '@src/domain/entities/User.interface';
+import IUser from '@domain/entities/User.interface';
 import IRepository from './Repository.interface';
 
 export default interface IUserRepository {

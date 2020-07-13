@@ -1,5 +1,5 @@
 import TypeormUserRepository from '@infra/repositories/Typeorm/TypeormUser.repository';
-import CreateAuthentication from '@src/domain/services/Authentication/CreateAuthentication.service';
+import CreateAuthentication from '@domain/usecases/Authentication/CreateAuthentication.usecase';
 import Encryptor from '@utils/Encryptor/Encryptor';
 import Authenticate from '@utils/Authentication/Authenticate';
 import CreateAuthenticationController from './CreateAuthentication.controller';
