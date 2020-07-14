@@ -7,9 +7,9 @@
 //     this.errorHandlerAdapter = null;
 //   }
 
-//   throw(message: string, errorType: IErrorHandler.ErrorTypes): Error {
+//   throw(message: string, errorType: IErrorHandler.ErrorTypes): void {
 //     return this.errorHandlerAdapter.throw(message, errorType);
 //   }
-// // }
+// }
 
 // export default new ErrorHandler();

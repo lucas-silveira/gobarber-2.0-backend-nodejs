@@ -1,8 +1,9 @@
 import Authentication from '@domain/entities/Authentication';
 import authConfig from '@configs/auth';
 import { IAuthenticate } from '@utils/Authentication/Authenticate.interface';
-import IEnctryptor from '@utils/Encryptor/Encryptor.interface';
+import IEncryptor from '@utils/Encryptor/Encryptor.interface';
 import IUserRepository from '@infra/repositories/UserRepository.interface';
+import CustomError from '@domain/entities/Error';
 import { ICreateAuthenticationService } from './CreateAuthentication.interface';
 
 class CreateAuthentication implements ICreateAuthenticationService {
@@ -10,12 +11,12 @@ class CreateAuthentication implements ICreateAuthenticationService {
 
   private authenticate: IAuthenticate;
 
-  private encryptor: IEnctryptor;
+  private encryptor: IEncryptor;
 
   constructor(
     userRepository: IUserRepository,
     authenticate: IAuthenticate,
-    encryptor: IEnctryptor,
+    encryptor: IEncryptor,
   ) {
     this.userRepository = userRepository;
     this.authenticate = authenticate;
@@ -30,7 +31,8 @@ class CreateAuthentication implements ICreateAuthenticationService {
   > {
     const user = await this.userRepository.findOne({ email });
 
-    if (!user) throw new Error('error:Incorrect email/password combination.');
+    if (!user)
+      throw new CustomError('error', 'Incorrect email/password combination.');
 
     const passwordIsValid = await this.encryptor.compare(
       password,
@@ -38,7 +40,7 @@ class CreateAuthentication implements ICreateAuthenticationService {
     );
 
     if (!passwordIsValid)
-      throw new Error('error:Incorrect email/password combination.');
+      throw new CustomError('error', 'Incorrect email/password combination.');
 
     const { secretKey, expiresIn } = authConfig.jwt;
     const authentication = new Authentication(secretKey, user.id, expiresIn);

@@ -1,8 +1,8 @@
 import { hash, compare } from 'bcryptjs';
 
-import IEnctryptor from './Encryptor.interface';
+import IEncryptor from './Encryptor.interface';
 
-class BcryptEncryptor implements IEnctryptor {
+class BcryptEncryptor implements IEncryptor {
   public async makeHash(
     data: string,
     strength: string | number,

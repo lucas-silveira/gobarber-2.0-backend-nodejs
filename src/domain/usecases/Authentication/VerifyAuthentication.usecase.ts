@@ -1,5 +1,6 @@
 import Authenticate from '@utils/Authentication/Authenticate';
 import authConfig from '@configs/auth';
+import CustomError from '@domain/entities/Error';
 import { IAuthentication } from './VerifyAuthentication.interface';
 
 class VerifyBearerAuthentication implements IAuthentication {
@@ -10,7 +11,7 @@ class VerifyBearerAuthentication implements IAuthentication {
     const authResponse = Authenticate.verify(token, secretKey);
 
     if (!authResponse)
-      throw new Error("unauthorized:You don't have authorization.");
+      throw new CustomError('unauthorized', "You don't have authorization.");
 
     return authResponse;
   }

@@ -4,6 +4,7 @@ import 'reflect-metadata';
 
 import '@configs/database';
 import { config as uploadConfig } from '@configs/upload';
+import { ICustomError } from '@domain/entities/Error.interface';
 import routes from './routes';
 import statusCode from './configs/statusCode';
 
@@ -14,11 +15,16 @@ app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 
 app.use(
-  (error: Error, request: Request, response: Response, _: NextFunction) => {
-    const [statusError, message] = error.message.split(':');
+  (
+    error: Error & ICustomError,
+    _: Request,
+    response: Response,
+    __: NextFunction,
+  ) => {
+    const { errorType, message } = error;
 
-    if (statusError) {
-      const status = statusCode[statusError];
+    if (errorType) {
+      const status = statusCode[errorType];
       return response.status(status).json({
         status,
         message,

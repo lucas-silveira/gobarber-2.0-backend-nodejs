@@ -1,14 +1,15 @@
 import User from '@domain/entities/User';
-import IEnctryptor from '@utils/Encryptor/Encryptor.interface';
+import IEncryptor from '@utils/Encryptor/Encryptor.interface';
 import IUserRepository from '@infra/repositories/UserRepository.interface';
+import CustomError from '@domain/entities/Error';
 import { ICreateUserService } from './CreateUser.interface';
 
 class CreateUser implements ICreateUserService {
   private userRepository: IUserRepository;
 
-  private encryptor: IEnctryptor;
+  private encryptor: IEncryptor;
 
-  constructor(userRepository: IUserRepository, encryptor: IEnctryptor) {
+  constructor(userRepository: IUserRepository, encryptor: IEncryptor) {
     this.userRepository = userRepository;
     this.encryptor = encryptor;
   }
@@ -21,7 +22,7 @@ class CreateUser implements ICreateUserService {
     const userExists = await this.userRepository.findOne({ email });
 
     if (userExists)
-      throw new Error('error:This email address is already in use.');
+      throw new CustomError('error', 'This email address is already in use.');
 
     const hashedPassword = await this.encryptor.makeHash(password, 8);
     const user = new User(name, email, hashedPassword);
