@@ -1,3 +1,1 @@
-import authenticationMiddleware from './authentication.middleware';
-
-export { authenticationMiddleware };
+export { default as authenticationMiddleware } from './authentication.middleware';
