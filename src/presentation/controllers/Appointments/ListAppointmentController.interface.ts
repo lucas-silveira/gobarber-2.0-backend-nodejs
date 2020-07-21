@@ -1,5 +1,5 @@
-import { IListAppointmentService } from '@domain/usecases/Appointments/ListAppointment.interface';
+import { IListAppointment } from '@domain/usecases/Appointments/ListAppointment.interface';
 
 export interface IListAppointmentController {
-  handle: () => Promise<IListAppointmentService.Output[]>;
+  handle: () => Promise<IListAppointment.Output[]>;
 }

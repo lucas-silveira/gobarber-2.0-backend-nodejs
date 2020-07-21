@@ -2,9 +2,9 @@ import User from '@domain/entities/User';
 import IEncryptor from '@utils/Encryptor/Encryptor.interface';
 import IUserRepository from '@infra/repositories/UserRepository.interface';
 import CustomError from '@domain/entities/Error';
-import { ICreateUserService } from './CreateUser.interface';
+import { ICreateUser } from './CreateUser.interface';
 
-class CreateUser implements ICreateUserService {
+class CreateUser implements ICreateUser {
   private userRepository: IUserRepository;
 
   private encryptor: IEncryptor;
@@ -18,7 +18,7 @@ class CreateUser implements ICreateUserService {
     name,
     email,
     password,
-  }: ICreateUserService.Input): Promise<ICreateUserService.Output> {
+  }: ICreateUser.Input): Promise<ICreateUser.Output> {
     const userExists = await this.userRepository.findOne({ email });
 
     if (userExists)

@@ -1,10 +1,8 @@
-export interface IUpdateAvatarService {
-  execute: (
-    params: IUpdateAvatarService.Input,
-  ) => Promise<IUpdateAvatarService.Output>;
+export interface IUpdateAvatar {
+  execute: (params: IUpdateAvatar.Input) => Promise<IUpdateAvatar.Output>;
 }
 
-export namespace IUpdateAvatarService {
+export namespace IUpdateAvatar {
   export type Input = {
     userId: string;
     avatarName: string;

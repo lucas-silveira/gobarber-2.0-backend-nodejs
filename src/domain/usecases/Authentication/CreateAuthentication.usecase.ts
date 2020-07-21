@@ -4,9 +4,9 @@ import { IAuthenticate } from '@utils/Authentication/Authenticate.interface';
 import IEncryptor from '@utils/Encryptor/Encryptor.interface';
 import IUserRepository from '@infra/repositories/UserRepository.interface';
 import CustomError from '@domain/entities/Error';
-import { ICreateAuthenticationService } from './CreateAuthentication.interface';
+import { ICreateAuthentication } from './CreateAuthentication.interface';
 
-class CreateAuthentication implements ICreateAuthenticationService {
+class CreateAuthentication implements ICreateAuthentication {
   private userRepository: IUserRepository;
 
   private authenticate: IAuthenticate;
@@ -26,9 +26,7 @@ class CreateAuthentication implements ICreateAuthenticationService {
   public async execute({
     email,
     password,
-  }: ICreateAuthenticationService.Input): Promise<
-    ICreateAuthenticationService.Output
-  > {
+  }: ICreateAuthentication.Input): Promise<ICreateAuthentication.Output> {
     const user = await this.userRepository.findOne({ email });
 
     if (!user)

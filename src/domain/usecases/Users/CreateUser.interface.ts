@@ -1,10 +1,8 @@
-export interface ICreateUserService {
-  execute: (
-    user: ICreateUserService.Input,
-  ) => Promise<ICreateUserService.Output>;
+export interface ICreateUser {
+  execute: (user: ICreateUser.Input) => Promise<ICreateUser.Output>;
 }
 
-export namespace ICreateUserService {
+export namespace ICreateUser {
   export type Input = {
     name: string;
     email: string;

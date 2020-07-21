@@ -1,14 +1,14 @@
-import { IListAppointmentService } from '@domain/usecases/Appointments/ListAppointment.interface';
+import { IListAppointment } from '@domain/usecases/Appointments/ListAppointment.interface';
 import { IListAppointmentController } from './ListAppointmentController.interface';
 
 class ListAppointmentController implements IListAppointmentController {
-  private listAppointment: IListAppointmentService;
+  private listAppointment: IListAppointment;
 
-  constructor(listAppointment: IListAppointmentService) {
+  constructor(listAppointment: IListAppointment) {
     this.listAppointment = listAppointment;
   }
 
-  public async handle(): Promise<IListAppointmentService.Output[]> {
+  public async handle(): Promise<IListAppointment.Output[]> {
     return this.listAppointment.execute();
   }
 }

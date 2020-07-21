@@ -1,10 +1,10 @@
-export interface ICreateAppointmentService {
+export interface ICreateAppointment {
   execute: (
-    appointment: ICreateAppointmentService.Input,
-  ) => Promise<ICreateAppointmentService.Output>;
+    appointment: ICreateAppointment.Input,
+  ) => Promise<ICreateAppointment.Output>;
 }
 
-export namespace ICreateAppointmentService {
+export namespace ICreateAppointment {
   export type Input = {
     provider_id: string;
     date: Date;

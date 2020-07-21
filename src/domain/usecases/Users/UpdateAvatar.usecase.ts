@@ -1,9 +1,9 @@
 import IUserRepository from '@infra/repositories/UserRepository.interface';
 import { IStorageHandler } from '@utils/StorageHandler/StorageHandler.interface';
 import CustomError from '@domain/entities/Error';
-import { IUpdateAvatarService } from './UpdateAvatar.interface';
+import { IUpdateAvatar } from './UpdateAvatar.interface';
 
-class UpdateAvatar implements IUpdateAvatarService {
+class UpdateAvatar implements IUpdateAvatar {
   private userRepository: IUserRepository;
 
   private storageHandler: IStorageHandler;
@@ -19,7 +19,7 @@ class UpdateAvatar implements IUpdateAvatarService {
   public async execute({
     userId,
     avatarName,
-  }: IUpdateAvatarService.Input): Promise<IUpdateAvatarService.Output> {
+  }: IUpdateAvatar.Input): Promise<IUpdateAvatar.Output> {
     const user = await this.userRepository.findOne({ id: userId });
 
     if (!user)

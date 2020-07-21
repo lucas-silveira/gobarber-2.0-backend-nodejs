@@ -1,9 +1,7 @@
-import { ICreateUserService } from '@domain/usecases/Users/CreateUser.interface';
+import { ICreateUser } from '@domain/usecases/Users/CreateUser.interface';
 
 export interface ICreateUserController {
-  handle: (
-    body: ICreateUserController.Body,
-  ) => Promise<ICreateUserService.Output>;
+  handle: (body: ICreateUserController.Body) => Promise<ICreateUser.Output>;
 }
 
 export namespace ICreateUserController {

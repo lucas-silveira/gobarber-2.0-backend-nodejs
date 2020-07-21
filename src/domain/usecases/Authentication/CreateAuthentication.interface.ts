@@ -1,10 +1,10 @@
-export interface ICreateAuthenticationService {
+export interface ICreateAuthentication {
   execute: (
-    authenticate: ICreateAuthenticationService.Input,
-  ) => Promise<ICreateAuthenticationService.Output>;
+    authenticate: ICreateAuthentication.Input,
+  ) => Promise<ICreateAuthentication.Output>;
 }
 
-export namespace ICreateAuthenticationService {
+export namespace ICreateAuthentication {
   export type Input = {
     email: string;
     password: string;

@@ -1,8 +1,8 @@
-export interface IListAppointmentService {
-  execute: () => Promise<IListAppointmentService.Output[]>;
+export interface IListAppointment {
+  execute: () => Promise<IListAppointment.Output[]>;
 }
 
-export namespace IListAppointmentService {
+export namespace IListAppointment {
   export type Output = {
     provider_id: string;
     date: Date;

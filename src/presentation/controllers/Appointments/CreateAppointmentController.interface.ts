@@ -1,9 +1,9 @@
-import { ICreateAppointmentService } from '@domain/usecases/Appointments/CreateAppointment.interface';
+import { ICreateAppointment } from '@domain/usecases/Appointments/CreateAppointment.interface';
 
 export interface ICreateAppointmentController {
   handle: (
     body: ICreateAppointmentController.Body,
-  ) => Promise<ICreateAppointmentService.Output>;
+  ) => Promise<ICreateAppointment.Output>;
 }
 
 export namespace ICreateAppointmentController {

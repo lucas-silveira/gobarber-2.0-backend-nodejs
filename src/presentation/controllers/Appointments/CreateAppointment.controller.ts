@@ -1,14 +1,14 @@
-import { ICreateAppointmentService } from '@domain/usecases/Appointments/CreateAppointment.interface';
+import { ICreateAppointment } from '@domain/usecases/Appointments/CreateAppointment.interface';
 import IDateHandler from '@utils/DateHandler/DateHandler.interface';
 import { ICreateAppointmentController } from './CreateAppointmentController.interface';
 
 class CreateAppointmentController implements ICreateAppointmentController {
-  private createAppointment: ICreateAppointmentService;
+  private createAppointment: ICreateAppointment;
 
   private dateHandler: IDateHandler;
 
   constructor(
-    createAppointment: ICreateAppointmentService,
+    createAppointment: ICreateAppointment,
     dateHandler: IDateHandler,
   ) {
     this.createAppointment = createAppointment;
@@ -17,7 +17,7 @@ class CreateAppointmentController implements ICreateAppointmentController {
 
   public async handle(
     body: ICreateAppointmentController.Body,
-  ): Promise<ICreateAppointmentService.Output> {
+  ): Promise<ICreateAppointment.Output> {
     const { provider_id, date } = body;
     const parsedDate = this.dateHandler.parseISO(date);
     const appointment = await this.createAppointment.execute({

@@ -1,9 +1,9 @@
-import { ICreateAuthenticationService } from '@domain/usecases/Authentication/CreateAuthentication.interface';
+import { ICreateAuthentication } from '@domain/usecases/Authentication/CreateAuthentication.interface';
 
 export interface ICreateAuthenticationController {
   handle: (
     body: ICreateAuthenticationController.Body,
-  ) => Promise<ICreateAuthenticationService.Output>;
+  ) => Promise<ICreateAuthentication.Output>;
 }
 
 export namespace ICreateAuthenticationController {

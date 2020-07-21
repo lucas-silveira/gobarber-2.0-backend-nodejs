@@ -1,14 +1,14 @@
 import IAppointmentRepository from '@infra/repositories/AppointmentRepository.interface';
-import { IListAppointmentService } from './ListAppointment.interface';
+import { IListAppointment } from './ListAppointment.interface';
 
-class ListAppointment implements IListAppointmentService {
+class ListAppointment implements IListAppointment {
   private appointmentRepository: IAppointmentRepository;
 
   constructor(appointmentRepository: IAppointmentRepository) {
     this.appointmentRepository = appointmentRepository;
   }
 
-  public async execute(): Promise<IListAppointmentService.Output[]> {
+  public async execute(): Promise<IListAppointment.Output[]> {
     return this.appointmentRepository.findAll();
   }
 }
