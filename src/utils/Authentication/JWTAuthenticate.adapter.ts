@@ -1,7 +1,7 @@
 import { sign, verify } from 'jsonwebtoken';
 
 import IAuthentication from '@domain/entities/Authentication.interface';
-import { IAuthenticateLib } from '@domain/protocols/authentication/Authenticate.interface';
+import { IAuthenticateLib } from '@domain/protocols/utils/Authenticate.interface';
 
 class JWTAuthenticateAdapter implements IAuthenticateLib {
   public create(authentication: IAuthentication): string {

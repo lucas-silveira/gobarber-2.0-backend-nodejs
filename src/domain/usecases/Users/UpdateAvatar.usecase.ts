@@ -1,5 +1,5 @@
 import IUserRepository from '@infra/repositories/UserRepository.interface';
-import { IStorageHandler } from '@domain/protocols/storageHandler/StorageHandler.interface';
+import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
 import CustomError from '@domain/entities/Error';
 import { IUpdateAvatar } from './UpdateAvatar.interface';
 
