@@ -1,6 +1,6 @@
 import IAppointment from '@domain/entities/Appointment.interface';
 import TypeormAppointmentSchema from '@infra/schemas/typeorm/TypeormAppointment.schema';
-import IAppointmentRepository from '@domain/protocols/repositories/AppointmentRepository.interface';
+import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
 
 class TypeormAppointmentRepository implements IAppointmentRepository {
   public async findAll(): Promise<IAppointment[]> {

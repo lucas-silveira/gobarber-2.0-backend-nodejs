@@ -1,4 +1,4 @@
-import IAppointmentRepository from '@domain/protocols/repositories/AppointmentRepository.interface';
+import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
 import { IListAppointment } from './ListAppointment.interface';
 
 class ListAppointment implements IListAppointment {
