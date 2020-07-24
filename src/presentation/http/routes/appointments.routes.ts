@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import appointmentControllerFactory from '@presentation/controllers/Appointments/AppointmentController.factory';
+import appointmentControllerFactory from '@main/controllers/http/httpAppointments/AppointmentController.factory';
 import { authenticationMiddleware } from '../middlewares';
 
 const appointmentsRouter = Router();

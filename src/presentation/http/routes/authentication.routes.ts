@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import authenticationControllerFactory from '@presentation/controllers/Authentication/AuthenticationController.factory';
+import authenticationControllerFactory from '@main/controllers/http/httpAuthentication/AuthenticationController.factory';
 
 const authenticationRouter = Router();
 const { createAuthentication } = authenticationControllerFactory();

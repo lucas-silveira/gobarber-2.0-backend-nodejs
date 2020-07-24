@@ -11,11 +11,27 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@domain/*": ["./src/domain/*"],
-      "@infra/*": ["./src/infra/*"],
-      "@presentation/*": ["./src/presentation/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@configs/*": ["./src/configs/*"],
+      "@domain/*": [
+        "./src/domain/*"
+      ],
+      "@infra/*": [
+        "./src/infra/*"
+      ],
+      "@main/*": [
+        "./src/main/*"
+      ],
+      "@presentation/*": [
+        "./src/presentation/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@configs/*": [
+        "./src/configs/*"
+      ],
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
