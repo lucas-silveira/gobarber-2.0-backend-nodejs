@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { storage } from '@configs/upload';
-import { IStorageHandler } from './StorageHandler.interface';
+import { IStorageHandler } from '@domain/protocols/storageHandler/StorageHandler.interface';
 
 class FSStorageHandlerAdapter implements IStorageHandler {
   private storage: string;
