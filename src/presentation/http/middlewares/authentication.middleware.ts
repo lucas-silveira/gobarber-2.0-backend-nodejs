@@ -1,15 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 
-import VerifyAuthentication from '@domain/usecases/Authentication/VerifyAuthentication.usecase';
+import authenticationControllerFactory from '@presentation/controllers/Authentication/AuthenticationController.factory';
 
-const verifyAuthentication = new VerifyAuthentication();
+const { verifyAuthentication } = authenticationControllerFactory();
+
 const authenticationMiddleware = (
   request: Request,
   _: Response,
   next: NextFunction,
 ): Response | void => {
-  const authResponse = verifyAuthentication.execute(
-    request.headers.authorization || '',
+  const authResponse = verifyAuthentication.handle(
+    request.headers.authorization,
   );
 
   request.user = {

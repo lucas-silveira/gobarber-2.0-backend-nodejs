@@ -1,8 +1,8 @@
-export interface IAuthentication {
-  execute: (authHeader: string) => IAuthentication.Output | null;
+export interface IVerifyAuthentication {
+  execute: (authHeader: string) => IVerifyAuthentication.Output;
 }
 
-export namespace IAuthentication {
+export namespace IVerifyAuthentication {
   export type Output = {
     userId: string;
   };

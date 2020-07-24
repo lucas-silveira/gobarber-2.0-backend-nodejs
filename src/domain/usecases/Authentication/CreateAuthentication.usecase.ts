@@ -1,6 +1,6 @@
 import Authentication from '@domain/entities/Authentication';
 import authConfig from '@configs/auth';
-import { IAuthenticate } from '@utils/Authentication/Authenticate.interface';
+import { IAuthenticateLib } from '@utils/Authentication/Authenticate.interface';
 import IEncryptor from '@utils/Encryptor/Encryptor.interface';
 import IUserRepository from '@infra/repositories/UserRepository.interface';
 import CustomError from '@domain/entities/Error';
@@ -9,13 +9,13 @@ import { ICreateAuthentication } from './CreateAuthentication.interface';
 class CreateAuthentication implements ICreateAuthentication {
   private userRepository: IUserRepository;
 
-  private authenticate: IAuthenticate;
+  private authenticate: IAuthenticateLib;
 
   private encryptor: IEncryptor;
 
   constructor(
     userRepository: IUserRepository,
-    authenticate: IAuthenticate,
+    authenticate: IAuthenticateLib,
     encryptor: IEncryptor,
   ) {
     this.userRepository = userRepository;

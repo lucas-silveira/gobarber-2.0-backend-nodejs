@@ -23,7 +23,7 @@ class FSStorageHandlerAdapter implements IStorageHandler {
 
   public async deleteFile(folder: string, filename: string): Promise<void> {
     const filepath = path.join(this.storage, folder, filename);
-    fs.promises.unlink(filepath);
+    return fs.promises.unlink(filepath);
   }
 }
 

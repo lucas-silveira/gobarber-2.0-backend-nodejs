@@ -1,14 +1,20 @@
-import Authenticate from '@utils/Authentication/Authenticate';
+import { IAuthenticateLib } from '@utils/Authentication/Authenticate.interface';
 import authConfig from '@configs/auth';
 import CustomError from '@domain/entities/Error';
-import { IAuthentication } from './VerifyAuthentication.interface';
+import { IVerifyAuthentication } from './VerifyAuthentication.interface';
 
-class VerifyBearerAuthentication implements IAuthentication {
-  execute(authHeader: string): IAuthentication.Output {
+class VerifyBearerAuthentication implements IVerifyAuthentication {
+  private readonly authenticateLib: IAuthenticateLib;
+
+  constructor(authenticateLib: IAuthenticateLib) {
+    this.authenticateLib = authenticateLib;
+  }
+
+  execute(authHeader: string): IVerifyAuthentication.Output {
     const [, token] = authHeader.split(' ');
     const { secretKey } = authConfig.jwt;
 
-    const authResponse = Authenticate.verify(token, secretKey);
+    const authResponse = this.authenticateLib.verify(token, secretKey);
 
     if (!authResponse)
       throw new CustomError('unauthorized', "You don't have authorization.");

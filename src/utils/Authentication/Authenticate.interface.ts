@@ -1,15 +1,15 @@
 import IAuthentication from '@domain/entities/Authentication.interface';
 
-export interface IAuthenticate {
+export interface IAuthenticateLib {
   create: (authentication: IAuthentication) => string;
 
   verify: (
     token: string,
     secretKey: string,
-  ) => IAuthenticate.VerifyResponse | null;
+  ) => IAuthenticateLib.VerifyResponse | null;
 }
 
-export namespace IAuthenticate {
+export namespace IAuthenticateLib {
   export type VerifyResponse = {
     userId: string;
   };
