@@ -1,13 +1,17 @@
 import { ICreateUser } from '@domain/usecases/Users/CreateUser.interface';
 
 export interface ICreateUserController {
-  handle: (body: ICreateUserController.Body) => Promise<ICreateUser.Output>;
+  handle: (
+    data: ICreateUserController.Input,
+  ) => Promise<ICreateUserController.Output>;
 }
 
 export namespace ICreateUserController {
-  export interface Body {
+  export type Input = {
     name: string;
     email: string;
     password: string;
-  }
+  };
+
+  export type Output = ICreateUser.Output;
 }

@@ -8,7 +8,7 @@ class ListAppointmentController implements IListAppointmentController {
     this.listAppointment = listAppointment;
   }
 
-  public async handle(): Promise<IListAppointment.Output[]> {
+  public async handle(): Promise<IListAppointmentController.Output[]> {
     return this.listAppointment.execute();
   }
 }

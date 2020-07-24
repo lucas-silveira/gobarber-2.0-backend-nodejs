@@ -1,12 +1,16 @@
 import { IUpdateAvatar } from '@domain/usecases/Users/UpdateAvatar.interface';
 
 export interface IUpdateAvatarController {
-  handle: (body: IUpdateAvatarController.Body) => Promise<IUpdateAvatar.Output>;
+  handle: (
+    data: IUpdateAvatarController.Input,
+  ) => Promise<IUpdateAvatarController.Output>;
 }
 
 export namespace IUpdateAvatarController {
-  export interface Body {
+  export type Input = {
     userId: string;
     avatarName: string;
-  }
+  };
+
+  export type Output = IUpdateAvatar.Output;
 }

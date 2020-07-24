@@ -9,9 +9,9 @@ class CreateUserController implements ICreateUserController {
   }
 
   public async handle(
-    body: ICreateUserController.Body,
-  ): Promise<ICreateUser.Output> {
-    const { name, email, password } = body;
+    data: ICreateUserController.Input,
+  ): Promise<ICreateUserController.Output> {
+    const { name, email, password } = data;
     const user = await this.createUser.execute({
       name,
       email,

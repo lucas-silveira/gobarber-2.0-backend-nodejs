@@ -16,9 +16,9 @@ class CreateAppointmentController implements ICreateAppointmentController {
   }
 
   public async handle(
-    body: ICreateAppointmentController.Body,
-  ): Promise<ICreateAppointment.Output> {
-    const { provider_id, date } = body;
+    data: ICreateAppointmentController.Input,
+  ): Promise<ICreateAppointmentController.Output> {
+    const { provider_id, date } = data;
     const parsedDate = this.dateHandler.parseISO(date);
     const appointment = await this.createAppointment.execute({
       provider_id,

@@ -9,9 +9,9 @@ class UpdateAvatarController implements IUpdateAvatarController {
   }
 
   public async handle(
-    body: IUpdateAvatarController.Body,
-  ): Promise<IUpdateAvatar.Output> {
-    const { userId, avatarName } = body;
+    data: IUpdateAvatarController.Input,
+  ): Promise<IUpdateAvatarController.Output> {
+    const { userId, avatarName } = data;
     await this.updateAvatar.execute({
       userId,
       avatarName,

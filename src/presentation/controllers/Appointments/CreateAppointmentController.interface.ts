@@ -2,13 +2,15 @@ import { ICreateAppointment } from '@domain/usecases/Appointments/CreateAppointm
 
 export interface ICreateAppointmentController {
   handle: (
-    body: ICreateAppointmentController.Body,
-  ) => Promise<ICreateAppointment.Output>;
+    data: ICreateAppointmentController.Input,
+  ) => Promise<ICreateAppointmentController.Output>;
 }
 
 export namespace ICreateAppointmentController {
-  export interface Body {
+  export type Input = {
     provider_id: string;
     date: string;
-  }
+  };
+
+  export type Output = ICreateAppointment.Output;
 }

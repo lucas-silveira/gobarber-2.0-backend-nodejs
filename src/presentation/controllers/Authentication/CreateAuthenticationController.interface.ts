@@ -2,13 +2,15 @@ import { ICreateAuthentication } from '@domain/usecases/Authentication/CreateAut
 
 export interface ICreateAuthenticationController {
   handle: (
-    body: ICreateAuthenticationController.Body,
-  ) => Promise<ICreateAuthentication.Output>;
+    data: ICreateAuthenticationController.Input,
+  ) => Promise<ICreateAuthenticationController.Output>;
 }
 
 export namespace ICreateAuthenticationController {
-  export interface Body {
+  export type Input = {
     email: string;
     password: string;
-  }
+  };
+
+  export type Output = ICreateAuthentication.Output;
 }

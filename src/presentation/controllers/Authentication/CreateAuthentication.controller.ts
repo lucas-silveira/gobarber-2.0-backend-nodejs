@@ -10,9 +10,9 @@ class CreateAuthenticationController
   }
 
   public async handle(
-    body: ICreateAuthenticationController.Body,
-  ): Promise<ICreateAuthentication.Output> {
-    const { email, password } = body;
+    data: ICreateAuthenticationController.Input,
+  ): Promise<ICreateAuthenticationController.Output> {
+    const { email, password } = data;
     const authentication = await this.createAuthentication.execute({
       email,
       password,
