@@ -1,5 +1,5 @@
 import TypeormAppointmentRepository from '@infra/repositories/Typeorm/TypeormAppointment.repository';
-import DateFnsDateHandler from '@utils/DateHandler/DateFnsDateHandler.adapter';
+import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateAppointment from '@domain/usecases/Appointments/CreateAppointment.usecase';
 import ListAppointment from '@domain/usecases/Appointments/ListAppointment.usecase';
 import CreateAppointmentController from './CreateAppointment.controller';
