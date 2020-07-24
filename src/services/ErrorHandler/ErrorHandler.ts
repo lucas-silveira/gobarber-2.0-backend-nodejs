@@ -1,4 +1,4 @@
-// import { IErrorHandler } from './ErrorHandler.interface';
+// import { IErrorHandler } from '@domain/protocols/services/ErrorHandler.interface';
 
 // class ErrorHandler implements IErrorHandler {
 //   private errorHandlerAdapter: IErrorHandler;

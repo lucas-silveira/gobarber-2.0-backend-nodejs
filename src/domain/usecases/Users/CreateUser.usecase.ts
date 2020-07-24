@@ -1,6 +1,6 @@
 import User from '@domain/entities/User';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
-import IUserRepository from '@infra/repositories/UserRepository.interface';
+import IUserRepository from '@domain/protocols/repositories/UserRepository.interface';
 import CustomError from '@domain/entities/Error';
 import { ICreateUser } from './CreateUser.interface';
 

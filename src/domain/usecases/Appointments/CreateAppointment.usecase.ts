@@ -1,6 +1,6 @@
 import Appointment from '@domain/entities/Appointment';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
-import IAppointmentRepository from '@infra/repositories/AppointmentRepository.interface';
+import IAppointmentRepository from '@domain/protocols/repositories/AppointmentRepository.interface';
 import CustomError from '@domain/entities/Error';
 import { ICreateAppointment } from './CreateAppointment.interface';
 
