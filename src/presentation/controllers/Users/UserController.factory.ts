@@ -1,4 +1,4 @@
-import TypeormUserRepository from '@infra/repositories/Typeorm/TypeormUser.repository';
+import TypeormUserRepository from '@infra/repositories/typeorm/TypeormUser.repository';
 import CreateUser from '@domain/usecases/Users/CreateUser.usecase';
 import BcryptEncryptor from '@utils/encryptor/BcryptEncryptor.adapter';
 import UpdateAvatar from '@domain/usecases/Users/UpdateAvatar.usecase';

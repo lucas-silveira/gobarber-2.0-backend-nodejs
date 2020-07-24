@@ -1,4 +1,4 @@
-import TypeormAppointmentRepository from '@infra/repositories/Typeorm/TypeormAppointment.repository';
+import TypeormAppointmentRepository from '@infra/repositories/typeorm/TypeormAppointment.repository';
 import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateAppointment from '@domain/usecases/Appointments/CreateAppointment.usecase';
 import ListAppointment from '@domain/usecases/Appointments/ListAppointment.usecase';

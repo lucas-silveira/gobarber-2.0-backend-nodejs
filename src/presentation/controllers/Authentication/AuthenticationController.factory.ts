@@ -1,4 +1,4 @@
-import TypeormUserRepository from '@infra/repositories/Typeorm/TypeormUser.repository';
+import TypeormUserRepository from '@infra/repositories/typeorm/TypeormUser.repository';
 import CreateAuthentication from '@domain/usecases/Authentication/CreateAuthentication.usecase';
 import VerifyAuthentication from '@domain/usecases/Authentication/VerifyAuthentication.usecase';
 import JWTAuthenticate from '@utils/authentication/JWTAuthenticate.adapter';
