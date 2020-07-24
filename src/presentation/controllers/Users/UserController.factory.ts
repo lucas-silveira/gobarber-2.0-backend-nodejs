@@ -1,16 +1,21 @@
 import TypeormUserRepository from '@infra/repositories/Typeorm/TypeormUser.repository';
 import CreateUser from '@domain/usecases/Users/CreateUser.usecase';
-import Encryptor from '@utils/Encryptor/Encryptor';
+import BcryptEncryptor from '@utils/Encryptor/BcryptEncryptor.adapter';
 import UpdateAvatar from '@domain/usecases/Users/UpdateAvatar.usecase';
-import StorageHandler from '@utils/StorageHandler/StorageHandler';
+import FSStorageHandler from '@utils/StorageHandler/FSStorageHandler.adapter';
 import CreateUserController from './CreateUser.controller';
 import IUserControllerFactory from './UserControllerFactory.interface';
 import UpdateAvatarController from './UpdateAvatar.controller';
 
 const userControllerFactory = (): IUserControllerFactory => {
   const typeormUserRepository = new TypeormUserRepository();
-  const createUser = new CreateUser(typeormUserRepository, Encryptor);
-  const updateAvatar = new UpdateAvatar(typeormUserRepository, StorageHandler);
+  const bcryptEncryptor = new BcryptEncryptor();
+  const fsStorageHandler = new FSStorageHandler();
+  const createUser = new CreateUser(typeormUserRepository, bcryptEncryptor);
+  const updateAvatar = new UpdateAvatar(
+    typeormUserRepository,
+    fsStorageHandler,
+  );
   const createUserController = new CreateUserController(createUser);
   const updateAvatarController = new UpdateAvatarController(updateAvatar);
 
