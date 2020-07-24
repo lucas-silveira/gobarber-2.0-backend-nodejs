@@ -1,6 +1,6 @@
 import Authentication from '@domain/entities/Authentication';
 import authConfig from '@configs/auth';
-import { IAuthenticateLib } from '@utils/Authentication/Authenticate.interface';
+import { IAuthenticateLib } from '@domain/protocols/authentication/Authenticate.interface';
 import IEncryptor from '@utils/Encryptor/Encryptor.interface';
 import IUserRepository from '@infra/repositories/UserRepository.interface';
 import CustomError from '@domain/entities/Error';

@@ -1,4 +1,4 @@
-import { IAuthenticateLib } from '@utils/Authentication/Authenticate.interface';
+import { IAuthenticateLib } from '@domain/protocols/authentication/Authenticate.interface';
 import authConfig from '@configs/auth';
 import CustomError from '@domain/entities/Error';
 import { IVerifyAuthentication } from './VerifyAuthentication.interface';
