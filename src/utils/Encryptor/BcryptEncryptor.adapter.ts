@@ -1,6 +1,6 @@
 import { hash, compare } from 'bcryptjs';
 
-import IEncryptor from './Encryptor.interface';
+import IEncryptor from '@domain/protocols/encryptor/Encryptor.interface';
 
 class BcryptEncryptor implements IEncryptor {
   public async makeHash(
