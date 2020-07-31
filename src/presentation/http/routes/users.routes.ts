@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import upload from '@configs/upload';
+import upload from '@infra/configs/upload';
 import userControllerFactory from '@main/controllers/http/httpUsers/UserController.factory';
 import { authenticationMiddleware } from '../middlewares';
 

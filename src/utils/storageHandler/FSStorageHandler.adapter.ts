@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { storage } from '@configs/upload';
+import { storage } from '@infra/configs/upload';
 import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
 
 class FSStorageHandlerAdapter implements IStorageHandler {

@@ -28,10 +28,7 @@
       ],
       "@services/*": [
         "./src/services/*"
-      ],
-      "@configs/*": [
-        "./src/configs/*"
-      ],
+      ]
     },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true

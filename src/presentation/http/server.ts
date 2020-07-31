@@ -3,8 +3,8 @@ import cors from 'cors';
 import 'express-async-errors';
 import 'reflect-metadata';
 
-import '@configs/database';
-import { config as uploadConfig } from '@configs/upload';
+import '@infra/configs/database';
+import { config as uploadConfig } from '@infra/configs/upload';
 import { ICustomError } from '@domain/entities/Error.interface';
 import routes from './routes';
 import statusCode from './configs/statusCode';
