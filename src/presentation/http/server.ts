@@ -7,7 +7,7 @@ import '@infra/configs/database';
 import { config as uploadConfig } from '@infra/configs/upload';
 import { ICustomError } from '@domain/entities/Error.interface';
 import routes from './routes';
-import statusCode from './configs/statusCode';
+import statusCode from './utils/statusCode';
 
 const app = express();
 
