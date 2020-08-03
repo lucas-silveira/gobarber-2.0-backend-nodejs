@@ -3,7 +3,7 @@ import cors from 'cors';
 import 'express-async-errors';
 import 'reflect-metadata';
 
-import '@infra/configs/database';
+import '@infra/configs/typeorm/database';
 import { config as uploadConfig } from '@infra/configs/upload';
 import { ICustomError } from '@domain/entities/Error.interface';
 import routes from './routes';

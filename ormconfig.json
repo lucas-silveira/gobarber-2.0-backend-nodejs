@@ -9,7 +9,7 @@
     "./src/infra/schemas/typeorm/*.schema.ts"
   ],
   "migrations": [
-    "./src/infra/migrations/*.ts"
+    "./src/infra/migrations/typeorm/*.ts"
   ],
   "cli": {
     "migrationsDir": "./src/infra/migrations"
