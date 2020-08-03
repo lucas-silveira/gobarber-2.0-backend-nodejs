@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --no-notify --ignore-watch node_modules src/presentation/http/express/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "test": "jest"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
