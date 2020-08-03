@@ -1,11 +1,30 @@
-// import CreateAppointment from './CreateAppointment.usecase';
+import { startOfHour } from 'date-fns';
 
-// describe('Create Appointment', () => {
-//   it('should be able to create a new appointment', () => {
-//     expect(1 + 2).toBe(3);
-//   });
+import FakeAppointmentRepository from '@infra/repositories/fake/FakeAppointment.repository';
+import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
+import CreateAppointment from './CreateAppointment.usecase';
 
-//   // it('should not be able to create two appointments on the same time', () => {
-//   //   expect(1 + 2).toBe(3);
-//   // });
-// });
+describe('Create Appointment', () => {
+  it('should be able to create a new appointment', async () => {
+    const fakeAppointmentRepository = new FakeAppointmentRepository();
+    const dateFnsDateHandler = new DateFnsDateHandler();
+    const createAppointment = new CreateAppointment(
+      fakeAppointmentRepository,
+      dateFnsDateHandler,
+    );
+
+    const testDate = new Date();
+    const provider_id = '123';
+
+    const appointment = await createAppointment.execute({
+      date: testDate,
+      provider_id,
+    });
+
+    expect(appointment).toHaveProperty('id');
+    expect(appointment).toMatchObject({
+      provider_id,
+      date: startOfHour(testDate),
+    });
+  });
+});
