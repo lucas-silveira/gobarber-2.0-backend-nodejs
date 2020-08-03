@@ -19,7 +19,7 @@ class CreateUser implements ICreateUser {
     email,
     password,
   }: ICreateUser.Input): Promise<ICreateUser.Output> {
-    const userExists = await this.userRepository.findOne({ email });
+    const userExists = await this.userRepository.findByEmail(email);
 
     if (userExists)
       throw new CustomError('error', 'This email address is already in use.');

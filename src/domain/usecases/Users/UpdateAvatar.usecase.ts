@@ -20,7 +20,7 @@ class UpdateAvatar implements IUpdateAvatar {
     userId,
     avatarName,
   }: IUpdateAvatar.Input): Promise<IUpdateAvatar.Output> {
-    const user = await this.userRepository.findOne({ id: userId });
+    const user = await this.userRepository.findById(userId);
 
     if (!user)
       throw new CustomError(

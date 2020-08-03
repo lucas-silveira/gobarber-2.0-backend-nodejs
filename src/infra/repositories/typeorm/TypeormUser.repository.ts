@@ -7,8 +7,13 @@ class TypeormUserRepository implements IUserRepository {
     return TypeormUserSchema.find();
   }
 
-  public async findOne(where: Partial<IUser>): Promise<Required<IUser> | null> {
-    const users = await TypeormUserSchema.findOne({ where });
+  public async findById(id: string): Promise<Required<IUser> | null> {
+    const users = await TypeormUserSchema.findOne({ where: { id } });
+    return users || null;
+  }
+
+  public async findByEmail(email: string): Promise<Required<IUser> | null> {
+    const users = await TypeormUserSchema.findOne({ where: { email } });
     return users || null;
   }
 

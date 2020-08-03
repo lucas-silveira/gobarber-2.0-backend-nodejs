@@ -22,9 +22,9 @@ class CreateAppointment implements ICreateAppointment {
     date,
   }: ICreateAppointment.Input): Promise<ICreateAppointment.Output> {
     const appointmentDate = this.dateHandler.startOfHour(date);
-    const findAppointmentInSameDate = await this.appointmentRepository.findOne({
-      date: appointmentDate,
-    });
+    const findAppointmentInSameDate = await this.appointmentRepository.findByDate(
+      appointmentDate,
+    );
 
     if (findAppointmentInSameDate)
       throw new CustomError('error', 'This appointment is already booked.');
