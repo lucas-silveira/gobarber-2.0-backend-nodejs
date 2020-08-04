@@ -13,18 +13,42 @@ describe('Create Appointment', () => {
       dateFnsDateHandler,
     );
 
-    const testDate = new Date();
+    const appointmentDate = new Date(2020, 4, 10, 11);
     const provider_id = '123';
 
     const appointment = await createAppointment.execute({
-      date: testDate,
+      date: appointmentDate,
       provider_id,
     });
 
     expect(appointment).toHaveProperty('id');
     expect(appointment).toMatchObject({
       provider_id,
-      date: startOfHour(testDate),
+      date: startOfHour(appointmentDate),
     });
+  });
+
+  it('should not be able to create two appointments on the same time', async () => {
+    const fakeAppointmentRepository = new FakeAppointmentRepository();
+    const dateFnsDateHandler = new DateFnsDateHandler();
+    const createAppointment = new CreateAppointment(
+      fakeAppointmentRepository,
+      dateFnsDateHandler,
+    );
+
+    const appointmentDate = new Date(2020, 4, 10, 11);
+    const provider_id = '123';
+
+    await createAppointment.execute({
+      date: appointmentDate,
+      provider_id,
+    });
+
+    expect(
+      createAppointment.execute({
+        date: appointmentDate,
+        provider_id,
+      }),
+    ).rejects.toBeInstanceOf(Error);
   });
 });

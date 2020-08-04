@@ -1,4 +1,4 @@
-import { startOfHour, parseISO } from 'date-fns';
+import { startOfHour, parseISO, isEqual } from 'date-fns';
 
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 
@@ -9,6 +9,10 @@ class DateHandlerAdapter implements IDateHandler {
 
   public parseISO(date: string): Date {
     return parseISO(date);
+  }
+
+  public isEqual(date: Date, dateToCompare: Date): boolean {
+    return isEqual(date, dateToCompare);
   }
 }
 

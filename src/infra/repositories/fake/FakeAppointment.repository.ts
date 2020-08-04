@@ -2,16 +2,27 @@
 import faker from 'faker';
 import IAppointment from '@domain/entities/Appointment.interface';
 import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
+import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
+import DateFnsDateHandler from '@infra/utils/dateHandler/DateFnsDateHandler.adapter';
 
 class TypeormAppointmentRepository implements IAppointmentRepository {
-  private appointments: Required<IAppointment>[] = [];
+  private appointments: Required<IAppointment>[];
+
+  private dateHandler: IDateHandler;
+
+  constructor() {
+    this.appointments = [];
+    this.dateHandler = new DateFnsDateHandler();
+  }
 
   public async findAll(): Promise<IAppointment[]> {
     return Promise.resolve(this.appointments);
   }
 
   public async findByDate(date: Date): Promise<Required<IAppointment> | null> {
-    const appointment = this.appointments.find(appmnt => appmnt.date === date);
+    const appointment = this.appointments.find(appmnt =>
+      this.dateHandler.isEqual(appmnt.date, date),
+    );
 
     return Promise.resolve(appointment || null);
   }
