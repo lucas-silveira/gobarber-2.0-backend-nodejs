@@ -3,7 +3,7 @@ import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateAppointment from './CreateAppointment.usecase';
 import ListAppointment from './ListAppointment.usecase';
 
-describe('Create Appointment', () => {
+describe('List Appointment', () => {
   it('should be able to list the created appointments', async () => {
     const fakeAppointmentRepository = new FakeAppointmentRepository();
     const dateFnsDateHandler = new DateFnsDateHandler();

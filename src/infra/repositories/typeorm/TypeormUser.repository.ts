@@ -8,13 +8,13 @@ class TypeormUserRepository implements IUserRepository {
   }
 
   public async findById(id: string): Promise<Required<IUser> | null> {
-    const users = await TypeormUserSchema.findOne({ where: { id } });
-    return users || null;
+    const user = await TypeormUserSchema.findOne({ where: { id } });
+    return user || null;
   }
 
   public async findByEmail(email: string): Promise<Required<IUser> | null> {
-    const users = await TypeormUserSchema.findOne({ where: { email } });
-    return users || null;
+    const user = await TypeormUserSchema.findOne({ where: { email } });
+    return user || null;
   }
 
   public async create(user: IUser): Promise<Required<IUser>> {
