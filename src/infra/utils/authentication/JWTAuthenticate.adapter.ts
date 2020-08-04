@@ -1,18 +1,23 @@
 import { sign, verify } from 'jsonwebtoken';
 
 import IAuthentication from '@domain/entities/Authentication.interface';
-import { IAuthenticateLib } from '@domain/protocols/utils/Authenticate.interface';
+import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
 
-class JWTAuthenticateAdapter implements IAuthenticateLib {
+class JWTAuthenticateAdapter implements IAuthenticateUtil {
+  verify: (
+    token: string,
+    secretKey: string,
+  ) => IAuthenticateUtil.VerifyResponse | null;
+
   public create(authentication: IAuthentication): string {
     const { secretKey, subject, expiresIn } = authentication;
     return sign({}, secretKey, { subject, expiresIn });
   }
 
-  public verify(
+  public verifyAndReturnUserID(
     token: string,
     secretKey: string,
-  ): IAuthenticateLib.VerifyResponse | null {
+  ): IAuthenticateUtil.VerifyResponse | null {
     try {
       const decodedToken = verify(token, secretKey);
       const { sub: userId } = decodedToken as { sub: string };
