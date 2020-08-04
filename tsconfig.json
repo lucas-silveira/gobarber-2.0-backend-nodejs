@@ -24,10 +24,10 @@
         "./src/presentation/*"
       ],
       "@utils/*": [
-        "./src/utils/*"
+        "./src/infra/utils/*"
       ],
       "@services/*": [
-        "./src/services/*"
+        "./src/infra/services/*"
       ]
     },
     "emitDecoratorMetadata": true,
