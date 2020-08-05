@@ -4,11 +4,17 @@ import path from 'path';
 import { storage } from '@infra/configs/upload';
 import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
 
-class FSStorageHandlerAdapter implements IStorageHandler {
+class DiskStorageHandlerAdapter implements IStorageHandler {
   private storage: string;
 
   constructor() {
     this.storage = storage;
+  }
+
+  public async saveFile(folder: string, filename: string): Promise<void> {
+    const sourceFilepath = path.join(this.storage, filename);
+    const targetFilepath = path.join(this.storage, folder, filename);
+    return fs.promises.rename(sourceFilepath, targetFilepath);
   }
 
   public async hasFile(folder: string, filename: string): Promise<boolean> {
@@ -27,4 +33,4 @@ class FSStorageHandlerAdapter implements IStorageHandler {
   }
 }
 
-export default FSStorageHandlerAdapter;
+export default DiskStorageHandlerAdapter;
