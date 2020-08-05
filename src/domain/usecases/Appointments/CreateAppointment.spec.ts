@@ -1,13 +1,13 @@
 import { startOfHour } from 'date-fns';
 
 import FakeAppointmentRepository from '@infra/repositories/fake/FakeAppointment.repository';
-import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
+import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateAppointment from './CreateAppointment.usecase';
 
 describe('Create Appointment', () => {
   it('should be able to create a new appointment', async () => {
     const fakeAppointmentRepository = new FakeAppointmentRepository();
-    const dateFnsDateHandler = new DateFnsDateHandler();
+    const dateFnsDateHandler = new DateFnsDateHandlerAdapter();
     const createAppointment = new CreateAppointment(
       fakeAppointmentRepository,
       dateFnsDateHandler,
@@ -30,7 +30,7 @@ describe('Create Appointment', () => {
 
   it('should not be able to create two appointments on the same time', async () => {
     const fakeAppointmentRepository = new FakeAppointmentRepository();
-    const dateFnsDateHandler = new DateFnsDateHandler();
+    const dateFnsDateHandler = new DateFnsDateHandlerAdapter();
     const createAppointment = new CreateAppointment(
       fakeAppointmentRepository,
       dateFnsDateHandler,

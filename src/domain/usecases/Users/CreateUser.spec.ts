@@ -8,14 +8,14 @@ describe('Create User', () => {
     const bcryptEncryptor = new BcryptEncryptor();
     const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
 
-    const appointment = await createUser.execute({
+    const user = await createUser.execute({
       name: 'User',
       email: 'user@provider.com',
       password: '123456',
     });
 
-    expect(appointment).toHaveProperty('id');
-    expect(appointment).toMatchObject(appointment);
+    expect(user).toHaveProperty('id');
+    expect(user).toMatchObject(user);
   });
 
   it('should not be able to create a new user with email that is already in use', async () => {

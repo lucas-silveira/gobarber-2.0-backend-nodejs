@@ -1,12 +1,12 @@
 import FakeAppointmentRepository from '@infra/repositories/fake/FakeAppointment.repository';
-import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
+import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateAppointment from './CreateAppointment.usecase';
 import ListAppointment from './ListAppointment.usecase';
 
 describe('List Appointment', () => {
   it('should be able to list the created appointments', async () => {
     const fakeAppointmentRepository = new FakeAppointmentRepository();
-    const dateFnsDateHandler = new DateFnsDateHandler();
+    const dateFnsDateHandler = new DateFnsDateHandlerAdapter();
     const createAppointment = new CreateAppointment(
       fakeAppointmentRepository,
       dateFnsDateHandler,

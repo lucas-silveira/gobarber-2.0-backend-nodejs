@@ -1,14 +1,14 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
-import BcryptEncryptor from '@utils/encryptor/BcryptEncryptor.adapter';
-import JWTAuthenticate from '@utils/authentication/JWTAuthenticate.adapter';
+import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
+import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapter';
 import CreateUser from '../Users/CreateUser.usecase';
 import CreateAuthentication from './CreateAuthentication.usecase';
 
 describe('Create User', () => {
   it('should be able to authenticate', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticate();
-    const bcryptEncryptor = new BcryptEncryptor();
+    const jwtAuthenticate = new JWTAuthenticateAdapter();
+    const bcryptEncryptor = new BcryptEncryptorAdapter();
     const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
     const createAuthentication = new CreateAuthentication(
       fakeUserRepository,
@@ -37,8 +37,8 @@ describe('Create User', () => {
 
   it('should not be able to authenticate with no existing user', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticate();
-    const bcryptEncryptor = new BcryptEncryptor();
+    const jwtAuthenticate = new JWTAuthenticateAdapter();
+    const bcryptEncryptor = new BcryptEncryptorAdapter();
     const createAuthentication = new CreateAuthentication(
       fakeUserRepository,
       jwtAuthenticate,
@@ -55,8 +55,8 @@ describe('Create User', () => {
 
   it('should not be able to authenticate with wrong password', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticate();
-    const bcryptEncryptor = new BcryptEncryptor();
+    const jwtAuthenticate = new JWTAuthenticateAdapter();
+    const bcryptEncryptor = new BcryptEncryptorAdapter();
     const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
     const createAuthentication = new CreateAuthentication(
       fakeUserRepository,
