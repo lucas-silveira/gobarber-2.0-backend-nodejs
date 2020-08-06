@@ -1,5 +1,5 @@
 export interface IUpdateAvatar {
-  execute: (params: IUpdateAvatar.Input) => Promise<IUpdateAvatar.Output>;
+  execute: (dto: IUpdateAvatar.Input) => Promise<IUpdateAvatar.Output>;
 }
 
 export namespace IUpdateAvatar {

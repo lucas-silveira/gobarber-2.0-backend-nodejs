@@ -1,6 +1,6 @@
 export interface ICreateAuthentication {
   execute: (
-    authenticate: ICreateAuthentication.Input,
+    dto: ICreateAuthentication.Input,
   ) => Promise<ICreateAuthentication.Output>;
 }
 
