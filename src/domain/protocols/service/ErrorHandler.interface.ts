@@ -1,9 +1,9 @@
-import { ICustomError } from '@domain/entities/Error.interface';
+import { IErrorExcepetion } from '@domain/protocols/utils/ErrorExcepetion.interface';
 
 export interface IErrorHandler {
   throw: (message: string, errorType: IErrorHandler.ErrorTypes) => Error;
 }
 
 export namespace IErrorHandler {
-  export type ErrorTypes = ICustomError.ErrorTypes;
+  export type ErrorTypes = IErrorExcepetion.ErrorTypes;
 }

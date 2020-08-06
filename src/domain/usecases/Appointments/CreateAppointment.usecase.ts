@@ -1,7 +1,7 @@
 import Appointment from '@domain/entities/Appointment';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
-import CustomError from '@domain/entities/Error';
+import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { ICreateAppointment } from './CreateAppointment.interface';
 
 class CreateAppointment implements ICreateAppointment {
@@ -27,7 +27,7 @@ class CreateAppointment implements ICreateAppointment {
     );
 
     if (findAppointmentInSameDate)
-      throw new CustomError('error', 'This appointment is already booked.');
+      throw new ErrorExcepetion('error', 'This appointment is already booked.');
 
     const appointment = new Appointment(provider_id, appointmentDate);
     const newAppointment = await this.appointmentRepository.create(appointment);

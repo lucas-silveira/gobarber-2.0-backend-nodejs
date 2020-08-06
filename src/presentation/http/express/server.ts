@@ -5,7 +5,7 @@ import 'reflect-metadata';
 
 import '@infra/configs/typeorm/database';
 import { config as uploadConfig } from '@infra/configs/upload';
-import { ICustomError } from '@domain/entities/Error.interface';
+import { IErrorExcepetion } from '@domain/protocols/utils/ErrorExcepetion.interface';
 import routes from './routes';
 import statusCode from './utils/statusCode';
 
@@ -18,7 +18,7 @@ app.use(routes);
 
 app.use(
   (
-    error: Error & ICustomError,
+    error: Error & IErrorExcepetion,
     _: Request,
     response: Response,
     __: NextFunction,

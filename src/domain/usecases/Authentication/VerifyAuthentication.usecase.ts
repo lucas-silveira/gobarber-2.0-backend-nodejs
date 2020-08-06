@@ -1,6 +1,6 @@
 import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
 import authConfig from '@infra/configs/auth';
-import CustomError from '@domain/entities/Error';
+import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IVerifyAuthentication } from './VerifyAuthentication.interface';
 
 class VerifyBearerAuthentication implements IVerifyAuthentication {
@@ -20,7 +20,10 @@ class VerifyBearerAuthentication implements IVerifyAuthentication {
     );
 
     if (!authIsValid)
-      throw new CustomError('unauthorized', "You don't have authorization.");
+      throw new ErrorExcepetion(
+        'unauthorized',
+        "You don't have authorization.",
+      );
 
     return authIsValid;
   }

@@ -1,6 +1,6 @@
 import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
 import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
-import CustomError from '@domain/entities/Error';
+import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IUpdateAvatar } from './UpdateAvatar.interface';
 
 class UpdateAvatar implements IUpdateAvatar {
@@ -23,7 +23,7 @@ class UpdateAvatar implements IUpdateAvatar {
     const user = await this.userRepository.findById(userId);
 
     if (!user)
-      throw new CustomError(
+      throw new ErrorExcepetion(
         'unauthorized',
         'Only authenticated users can change avatar.',
       );
