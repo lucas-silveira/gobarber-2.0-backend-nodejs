@@ -22,7 +22,7 @@ class VerifyBearerAuthentication implements IVerifyAuthentication {
     if (!authIsValid)
       throw new ErrorExcepetion(
         'unauthorized',
-        "You don't have authorization.",
+        'You must be authenticated to access this feature.',
       );
 
     return authIsValid;

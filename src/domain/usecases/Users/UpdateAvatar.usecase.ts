@@ -22,11 +22,7 @@ class UpdateAvatar implements IUpdateAvatar {
   }: IUpdateAvatar.Input): Promise<IUpdateAvatar.Output> {
     const user = await this.userRepository.findById(userId);
 
-    if (!user)
-      throw new ErrorExcepetion(
-        'unauthorized',
-        'Only authenticated users can change avatar.',
-      );
+    if (!user) throw new ErrorExcepetion('error', 'User ID is incorrect.');
 
     if (user.avatar) {
       await this.storageHandler.deleteFile('uploads', user.avatar);
