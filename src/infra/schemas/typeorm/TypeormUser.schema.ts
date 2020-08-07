@@ -7,10 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import IUser from '@domain/entities/User.interface';
-
 @Entity('users')
-class UserSchema extends BaseEntity implements IUser {
+class UserSchema extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

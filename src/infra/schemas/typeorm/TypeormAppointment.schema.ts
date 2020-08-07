@@ -9,11 +9,10 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import IAppointment from '@domain/entities/Appointment.interface';
 import TypeormUserSchema from './TypeormUser.schema';
 
 @Entity('appointments')
-class AppointmentSchema extends BaseEntity implements IAppointment {
+class AppointmentSchema extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
