@@ -4,7 +4,7 @@ import faker from 'faker';
 import IUser from '@domain/entities/User.interface';
 import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
 
-class TypeormUserRepository implements IUserRepository {
+class FakeUserRepository implements IUserRepository {
   private users: Required<IUser>[];
 
   constructor() {
@@ -44,4 +44,4 @@ class TypeormUserRepository implements IUserRepository {
   }
 }
 
-export default TypeormUserRepository;
+export default FakeUserRepository;
