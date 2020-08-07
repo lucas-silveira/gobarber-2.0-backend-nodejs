@@ -3,10 +3,6 @@ import TypeormAppointmentSchema from '@infra/schemas/typeorm/TypeormAppointment.
 import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
 
 class TypeormAppointmentRepository implements IAppointmentRepository {
-  findOne: (
-    where: Partial<IAppointment>,
-  ) => Promise<Required<IAppointment> | null>;
-
   public async findAll(): Promise<IAppointment[]> {
     return TypeormAppointmentSchema.find();
   }
