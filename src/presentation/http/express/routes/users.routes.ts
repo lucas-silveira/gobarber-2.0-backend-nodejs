@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import upload from '@infra/configs/upload';
-import userControllerFactory from '@main/controllers/http/httpUsers/UserController.factory';
+import userControllerFactory from '@main/controllers/users/UserController.factory';
 import { authenticationMiddleware } from '../middlewares';
 
 const usersRouter = Router();
