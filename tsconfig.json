@@ -17,8 +17,8 @@
       "@infra/*": [
         "./src/infra/*"
       ],
-      "@main/*": [
-        "./src/main/*"
+      "@application/*": [
+        "./src/application/*"
       ],
       "@presentation/*": [
         "./src/presentation/*"
