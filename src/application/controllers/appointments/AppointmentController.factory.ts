@@ -1,6 +1,6 @@
 import TypeormAppointmentRepository from '@infra/repositories/typeorm/TypeormAppointment.repository';
 import DateFnsDateHandler from '@utils/dateHandler/DateFnsDateHandler.adapter';
-import CreateAppointment from '@domain/services/Appointments/CreateAppointment.service';
+import CreateAppointmentService from '@domain/services/Appointments/CreateAppointment.service';
 import CreateAppointmentController from './CreateAppointment.controller';
 import ListAppointmentController from './ListAppointment.controller';
 import IAppointmentControllerFactory from './AppointmentControllerFactory.interface';
@@ -8,12 +8,12 @@ import IAppointmentControllerFactory from './AppointmentControllerFactory.interf
 const appointmentControllerFactory = (): IAppointmentControllerFactory => {
   const typeormAppointmentRepository = new TypeormAppointmentRepository();
   const dateFnsDateHandler = new DateFnsDateHandler();
-  const createAppointment = new CreateAppointment(
+  const createAppointmentService = new CreateAppointmentService(
     typeormAppointmentRepository,
     dateFnsDateHandler,
   );
   const createAppointmentController = new CreateAppointmentController(
-    createAppointment,
+    createAppointmentService,
     dateFnsDateHandler,
   );
   const listAppointmentController = new ListAppointmentController(

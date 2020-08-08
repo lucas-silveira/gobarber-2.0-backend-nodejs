@@ -3,15 +3,15 @@ import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import { ICreateAppointmentController } from './CreateAppointmentController.interface';
 
 class CreateAppointmentController implements ICreateAppointmentController {
-  private createAppointment: ICreateAppointmentService;
+  private createAppointmentService: ICreateAppointmentService;
 
   private dateHandler: IDateHandler;
 
   constructor(
-    createAppointment: ICreateAppointmentService,
+    createAppointmentService: ICreateAppointmentService,
     dateHandler: IDateHandler,
   ) {
-    this.createAppointment = createAppointment;
+    this.createAppointmentService = createAppointmentService;
     this.dateHandler = dateHandler;
   }
 
@@ -20,7 +20,7 @@ class CreateAppointmentController implements ICreateAppointmentController {
   ): Promise<ICreateAppointmentController.Output> {
     const { provider_id, date } = data;
     const parsedDate = this.dateHandler.parseISO(date);
-    const appointment = await this.createAppointment.execute({
+    const appointment = await this.createAppointmentService.execute({
       provider_id,
       date: parsedDate,
     });

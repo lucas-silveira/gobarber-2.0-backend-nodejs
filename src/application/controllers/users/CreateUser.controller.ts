@@ -2,17 +2,17 @@ import { ICreateUserService } from '@domain/services/Users/CreateUserService.int
 import { ICreateUserController } from './CreateUserController.interface';
 
 class CreateUserController implements ICreateUserController {
-  private createUser: ICreateUserService;
+  private createUserService: ICreateUserService;
 
-  constructor(createUser: ICreateUserService) {
-    this.createUser = createUser;
+  constructor(createUserService: ICreateUserService) {
+    this.createUserService = createUserService;
   }
 
   public async handle(
     data: ICreateUserController.Input,
   ): Promise<ICreateUserController.Output> {
     const { name, email, password } = data;
-    const user = await this.createUser.execute({
+    const user = await this.createUserService.execute({
       name,
       email,
       password,
