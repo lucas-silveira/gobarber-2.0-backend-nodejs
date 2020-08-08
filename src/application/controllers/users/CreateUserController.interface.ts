@@ -1,4 +1,4 @@
-import { ICreateUser } from '@domain/services/Users/CreateUser.interface';
+import { ICreateUserService } from '@domain/services/Users/CreateUserService.interface';
 
 export interface ICreateUserController {
   handle: (
@@ -13,5 +13,5 @@ export namespace ICreateUserController {
     password: string;
   };
 
-  export type Output = ICreateUser.Output;
+  export type Output = ICreateUserService.Output;
 }

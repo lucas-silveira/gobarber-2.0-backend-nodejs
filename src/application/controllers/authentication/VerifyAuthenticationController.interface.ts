@@ -1,9 +1,9 @@
-import { IVerifyAuthentication } from '@domain/services/Authentication/VerifyAuthentication.interface';
-
 export interface IVerifyAuthenticationController {
-  handle: (token: string | undefined) => IVerifyAuthenticationController.Output;
+  handle: (token: string) => IVerifyAuthenticationController.Output;
 }
 
 export namespace IVerifyAuthenticationController {
-  export type Output = IVerifyAuthentication.Output;
+  export type Output = {
+    userId: string;
+  };
 }

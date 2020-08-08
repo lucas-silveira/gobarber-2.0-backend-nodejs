@@ -1,24 +1,64 @@
-import { ICreateAuthentication } from '@domain/services/Authentication/CreateAuthentication.interface';
+import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
+import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
+import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
+import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
+import authConfig from '@infra/configs/auth';
 import { ICreateAuthenticationController } from './CreateAuthenticationController.interface';
 
 class CreateAuthenticationController
   implements ICreateAuthenticationController {
-  private createAuthentication: ICreateAuthentication;
+  private userRepository: IUserRepository;
 
-  constructor(createAuthentication: ICreateAuthentication) {
-    this.createAuthentication = createAuthentication;
+  private authenticate: IAuthenticateUtil;
+
+  private encryptor: IEncryptor;
+
+  constructor(
+    userRepository: IUserRepository,
+    authenticate: IAuthenticateUtil,
+    encryptor: IEncryptor,
+  ) {
+    this.userRepository = userRepository;
+    this.authenticate = authenticate;
+    this.encryptor = encryptor;
   }
 
   public async handle(
     data: ICreateAuthenticationController.Input,
   ): Promise<ICreateAuthenticationController.Output> {
     const { email, password } = data;
-    const authentication = await this.createAuthentication.execute({
-      email,
+    const user = await this.userRepository.findByEmail(email);
+
+    if (!user)
+      throw new ErrorExcepetion(
+        'error',
+        'Incorrect email/password combination.',
+      );
+
+    const passwordIsValid = await this.encryptor.compare(
       password,
+      user.password,
+    );
+
+    if (!passwordIsValid)
+      throw new ErrorExcepetion(
+        'error',
+        'Incorrect email/password combination.',
+      );
+
+    const { secretKey, expiresIn } = authConfig.jwt;
+    const token = this.authenticate.create({
+      secretKey,
+      subject: user.id,
+      expiresIn,
     });
 
-    return authentication;
+    delete user.password;
+
+    return {
+      user,
+      token,
+    };
   }
 }
 

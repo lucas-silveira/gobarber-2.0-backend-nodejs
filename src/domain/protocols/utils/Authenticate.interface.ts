@@ -1,7 +1,5 @@
-import IAuthentication from '@domain/entities/Authentication.interface';
-
 export interface IAuthenticateUtil {
-  create: (authentication: IAuthentication) => string;
+  create: (authentication: IAuthenticateUtil.CreateInput) => string;
 
   verifyAndReturnUserID: (
     token: string,
@@ -10,6 +8,11 @@ export interface IAuthenticateUtil {
 }
 
 export namespace IAuthenticateUtil {
+  export type CreateInput = {
+    secretKey: string;
+    subject: string;
+    expiresIn: string;
+  };
   export type VerifyResponse = {
     userId: string;
   };

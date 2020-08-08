@@ -1,8 +1,8 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapter';
-import CreateUser from '../Users/CreateUser.service';
-import CreateAuthentication from './CreateAuthentication.service';
+import CreateUser from '@domain/services/Users/CreateUser.service';
+import CreateAuthenticationController from './CreateAuthentication.controller';
 
 describe('Create User', () => {
   it('should be able to authenticate', async () => {
@@ -10,7 +10,7 @@ describe('Create User', () => {
     const jwtAuthenticate = new JWTAuthenticateAdapter();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
     const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
-    const createAuthentication = new CreateAuthentication(
+    const createAuthenticationController = new CreateAuthenticationController(
       fakeUserRepository,
       jwtAuthenticate,
       bcryptEncryptor,
@@ -26,7 +26,7 @@ describe('Create User', () => {
       password: userPassword,
     });
 
-    const authenticate = await createAuthentication.execute({
+    const authenticate = await createAuthenticationController.handle({
       email: userEmail,
       password: userPassword,
     });
@@ -39,14 +39,14 @@ describe('Create User', () => {
     const fakeUserRepository = new FakeUserRepository();
     const jwtAuthenticate = new JWTAuthenticateAdapter();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createAuthentication = new CreateAuthentication(
+    const createAuthenticationController = new CreateAuthenticationController(
       fakeUserRepository,
       jwtAuthenticate,
       bcryptEncryptor,
     );
 
     expect(
-      createAuthentication.execute({
+      createAuthenticationController.handle({
         email: 'user@provider.com',
         password: '123456',
       }),
@@ -58,7 +58,7 @@ describe('Create User', () => {
     const jwtAuthenticate = new JWTAuthenticateAdapter();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
     const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
-    const createAuthentication = new CreateAuthentication(
+    const createAuthenticationController = new CreateAuthenticationController(
       fakeUserRepository,
       jwtAuthenticate,
       bcryptEncryptor,
@@ -73,7 +73,7 @@ describe('Create User', () => {
     });
 
     await expect(
-      createAuthentication.execute({
+      createAuthenticationController.handle({
         email: userEmail,
         password: '123',
       }),

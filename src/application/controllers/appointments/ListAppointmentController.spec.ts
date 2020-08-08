@@ -1,7 +1,7 @@
 import FakeAppointmentRepository from '@infra/repositories/fake/FakeAppointment.repository';
 import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
-import CreateAppointment from './CreateAppointment.service';
-import ListAppointment from './ListAppointment.service';
+import CreateAppointment from '@domain/services/Appointments/CreateAppointment.service';
+import ListAppointmentController from './ListAppointment.controller';
 
 describe('List Appointment', () => {
   it('should be able to list the created appointments', async () => {
@@ -12,7 +12,9 @@ describe('List Appointment', () => {
       dateFnsDateHandler,
     );
 
-    const listAppointment = new ListAppointment(fakeAppointmentRepository);
+    const listAppointmentController = new ListAppointmentController(
+      fakeAppointmentRepository,
+    );
 
     const appointmentDate = new Date(2020, 4, 10, 11);
     const provider_id = '123';
@@ -22,7 +24,7 @@ describe('List Appointment', () => {
       provider_id,
     });
 
-    const appointments = await listAppointment.execute();
+    const appointments = await listAppointmentController.handle();
     expect(appointments).toEqual(expect.arrayContaining([appointment]));
   });
 });

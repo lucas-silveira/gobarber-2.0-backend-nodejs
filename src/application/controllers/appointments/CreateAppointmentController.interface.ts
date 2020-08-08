@@ -1,4 +1,4 @@
-import { ICreateAppointment } from '@domain/services/Appointments/CreateAppointment.interface';
+import { ICreateAppointmentService } from '@domain/services/Appointments/CreateAppointmentService.interface';
 
 export interface ICreateAppointmentController {
   handle: (
@@ -12,5 +12,5 @@ export namespace ICreateAppointmentController {
     date: string;
   };
 
-  export type Output = ICreateAppointment.Output;
+  export type Output = ICreateAppointmentService.Output;
 }

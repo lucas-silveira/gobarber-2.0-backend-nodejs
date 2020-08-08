@@ -1,16 +1,19 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import FakeStorageHandlerAdapter from '@utils/storageHandler/FakeStorageHandler.adapter';
-import CreateUser from './CreateUser.service';
-import UpdateAvatar from './UpdateAvatar.service';
+import CreateUserService from '@domain/services/Users/CreateUser.service';
+import UpdateAvatarController from '@application/controllers/users/UpdateAvatar.controller';
 
 describe('UpdateUserAvatar', () => {
   it('should be able to update user avatar', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
     const fakeStorageHandler = new FakeStorageHandlerAdapter();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
-    const updateAvatar = new UpdateAvatar(
+    const createUserService = new CreateUserService(
+      fakeUserRepository,
+      bcryptEncryptor,
+    );
+    const updateAvatarController = new UpdateAvatarController(
       fakeUserRepository,
       fakeStorageHandler,
     );
@@ -19,14 +22,14 @@ describe('UpdateUserAvatar', () => {
     const userEmail = 'user@provider.com';
     const userPassword = '123456';
 
-    const user = await createUser.execute({
+    const user = await createUserService.execute({
       name: userName,
       email: userEmail,
       password: userPassword,
     });
 
     expect(
-      updateAvatar.execute({
+      updateAvatarController.handle({
         userId: user.id,
         avatarName: 'avatar.jpg',
       }),
@@ -36,13 +39,13 @@ describe('UpdateUserAvatar', () => {
   it('should not be able to update user avatar with incorrect user id', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeStorageHandler = new FakeStorageHandlerAdapter();
-    const updateAvatar = new UpdateAvatar(
+    const updateAvatarController = new UpdateAvatarController(
       fakeUserRepository,
       fakeStorageHandler,
     );
 
     expect(
-      updateAvatar.execute({
+      updateAvatarController.handle({
         userId: '1',
         avatarName: 'avatar.jpg',
       }),
@@ -53,8 +56,11 @@ describe('UpdateUserAvatar', () => {
     const fakeUserRepository = new FakeUserRepository();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
     const fakeStorageHandler = new FakeStorageHandlerAdapter();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
-    const updateAvatar = new UpdateAvatar(
+    const createUserService = new CreateUserService(
+      fakeUserRepository,
+      bcryptEncryptor,
+    );
+    const updateAvatarController = new UpdateAvatarController(
       fakeUserRepository,
       fakeStorageHandler,
     );
@@ -65,18 +71,18 @@ describe('UpdateUserAvatar', () => {
     const userEmail = 'user@provider.com';
     const userPassword = '123456';
 
-    const user = await createUser.execute({
+    const user = await createUserService.execute({
       name: userName,
       email: userEmail,
       password: userPassword,
     });
 
-    await updateAvatar.execute({
+    await updateAvatarController.handle({
       userId: user.id,
       avatarName: 'avatar.jpg',
     });
 
-    await updateAvatar.execute({
+    await updateAvatarController.handle({
       userId: user.id,
       avatarName: 'avatar2.jpg',
     });

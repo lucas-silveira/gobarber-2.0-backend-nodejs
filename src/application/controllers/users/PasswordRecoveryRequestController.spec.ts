@@ -1,26 +1,29 @@
 import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandler.service';
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptor from '@infra/utils/encryptor/BcryptEncryptor.adapter';
-import PasswordRecoveryRequest from './PasswordRecoveryRequest.service';
-import CreateUser from './CreateUser.service';
+import CreateUserService from '@domain/services/Users/CreateUser.service';
+import PasswordRecoveryRequest from './PasswordRecoveryRequest.controller';
 
 describe('PasswordChangeRequest', () => {
   it('should be able to recovery password using the email', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const bcryptEncryptor = new BcryptEncryptor();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
+    const createUserService = new CreateUserService(
+      fakeUserRepository,
+      bcryptEncryptor,
+    );
     const emailService = new FakeEmailHandlerService();
     const passwordRecoveryRequest = new PasswordRecoveryRequest(emailService);
     const userEmail = 'user@provider.com';
 
     const sendMailSpy = jest.spyOn(emailService, 'sendMail');
 
-    await createUser.execute({
+    await createUserService.execute({
       name: 'User',
       email: userEmail,
       password: '123456',
     });
-    await passwordRecoveryRequest.execute({
+    await passwordRecoveryRequest.handle({
       email: userEmail,
     });
 
@@ -32,7 +35,7 @@ describe('PasswordChangeRequest', () => {
     const passwordRecoveryRequest = new PasswordRecoveryRequest(emailService);
 
     expect(
-      passwordRecoveryRequest.execute({
+      passwordRecoveryRequest.handle({
         email: 'user@provider.com',
       }),
     ).rejects.toBeInstanceOf(Error);

@@ -1,14 +1,14 @@
-import { ICreateAppointment } from '@domain/services/Appointments/CreateAppointment.interface';
+import { ICreateAppointmentService } from '@domain/services/Appointments/CreateAppointmentService.interface';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import { ICreateAppointmentController } from './CreateAppointmentController.interface';
 
 class CreateAppointmentController implements ICreateAppointmentController {
-  private createAppointment: ICreateAppointment;
+  private createAppointment: ICreateAppointmentService;
 
   private dateHandler: IDateHandler;
 
   constructor(
-    createAppointment: ICreateAppointment,
+    createAppointment: ICreateAppointmentService,
     dateHandler: IDateHandler,
   ) {
     this.createAppointment = createAppointment;

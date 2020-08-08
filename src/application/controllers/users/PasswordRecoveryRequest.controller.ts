@@ -1,16 +1,16 @@
 import { IEmailService } from '@domain/protocols/service/EmailService.interface';
-import { IPasswordRecoveryRequest } from './PasswordRecoveryRequest.interface';
+import { IPasswordRecoveryRequestController } from './PasswordRecoveryRequestController.interface';
 
-class PasswordRecoveryRequest implements IPasswordRecoveryRequest {
+class PasswordRecoveryRequest implements IPasswordRecoveryRequestController {
   private emailService: IEmailService;
 
   constructor(emailService: IEmailService) {
     this.emailService = emailService;
   }
 
-  public async execute({
+  public async handle({
     email,
-  }: IPasswordRecoveryRequest.Input): Promise<void> {
+  }: IPasswordRecoveryRequestController.Input): Promise<void> {
     await this.emailService.sendMail({
       email,
       subject: 'Recuperação de senha',

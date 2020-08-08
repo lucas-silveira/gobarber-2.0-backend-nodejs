@@ -1,6 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
 
-import IAuthentication from '@domain/entities/Authentication.interface';
 import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
 
 class JWTAuthenticateAdapter implements IAuthenticateUtil {
@@ -9,7 +8,7 @@ class JWTAuthenticateAdapter implements IAuthenticateUtil {
     secretKey: string,
   ) => IAuthenticateUtil.VerifyResponse | null;
 
-  public create(authentication: IAuthentication): string {
+  public create(authentication: IAuthenticateUtil.CreateInput): string {
     const { secretKey, subject, expiresIn } = authentication;
     return sign({}, secretKey, { subject, expiresIn });
   }

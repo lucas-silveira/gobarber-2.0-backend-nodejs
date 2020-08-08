@@ -1,10 +1,10 @@
-import { ICreateUser } from '@domain/services/Users/CreateUser.interface';
+import { ICreateUserService } from '@domain/services/Users/CreateUserService.interface';
 import { ICreateUserController } from './CreateUserController.interface';
 
 class CreateUserController implements ICreateUserController {
-  private createUser: ICreateUser;
+  private createUser: ICreateUserService;
 
-  constructor(createUser: ICreateUser) {
+  constructor(createUser: ICreateUserService) {
     this.createUser = createUser;
   }
 

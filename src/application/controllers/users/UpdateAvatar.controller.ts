@@ -1,21 +1,35 @@
-import { IUpdateAvatar } from '@domain/services/Users/UpdateAvatar.interface';
-import { IUpdateAvatarController } from './UpdateAvatar.interface';
+import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
+import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
+import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
+import { IUpdateAvatarController } from './UpdateAvatarController.interface';
 
 class UpdateAvatarController implements IUpdateAvatarController {
-  private updateAvatar: IUpdateAvatar;
+  private userRepository: IUserRepository;
 
-  constructor(updateAvatar: IUpdateAvatar) {
-    this.updateAvatar = updateAvatar;
+  private storageHandler: IStorageHandler;
+
+  constructor(
+    userRepository: IUserRepository,
+    storageHandler: IStorageHandler,
+  ) {
+    this.userRepository = userRepository;
+    this.storageHandler = storageHandler;
   }
 
-  public async handle(
-    data: IUpdateAvatarController.Input,
-  ): Promise<IUpdateAvatarController.Output> {
+  public async handle(data: IUpdateAvatarController.Input): Promise<void> {
     const { userId, avatarName } = data;
-    await this.updateAvatar.execute({
-      userId,
-      avatarName,
-    });
+    const user = await this.userRepository.findById(userId);
+
+    if (!user) throw new ErrorExcepetion('error', 'User ID is incorrect.');
+
+    if (user.avatar) {
+      await this.storageHandler.deleteFile('uploads', user.avatar);
+    }
+
+    await this.storageHandler.saveFile('uploads', avatarName);
+
+    user.avatar = avatarName;
+    await this.userRepository.update(user);
   }
 }
 
