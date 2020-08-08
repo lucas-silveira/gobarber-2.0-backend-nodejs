@@ -1,8 +1,8 @@
 import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandler.service';
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptor from '@infra/utils/encryptor/BcryptEncryptor.adapter';
-import PasswordRecoveryRequest from './PasswordRecoveryRequest.usecase';
-import CreateUser from './CreateUser.usecase';
+import PasswordRecoveryRequest from './PasswordRecoveryRequest.service';
+import CreateUser from './CreateUser.service';
 
 describe('PasswordChangeRequest', () => {
   it('should be able to recovery password using the email', async () => {

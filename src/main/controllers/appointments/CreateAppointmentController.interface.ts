@@ -1,4 +1,4 @@
-import { ICreateAppointment } from '@domain/usecases/Appointments/CreateAppointment.interface';
+import { ICreateAppointment } from '@domain/services/Appointments/CreateAppointment.interface';
 
 export interface ICreateAppointmentController {
   handle: (

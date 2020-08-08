@@ -1,4 +1,4 @@
-import { IListAppointment } from '@domain/usecases/Appointments/ListAppointment.interface';
+import { IListAppointment } from '@domain/services/Appointments/ListAppointment.interface';
 import { IListAppointmentController } from './ListAppointmentController.interface';
 
 class ListAppointmentController implements IListAppointmentController {

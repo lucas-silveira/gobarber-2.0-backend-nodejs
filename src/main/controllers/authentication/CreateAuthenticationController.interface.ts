@@ -1,4 +1,4 @@
-import { ICreateAuthentication } from '@domain/usecases/Authentication/CreateAuthentication.interface';
+import { ICreateAuthentication } from '@domain/services/Authentication/CreateAuthentication.interface';
 
 export interface ICreateAuthenticationController {
   handle: (

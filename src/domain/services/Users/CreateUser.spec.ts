@@ -1,6 +1,6 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptor from '@utils/encryptor/BcryptEncryptor.adapter';
-import CreateUser from './CreateUser.usecase';
+import CreateUser from './CreateUser.service';
 
 describe('Create User', () => {
   it('should be able to create a new user', async () => {

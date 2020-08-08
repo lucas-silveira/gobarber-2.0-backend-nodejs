@@ -1,4 +1,4 @@
-import { IUpdateAvatar } from '@domain/usecases/Users/UpdateAvatar.interface';
+import { IUpdateAvatar } from '@domain/services/Users/UpdateAvatar.interface';
 
 export interface IUpdateAvatarController {
   handle: (

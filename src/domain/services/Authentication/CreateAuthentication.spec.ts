@@ -1,8 +1,8 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapter';
-import CreateUser from '../Users/CreateUser.usecase';
-import CreateAuthentication from './CreateAuthentication.usecase';
+import CreateUser from '../Users/CreateUser.service';
+import CreateAuthentication from './CreateAuthentication.service';
 
 describe('Create User', () => {
   it('should be able to authenticate', async () => {

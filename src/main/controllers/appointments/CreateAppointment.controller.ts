@@ -1,4 +1,4 @@
-import { ICreateAppointment } from '@domain/usecases/Appointments/CreateAppointment.interface';
+import { ICreateAppointment } from '@domain/services/Appointments/CreateAppointment.interface';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import { ICreateAppointmentController } from './CreateAppointmentController.interface';
 

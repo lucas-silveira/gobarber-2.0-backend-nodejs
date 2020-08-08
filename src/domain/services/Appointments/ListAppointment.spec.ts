@@ -1,7 +1,7 @@
 import FakeAppointmentRepository from '@infra/repositories/fake/FakeAppointment.repository';
 import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
-import CreateAppointment from './CreateAppointment.usecase';
-import ListAppointment from './ListAppointment.usecase';
+import CreateAppointment from './CreateAppointment.service';
+import ListAppointment from './ListAppointment.service';
 
 describe('List Appointment', () => {
   it('should be able to list the created appointments', async () => {

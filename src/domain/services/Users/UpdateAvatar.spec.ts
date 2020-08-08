@@ -1,8 +1,8 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import FakeStorageHandlerAdapter from '@utils/storageHandler/FakeStorageHandler.adapter';
-import CreateUser from './CreateUser.usecase';
-import UpdateAvatar from './UpdateAvatar.usecase';
+import CreateUser from './CreateUser.service';
+import UpdateAvatar from './UpdateAvatar.service';
 
 describe('UpdateUserAvatar', () => {
   it('should be able to update user avatar', async () => {
