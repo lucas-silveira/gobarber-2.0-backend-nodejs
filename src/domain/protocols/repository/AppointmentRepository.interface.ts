@@ -1,7 +1,7 @@
-import IAppointment from '@domain/entities/Appointment.interface';
+import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
 
 export default interface IAppointmentRepository {
-  findAll: () => Promise<IAppointment[]>;
-  findByDate: (date: Date) => Promise<Required<IAppointment> | null>;
-  create: (entity: IAppointment) => Promise<Required<IAppointment>>;
+  findAll: () => Promise<IAppointmentEntity[]>;
+  findByDate: (date: Date) => Promise<Required<IAppointmentEntity> | null>;
+  create: (entity: IAppointmentEntity) => Promise<Required<IAppointmentEntity>>;
 }

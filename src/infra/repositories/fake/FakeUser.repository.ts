@@ -1,33 +1,35 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
 import { cloneDeep } from 'lodash';
-import IUser from '@domain/entities/User.interface';
+import IUserEntity from '@domain/entities/UserEntity.interface';
 import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
 
 class FakeUserRepository implements IUserRepository {
-  private users: Required<IUser>[];
+  private users: Required<IUserEntity>[];
 
   constructor() {
     this.users = [];
   }
 
-  public async findAll(): Promise<Required<IUser>[]> {
+  public async findAll(): Promise<Required<IUserEntity>[]> {
     return Promise.resolve(this.users);
   }
 
-  public async findById(id: string): Promise<Required<IUser> | null> {
+  public async findById(id: string): Promise<Required<IUserEntity> | null> {
     const user = this.users.find(usr => usr.id === id);
 
     return Promise.resolve(cloneDeep(user) || null);
   }
 
-  public async findByEmail(email: string): Promise<Required<IUser> | null> {
+  public async findByEmail(
+    email: string,
+  ): Promise<Required<IUserEntity> | null> {
     const user = this.users.find(usr => usr.email === email);
 
     return Promise.resolve(cloneDeep(user) || null);
   }
 
-  public async create(user: IUser): Promise<Required<IUser>> {
+  public async create(user: IUserEntity): Promise<Required<IUserEntity>> {
     const newUser = {
       ...user,
       avatar: user.avatar || '',
@@ -37,7 +39,9 @@ class FakeUserRepository implements IUserRepository {
     return Promise.resolve(cloneDeep(newUser));
   }
 
-  public async update(user: Required<IUser>): Promise<Required<IUser>> {
+  public async update(
+    user: Required<IUserEntity>,
+  ): Promise<Required<IUserEntity>> {
     const userIndex = this.users.findIndex(usr => usr.id === user.id);
     this.users[userIndex] = user;
     return Promise.resolve(cloneDeep(user));

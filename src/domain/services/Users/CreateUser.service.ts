@@ -1,4 +1,4 @@
-import User from '@domain/entities/User';
+import UserEntity from '@domain/entities/User.entity';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
 import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
@@ -28,7 +28,7 @@ class CreateUserService implements ICreateUserService {
       );
 
     const hashedPassword = await this.encryptor.makeHash(password, 8);
-    const user = new User(name, email, hashedPassword);
+    const user = new UserEntity(name, email, hashedPassword);
     const newUser = await this.userRepository.create(user);
 
     delete newUser.password;

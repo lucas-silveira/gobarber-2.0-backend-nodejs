@@ -1,6 +1,6 @@
-import IUser from './User.interface';
+import IUserEntity from './UserEntity.interface';
 
-class User implements IUser {
+class User implements IUserEntity {
   public readonly name: string;
 
   public readonly email: string;

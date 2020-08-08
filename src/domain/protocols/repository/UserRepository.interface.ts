@@ -1,9 +1,9 @@
-import IUser from '@domain/entities/User.interface';
+import IUserEntity from '@domain/entities/UserEntity.interface';
 
 export default interface IUserRepository {
-  findAll: () => Promise<IUser[]>;
-  findById: (id: string) => Promise<Required<IUser> | null>;
-  findByEmail: (email: string) => Promise<Required<IUser> | null>;
-  create: (entity: IUser) => Promise<Required<IUser>>;
-  update: (entitiy: Required<IUser>) => Promise<Required<IUser>>;
+  findAll: () => Promise<IUserEntity[]>;
+  findById: (id: string) => Promise<Required<IUserEntity> | null>;
+  findByEmail: (email: string) => Promise<Required<IUserEntity> | null>;
+  create: (entity: IUserEntity) => Promise<Required<IUserEntity>>;
+  update: (entitiy: Required<IUserEntity>) => Promise<Required<IUserEntity>>;
 }

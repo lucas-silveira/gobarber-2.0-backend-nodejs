@@ -1,6 +1,6 @@
-import IAppointment from './Appointment.interface';
+import IAppointmentEntity from './AppointmentEntity.interface';
 
-class Appointment implements IAppointment {
+class Appointment implements IAppointmentEntity {
   public readonly provider_id: string;
 
   public readonly date: Date;
