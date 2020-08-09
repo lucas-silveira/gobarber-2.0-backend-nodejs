@@ -1,7 +1,7 @@
-export default interface IUser {
-  id?: string;
+export default interface IUserEntity {
+  id: string;
   name: string;
   email: string;
-  avatar?: string;
+  avatar: string;
   password: string;
 }

@@ -1,3 +1,5 @@
+import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
+
 export interface ICreateAppointmentService {
   execute: (
     appointment: ICreateAppointmentService.Input,
@@ -10,9 +12,5 @@ export namespace ICreateAppointmentService {
     date: Date;
   };
 
-  export type Output = {
-    id: string;
-    provider_id: string;
-    date: Date;
-  };
+  export type Output = IAppointmentEntity;
 }

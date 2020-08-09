@@ -21,13 +21,11 @@ class UpdateAvatarController implements IUpdateAvatarController {
     const user = await this.userRepository.findById(userId);
 
     if (!user) throw new ErrorExcepetion('error', 'User ID is incorrect.');
-
     if (user.avatar) {
       await this.storageHandler.deleteFile('uploads', user.avatar);
     }
 
     await this.storageHandler.saveFile('uploads', avatarName);
-
     user.avatar = avatarName;
     await this.userRepository.update(user);
   }

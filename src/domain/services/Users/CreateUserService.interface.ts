@@ -1,3 +1,5 @@
+import IUserEntity from '@domain/entities/UserEntity.interface';
+
 export interface ICreateUserService {
   execute: (
     user: ICreateUserService.Input,
@@ -11,10 +13,5 @@ export namespace ICreateUserService {
     password: string;
   };
 
-  export type Output = {
-    id: string;
-    name: string;
-    email: string;
-    avatar: string;
-  };
+  export type Output = IUserEntity;
 }

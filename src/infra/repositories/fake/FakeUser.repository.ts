@@ -2,35 +2,32 @@
 import faker from 'faker';
 import { cloneDeep } from 'lodash';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
+import IUserEntity from '@domain/entities/UserEntity.interface';
 
 class FakeUserRepository implements IUserRepository {
-  private users: IUserRepository.UserData[];
+  private users: IUserEntity[];
 
   constructor() {
     this.users = [];
   }
 
-  public async findAll(): Promise<IUserRepository.UserData[]> {
+  public async findAll(): Promise<IUserEntity[]> {
     return Promise.resolve(this.users);
   }
 
-  public async findById(id: string): Promise<IUserRepository.UserData | null> {
+  public async findById(id: string): Promise<IUserEntity | null> {
     const user = this.users.find(usr => usr.id === id);
 
     return Promise.resolve(cloneDeep(user) || null);
   }
 
-  public async findByEmail(
-    email: string,
-  ): Promise<IUserRepository.UserData | null> {
+  public async findByEmail(email: string): Promise<IUserEntity | null> {
     const user = this.users.find(usr => usr.email === email);
 
     return Promise.resolve(cloneDeep(user) || null);
   }
 
-  public async create(
-    user: IUserRepository.UserEntity,
-  ): Promise<IUserRepository.UserData> {
+  public async create(user: IUserEntity): Promise<IUserEntity> {
     const newUser = {
       ...user,
       avatar: '',
@@ -40,9 +37,7 @@ class FakeUserRepository implements IUserRepository {
     return Promise.resolve(cloneDeep(newUser));
   }
 
-  public async update(
-    user: IUserRepository.UserData,
-  ): Promise<IUserRepository.UserData> {
+  public async update(user: IUserEntity): Promise<IUserEntity> {
     const userIndex = this.users.findIndex(usr => usr.id === user.id);
     this.users[userIndex] = user;
     return Promise.resolve(cloneDeep(user));

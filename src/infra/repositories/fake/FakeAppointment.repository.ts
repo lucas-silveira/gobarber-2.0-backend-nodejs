@@ -4,9 +4,10 @@ import { cloneDeep } from 'lodash';
 import { IAppointmentRepository } from '@domain/protocols/repository/AppointmentRepository.interface';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import DateFnsDateHandler from '@infra/utils/dateHandler/DateFnsDateHandler.adapter';
+import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
 
 class TypeormAppointmentRepository implements IAppointmentRepository {
-  private appointments: Required<IAppointmentRepository.AppointmentData>[];
+  private appointments: Required<IAppointmentEntity>[];
 
   private dateHandler: IDateHandler;
 
@@ -15,13 +16,11 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
     this.dateHandler = new DateFnsDateHandler();
   }
 
-  public async findAll(): Promise<IAppointmentRepository.AppointmentData[]> {
+  public async findAll(): Promise<IAppointmentEntity[]> {
     return Promise.resolve(this.appointments);
   }
 
-  public async findByDate(
-    date: Date,
-  ): Promise<IAppointmentRepository.AppointmentData | null> {
+  public async findByDate(date: Date): Promise<IAppointmentEntity | null> {
     const appointment = this.appointments.find(appmnt =>
       this.dateHandler.isEqual(appmnt.date, date),
     );
@@ -30,8 +29,8 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
   }
 
   public async create(
-    appointment: IAppointmentRepository.AppointmentEntity,
-  ): Promise<IAppointmentRepository.AppointmentData> {
+    appointment: IAppointmentEntity,
+  ): Promise<IAppointmentEntity> {
     const newAppointment = { ...appointment, id: faker.random.uuid() };
     this.appointments.push(newAppointment);
     return Promise.resolve(cloneDeep(newAppointment));
