@@ -1,4 +1,4 @@
-import IAppointmentEntity from '@domain/entities/Appointment.entity';
+import AppointmentEntity from '@domain/entities/Appointment.entity';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
@@ -31,7 +31,7 @@ class CreateAppointmentService implements ICreateAppointmentService {
     if (findAppointmentInSameDate)
       throw new ErrorExcepetion('error', 'This appointment is already booked.');
 
-    const appointment = new IAppointmentEntity(provider_id, appointmentDate);
+    const appointment = new AppointmentEntity(provider_id, appointmentDate);
     const newAppointment = await this.appointmentRepository.create(appointment);
     return newAppointment;
   }
