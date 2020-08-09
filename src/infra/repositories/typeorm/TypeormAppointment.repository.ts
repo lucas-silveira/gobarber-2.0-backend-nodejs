@@ -1,15 +1,14 @@
-import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
 import TypeormAppointmentSchema from '@infra/schemas/typeorm/TypeormAppointment.schema';
-import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
+import { IAppointmentRepository } from '@domain/protocols/repository/AppointmentRepository.interface';
 
 class TypeormAppointmentRepository implements IAppointmentRepository {
-  public async findAll(): Promise<IAppointmentEntity[]> {
+  public async findAll(): Promise<IAppointmentRepository.AppointmentData[]> {
     return TypeormAppointmentSchema.find();
   }
 
   public async findByDate(
     date: Date,
-  ): Promise<Required<IAppointmentEntity> | null> {
+  ): Promise<IAppointmentRepository.AppointmentData | null> {
     const appointments = await TypeormAppointmentSchema.findOne({
       where: { date },
     });
@@ -17,8 +16,8 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
   }
 
   public async create(
-    appointment: IAppointmentEntity,
-  ): Promise<Required<IAppointmentEntity>> {
+    appointment: IAppointmentRepository.AppointmentEntity,
+  ): Promise<IAppointmentRepository.AppointmentData> {
     const newAppointment = TypeormAppointmentSchema.create(appointment);
     await TypeormAppointmentSchema.save(newAppointment);
     return newAppointment;

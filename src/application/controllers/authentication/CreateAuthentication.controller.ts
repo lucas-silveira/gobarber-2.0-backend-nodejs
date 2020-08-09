@@ -1,4 +1,4 @@
-import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
+import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';

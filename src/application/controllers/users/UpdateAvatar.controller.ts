@@ -1,4 +1,4 @@
-import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
+import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
 import { IUpdateAvatarController } from './UpdateAvatarController.interface';

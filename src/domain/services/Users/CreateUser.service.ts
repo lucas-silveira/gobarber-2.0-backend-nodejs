@@ -1,6 +1,6 @@
 import UserEntity from '@domain/entities/User.entity';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
-import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
+import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { ICreateUserService } from './CreateUserService.interface';
 

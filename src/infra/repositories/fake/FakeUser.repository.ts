@@ -1,21 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
 import { cloneDeep } from 'lodash';
-import IUserEntity from '@domain/entities/UserEntity.interface';
-import IUserRepository from '@domain/protocols/repository/UserRepository.interface';
+import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 
 class FakeUserRepository implements IUserRepository {
-  private users: Required<IUserEntity>[];
+  private users: IUserRepository.UserData[];
 
   constructor() {
     this.users = [];
   }
 
-  public async findAll(): Promise<Required<IUserEntity>[]> {
+  public async findAll(): Promise<IUserRepository.UserData[]> {
     return Promise.resolve(this.users);
   }
 
-  public async findById(id: string): Promise<Required<IUserEntity> | null> {
+  public async findById(id: string): Promise<IUserRepository.UserData | null> {
     const user = this.users.find(usr => usr.id === id);
 
     return Promise.resolve(cloneDeep(user) || null);
@@ -23,16 +22,18 @@ class FakeUserRepository implements IUserRepository {
 
   public async findByEmail(
     email: string,
-  ): Promise<Required<IUserEntity> | null> {
+  ): Promise<IUserRepository.UserData | null> {
     const user = this.users.find(usr => usr.email === email);
 
     return Promise.resolve(cloneDeep(user) || null);
   }
 
-  public async create(user: IUserEntity): Promise<Required<IUserEntity>> {
+  public async create(
+    user: IUserRepository.UserEntity,
+  ): Promise<IUserRepository.UserData> {
     const newUser = {
       ...user,
-      avatar: user.avatar || '',
+      avatar: '',
       id: faker.random.uuid(),
     };
     this.users.push(newUser);
@@ -40,8 +41,8 @@ class FakeUserRepository implements IUserRepository {
   }
 
   public async update(
-    user: Required<IUserEntity>,
-  ): Promise<Required<IUserEntity>> {
+    user: IUserRepository.UserData,
+  ): Promise<IUserRepository.UserData> {
     const userIndex = this.users.findIndex(usr => usr.id === user.id);
     this.users[userIndex] = user;
     return Promise.resolve(cloneDeep(user));

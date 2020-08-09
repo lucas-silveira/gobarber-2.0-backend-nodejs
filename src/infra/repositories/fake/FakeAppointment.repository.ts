@@ -1,13 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
 import { cloneDeep } from 'lodash';
-import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
-import IAppointmentRepository from '@domain/protocols/repository/AppointmentRepository.interface';
+import { IAppointmentRepository } from '@domain/protocols/repository/AppointmentRepository.interface';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import DateFnsDateHandler from '@infra/utils/dateHandler/DateFnsDateHandler.adapter';
 
 class TypeormAppointmentRepository implements IAppointmentRepository {
-  private appointments: Required<IAppointmentEntity>[];
+  private appointments: Required<IAppointmentRepository.AppointmentData>[];
 
   private dateHandler: IDateHandler;
 
@@ -16,13 +15,13 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
     this.dateHandler = new DateFnsDateHandler();
   }
 
-  public async findAll(): Promise<IAppointmentEntity[]> {
+  public async findAll(): Promise<IAppointmentRepository.AppointmentData[]> {
     return Promise.resolve(this.appointments);
   }
 
   public async findByDate(
     date: Date,
-  ): Promise<Required<IAppointmentEntity> | null> {
+  ): Promise<IAppointmentRepository.AppointmentData | null> {
     const appointment = this.appointments.find(appmnt =>
       this.dateHandler.isEqual(appmnt.date, date),
     );
@@ -31,8 +30,8 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
   }
 
   public async create(
-    appointment: IAppointmentEntity,
-  ): Promise<Required<IAppointmentEntity>> {
+    appointment: IAppointmentRepository.AppointmentEntity,
+  ): Promise<IAppointmentRepository.AppointmentData> {
     const newAppointment = { ...appointment, id: faker.random.uuid() };
     this.appointments.push(newAppointment);
     return Promise.resolve(cloneDeep(newAppointment));
