@@ -7,11 +7,11 @@ import UpdateAvatarController from '@application/controllers/users/UpdateAvatar.
 describe('UpdateUserAvatar', () => {
   it('should be able to update user avatar', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
+    const encryptor = new BcryptEncryptorAdapter();
     const fakeStorageHandler = new FakeStorageHandlerAdapter();
     const createUserService = new CreateUserService(
       fakeUserRepository,
-      bcryptEncryptor,
+      encryptor,
     );
     const updateAvatarController = new UpdateAvatarController(
       fakeUserRepository,
@@ -54,11 +54,11 @@ describe('UpdateUserAvatar', () => {
 
   it('should delete old avatar when updating a new avatar', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
+    const encryptor = new BcryptEncryptorAdapter();
     const fakeStorageHandler = new FakeStorageHandlerAdapter();
     const createUserService = new CreateUserService(
       fakeUserRepository,
-      bcryptEncryptor,
+      encryptor,
     );
     const updateAvatarController = new UpdateAvatarController(
       fakeUserRepository,

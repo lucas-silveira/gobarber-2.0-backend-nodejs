@@ -1,12 +1,15 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
-import BcryptEncryptor from '@utils/encryptor/BcryptEncryptor.adapter';
+import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import CreateUser from './CreateUser.service';
 
 describe('Create User', () => {
   it('should be able to create a new user', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const bcryptEncryptor = new BcryptEncryptor();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
+    const bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
+    const createUser = new CreateUser(
+      fakeUserRepository,
+      bcryptEncryptorAdapter,
+    );
 
     const user = await createUser.execute({
       name: 'User',
@@ -20,8 +23,11 @@ describe('Create User', () => {
 
   it('should not be able to create a new user with email that is already in use', async () => {
     const fakeUserRepository = new FakeUserRepository();
-    const bcryptEncryptor = new BcryptEncryptor();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
+    const bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
+    const createUser = new CreateUser(
+      fakeUserRepository,
+      bcryptEncryptorAdapter,
+    );
 
     const userEmail = 'user@provider.com';
 

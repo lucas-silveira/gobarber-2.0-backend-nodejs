@@ -1,12 +1,13 @@
-import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandler.service';
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import FakeUserTokensRepository from '@infra/repositories/fake/FakeUserTokens.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
 import CreateUserService from '@domain/services/Users/CreateUser.service';
+import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandler.service';
 import PasswordRecoveryRequestController from './PasswordRecoveryRequest.controller';
+import ResetPasswordController from './ResetPassword.controller';
 
 describe('PasswordChangeRequest', () => {
-  it('should be able to recovery password using the email', async () => {
+  it('should be able to reset password', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeUserTokensRepository = new FakeUserTokensRepository();
     const bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
@@ -20,42 +21,33 @@ describe('PasswordChangeRequest', () => {
       fakeUserTokensRepository,
       emailService,
     );
-    const userEmail = 'user@provider.com';
-
-    const sendMailSpy = jest.spyOn(emailService, 'sendMail');
-    const userTokensRepositorySpy = jest.spyOn(
+    const resetPasswordController = new ResetPasswordController(
+      fakeUserRepository,
       fakeUserTokensRepository,
-      'generate',
+      bcryptEncryptorAdapter,
     );
+    const userEmail = 'user@provider.com';
 
     const user = await createUserService.execute({
       name: 'User',
       email: userEmail,
       password: '123456',
     });
+    const userCreated = await fakeUserRepository.findById(user.id);
 
     await passwordRecoveryRequestController.handle({
       email: userEmail,
     });
+    const newPassword = '1234567';
+    const userToken = await fakeUserTokensRepository.findByUserId(user.id);
 
-    expect(sendMailSpy).toHaveBeenCalled();
-    expect(userTokensRepositorySpy).toHaveBeenCalledWith(user.id);
-  });
+    await resetPasswordController.handle({
+      token: userToken?.token || '',
+      password: newPassword,
+    });
 
-  it('should not be able to recovery password if the user not exists', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const fakeUserTokensRepository = new FakeUserTokensRepository();
-    const emailService = new FakeEmailHandlerService();
-    const passwordRecoveryRequestController = new PasswordRecoveryRequestController(
-      fakeUserRepository,
-      fakeUserTokensRepository,
-      emailService,
-    );
+    const userUpdated = await fakeUserRepository.findById(user.id);
 
-    expect(
-      passwordRecoveryRequestController.handle({
-        email: 'user@provider.com',
-      }),
-    ).rejects.toBeInstanceOf(Error);
+    expect(userUpdated?.password).not.toBe(userCreated?.password);
   });
 });
