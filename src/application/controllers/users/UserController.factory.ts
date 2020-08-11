@@ -1,6 +1,6 @@
 import TypeormUserRepository from '@infra/repositories/typeorm/TypeormUser.repository';
 import CreateUserService from '@domain/services/Users/CreateUser.service';
-import BcryptEncryptor from '@utils/encryptor/BcryptEncryptor.adapter';
+import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import DiskStorageHandler from '@infra/utils/storageHandler/DiskStorageHandler.adapter';
 import CreateUserController from './CreateUser.controller';
 import IUserControllerFactory from './UserControllerFactory.interface';
@@ -8,7 +8,7 @@ import UpdateAvatarController from './UpdateAvatar.controller';
 
 const userControllerFactory = (): IUserControllerFactory => {
   const typeormUserRepository = new TypeormUserRepository();
-  const bcryptEncryptor = new BcryptEncryptor();
+  const bcryptEncryptor = new BcryptEncryptorAdapter();
   const diskStorageHandler = new DiskStorageHandler();
   const createUserService = new CreateUserService(
     typeormUserRepository,

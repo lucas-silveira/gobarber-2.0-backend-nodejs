@@ -30,7 +30,7 @@ class ResetPassword implements IResetPasswordController {
       throw new ErrorExcepetion('error', 'Token does not exists.');
     }
 
-    const user = await this.userRepository.findById(userToken?.user_id);
+    const user = await this.userRepository.findById(userToken.user_id);
     if (!user) {
       throw new ErrorExcepetion('error', 'User does not exists.');
     }

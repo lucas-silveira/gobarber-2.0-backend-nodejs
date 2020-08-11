@@ -42,6 +42,11 @@ class FakeUserRepository implements IUserRepository {
     this.users[userIndex] = user;
     return Promise.resolve(cloneDeep(user));
   }
+
+  public async delete(id: string): Promise<void> {
+    const userIndex = this.users.findIndex(user => user.id === id);
+    this.users.splice(userIndex, 1);
+  }
 }
 
 export default FakeUserRepository;

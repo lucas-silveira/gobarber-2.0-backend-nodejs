@@ -11,14 +11,15 @@ class FakeUserTokensRepository implements IUserTokensRepository {
     this.userTokens = [];
   }
 
-  public async generate(userId: string): Promise<void> {
+  public async generate(userId: string): Promise<string> {
+    const token = faker.random.uuid();
     const newUserToken = {
       id: faker.random.uuid(),
-      token: faker.random.uuid(),
+      token,
       user_id: userId,
     };
     this.userTokens.push(newUserToken);
-    return Promise.resolve();
+    return Promise.resolve(token);
   }
 
   public async findByUserId(

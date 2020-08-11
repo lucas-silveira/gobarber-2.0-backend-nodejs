@@ -6,26 +6,37 @@ import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandl
 import PasswordRecoveryRequestController from './PasswordRecoveryRequest.controller';
 import ResetPasswordController from './ResetPassword.controller';
 
-describe('PasswordChangeRequest', () => {
-  it('should be able to reset password', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const fakeUserTokensRepository = new FakeUserTokensRepository();
-    const bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
-    const createUserService = new CreateUserService(
+let fakeUserRepository: FakeUserRepository;
+let fakeUserTokensRepository: FakeUserTokensRepository;
+let bcryptEncryptorAdapter: BcryptEncryptorAdapter;
+let createUserService: CreateUserService;
+let emailService: FakeEmailHandlerService;
+let passwordRecoveryRequestController: PasswordRecoveryRequestController;
+let resetPasswordController: ResetPasswordController;
+
+describe('ResetPasswordController', () => {
+  beforeEach(() => {
+    fakeUserRepository = new FakeUserRepository();
+    fakeUserTokensRepository = new FakeUserTokensRepository();
+    bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
+    createUserService = new CreateUserService(
       fakeUserRepository,
       bcryptEncryptorAdapter,
     );
-    const emailService = new FakeEmailHandlerService();
-    const passwordRecoveryRequestController = new PasswordRecoveryRequestController(
+    emailService = new FakeEmailHandlerService();
+    passwordRecoveryRequestController = new PasswordRecoveryRequestController(
       fakeUserRepository,
       fakeUserTokensRepository,
       emailService,
     );
-    const resetPasswordController = new ResetPasswordController(
+    resetPasswordController = new ResetPasswordController(
       fakeUserRepository,
       fakeUserTokensRepository,
       bcryptEncryptorAdapter,
     );
+  });
+
+  it('should be able to reset password', async () => {
     const userEmail = 'user@provider.com';
 
     const user = await createUserService.execute({
@@ -38,16 +49,36 @@ describe('PasswordChangeRequest', () => {
     await passwordRecoveryRequestController.handle({
       email: userEmail,
     });
-    const newPassword = '1234567';
+
     const userToken = await fakeUserTokensRepository.findByUserId(user.id);
 
     await resetPasswordController.handle({
       token: userToken?.token || '',
-      password: newPassword,
+      password: '1234567',
     });
 
     const userUpdated = await fakeUserRepository.findById(user.id);
 
     expect(userUpdated?.password).not.toBe(userCreated?.password);
+  });
+
+  it('should not be able to reset password with incorrect token.', async () => {
+    expect(
+      resetPasswordController.handle({
+        token: '123',
+        password: '1234567',
+      }),
+    ).rejects.toBeInstanceOf(Error);
+  });
+
+  it('should not be able to reset password with incorrect user id.', async () => {
+    const token = await fakeUserTokensRepository.generate('123');
+
+    expect(
+      resetPasswordController.handle({
+        token,
+        password: '1234567',
+      }),
+    ).rejects.toBeInstanceOf(Error);
   });
 });

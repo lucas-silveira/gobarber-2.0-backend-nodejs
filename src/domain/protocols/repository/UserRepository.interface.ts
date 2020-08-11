@@ -6,4 +6,5 @@ export interface IUserRepository {
   findByEmail: (email: string) => Promise<IUserEntity | null>;
   create: (user: IUserEntity) => Promise<IUserEntity>;
   update: (user: IUserEntity) => Promise<IUserEntity>;
+  delete: (id: string) => Promise<void>;
 }

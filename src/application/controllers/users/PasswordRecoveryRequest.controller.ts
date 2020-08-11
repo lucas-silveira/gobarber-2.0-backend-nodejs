@@ -30,12 +30,12 @@ class PasswordRecoveryRequest implements IPasswordRecoveryRequestController {
       throw new ErrorExcepetion('error', 'User does not exists.');
     }
 
-    await this.userTokensRepository.generate(user.id);
+    const token = await this.userTokensRepository.generate(user.id);
 
     await this.emailService.sendMail({
       email,
       subject: 'Recuperação de senha',
-      message: 'Recuperação de senha',
+      message: `Recuperação de senha. ${token}`,
     });
   }
 }

@@ -4,7 +4,7 @@ import FakeStorageHandlerAdapter from '@utils/storageHandler/FakeStorageHandler.
 import CreateUserService from '@domain/services/Users/CreateUser.service';
 import UpdateAvatarController from '@application/controllers/users/UpdateAvatar.controller';
 
-describe('UpdateUserAvatar', () => {
+describe('UpdateUserAvatarController', () => {
   it('should be able to update user avatar', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const encryptor = new BcryptEncryptorAdapter();

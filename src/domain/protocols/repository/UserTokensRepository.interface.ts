@@ -1,7 +1,7 @@
 import IUserTokensVO from '@domain/valueObjects/UserTokens.vo';
 
 export interface IUserTokensRepository {
-  generate: (userId: string) => Promise<void>;
+  generate: (userId: string) => Promise<string>;
   findByToken: (
     token: string,
   ) => Promise<IUserTokensRepository.FindByTokenOutput | null>;

@@ -5,7 +5,7 @@ import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapt
 import CreateUserService from '@domain/services/Users/CreateUser.service';
 import PasswordRecoveryRequestController from './PasswordRecoveryRequest.controller';
 
-describe('PasswordChangeRequest', () => {
+describe('PasswordChangeRequestController', () => {
   it('should be able to recovery password using the email', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeUserTokensRepository = new FakeUserTokensRepository();

@@ -29,6 +29,10 @@ class TypeormUserRepository implements IUserRepository {
     await TypeormUserSchema.save(userSchema);
     return user;
   }
+
+  public async delete(id: string): Promise<void> {
+    TypeormUserSchema.delete(id);
+  }
 }
 
 export default TypeormUserRepository;
