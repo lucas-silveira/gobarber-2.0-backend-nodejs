@@ -2,7 +2,7 @@
 import faker from 'faker';
 import { cloneDeep } from 'lodash';
 import { IUserTokensRepository } from '@domain/protocols/repository/UserTokensRepository.interface';
-import IUserTokensVO from '@domain/valueObjects/UserTokens.vo';
+import IUserTokensVO from '@domain/valueobjects/UserTokensVO.interface';
 
 class FakeUserTokensRepository implements IUserTokensRepository {
   private userTokens: IUserTokensVO[];
@@ -17,22 +17,19 @@ class FakeUserTokensRepository implements IUserTokensRepository {
       id: faker.random.uuid(),
       token,
       user_id: userId,
+      created_at: new Date(),
     };
     this.userTokens.push(newUserToken);
     return Promise.resolve(token);
   }
 
-  public async findByUserId(
-    userId: string,
-  ): Promise<IUserTokensRepository.FindByUserIdOutput | null> {
+  public async findByUserId(userId: string): Promise<IUserTokensVO | null> {
     const userToken = this.userTokens.find(user => user.user_id === userId);
 
     return Promise.resolve(cloneDeep(userToken) || null);
   }
 
-  public async findByToken(
-    token: string,
-  ): Promise<IUserTokensRepository.FindByTokenOutput | null> {
+  public async findByToken(token: string): Promise<IUserTokensVO | null> {
     const userToken = this.userTokens.find(user => user.token === token);
 
     return Promise.resolve(cloneDeep(userToken) || null);

@@ -2,6 +2,7 @@ import { IUserRepository } from '@domain/protocols/repository/UserRepository.int
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IUserTokensRepository } from '@domain/protocols/repository/UserTokensRepository.interface';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
+import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import { IResetPasswordController } from './ResetPasswordController.interface';
 
 class ResetPassword implements IResetPasswordController {
@@ -11,14 +12,18 @@ class ResetPassword implements IResetPasswordController {
 
   private encryptor: IEncryptor;
 
+  private dateHandler: IDateHandler;
+
   constructor(
     userRepository: IUserRepository,
     userTokensRepository: IUserTokensRepository,
     encryptor: IEncryptor,
+    dateHandler: IDateHandler,
   ) {
     this.userRepository = userRepository;
     this.userTokensRepository = userTokensRepository;
     this.encryptor = encryptor;
+    this.dateHandler = dateHandler;
   }
 
   public async handle({
@@ -28,6 +33,12 @@ class ResetPassword implements IResetPasswordController {
     const userToken = await this.userTokensRepository.findByToken(token);
     if (!userToken) {
       throw new ErrorExcepetion('error', 'Token does not exists.');
+    }
+
+    if (
+      this.dateHandler.differenceInHours(Date.now(), userToken.created_at) > 2
+    ) {
+      throw new ErrorExcepetion('error', 'Token expired.');
     }
 
     const user = await this.userRepository.findById(userToken.user_id);

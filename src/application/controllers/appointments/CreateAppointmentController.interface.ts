@@ -9,7 +9,7 @@ export interface ICreateAppointmentController {
 export namespace ICreateAppointmentController {
   export type Input = {
     provider_id: string;
-    date: string;
+    date: string | Date;
   };
 
   export type Output = ICreateAppointmentService.Output;

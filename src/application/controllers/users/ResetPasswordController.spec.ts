@@ -1,59 +1,47 @@
 import FakeUserRepository from '@infra/repositories/fake/FakeUser.repository';
 import FakeUserTokensRepository from '@infra/repositories/fake/FakeUserTokens.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
+import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateUserService from '@domain/services/Users/CreateUser.service';
-import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandler.service';
-import PasswordRecoveryRequestController from './PasswordRecoveryRequest.controller';
 import ResetPasswordController from './ResetPassword.controller';
 
 let fakeUserRepository: FakeUserRepository;
 let fakeUserTokensRepository: FakeUserTokensRepository;
-let bcryptEncryptorAdapter: BcryptEncryptorAdapter;
+let bcryptEncryptor: BcryptEncryptorAdapter;
+let dateFnsDateHandler: DateFnsDateHandlerAdapter;
 let createUserService: CreateUserService;
-let emailService: FakeEmailHandlerService;
-let passwordRecoveryRequestController: PasswordRecoveryRequestController;
 let resetPasswordController: ResetPasswordController;
 
 describe('ResetPasswordController', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     fakeUserTokensRepository = new FakeUserTokensRepository();
-    bcryptEncryptorAdapter = new BcryptEncryptorAdapter();
+    bcryptEncryptor = new BcryptEncryptorAdapter();
+    dateFnsDateHandler = new DateFnsDateHandlerAdapter();
     createUserService = new CreateUserService(
       fakeUserRepository,
-      bcryptEncryptorAdapter,
-    );
-    emailService = new FakeEmailHandlerService();
-    passwordRecoveryRequestController = new PasswordRecoveryRequestController(
-      fakeUserRepository,
-      fakeUserTokensRepository,
-      emailService,
+      bcryptEncryptor,
     );
     resetPasswordController = new ResetPasswordController(
       fakeUserRepository,
       fakeUserTokensRepository,
-      bcryptEncryptorAdapter,
+      bcryptEncryptor,
+      dateFnsDateHandler,
     );
   });
 
   it('should be able to reset password', async () => {
     const userEmail = 'user@provider.com';
-
     const user = await createUserService.execute({
       name: 'User',
       email: userEmail,
       password: '123456',
     });
     const userCreated = await fakeUserRepository.findById(user.id);
-
-    await passwordRecoveryRequestController.handle({
-      email: userEmail,
-    });
-
-    const userToken = await fakeUserTokensRepository.findByUserId(user.id);
+    const token = await fakeUserTokensRepository.generate(user.id);
 
     await resetPasswordController.handle({
-      token: userToken?.token || '',
+      token,
       password: '1234567',
     });
 
@@ -75,6 +63,29 @@ describe('ResetPasswordController', () => {
     const token = await fakeUserTokensRepository.generate('123');
 
     expect(
+      resetPasswordController.handle({
+        token,
+        password: '1234567',
+      }),
+    ).rejects.toBeInstanceOf(Error);
+  });
+
+  it('should not be able to reset password if passed more than 2 hours.', async () => {
+    const userEmail = 'user@provider.com';
+    const user = await createUserService.execute({
+      name: 'User',
+      email: userEmail,
+      password: '123456',
+    });
+    const token = await fakeUserTokensRepository.generate(user.id);
+
+    jest.spyOn(Date, 'now').mockImplementationOnce(() => {
+      const customDate = new Date();
+
+      return customDate.setHours(customDate.getHours() + 3);
+    });
+
+    await expect(
       resetPasswordController.handle({
         token,
         password: '1234567',

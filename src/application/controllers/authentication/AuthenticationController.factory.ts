@@ -1,14 +1,14 @@
 import TypeormUserRepository from '@infra/repositories/typeorm/TypeormUser.repository';
-import JWTAuthenticate from '@utils/authentication/JWTAuthenticate.adapter';
-import BcryptEncryptor from '@utils/encryptor/BcryptEncryptor.adapter';
+import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapter';
+import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import CreateAuthenticationController from './CreateAuthentication.controller';
 import VerifyAuthenticationController from './VerifyAuthentication.controller';
 import IAuthenticationControllerFactory from './AuthenticationControllerFactory.interface';
 
 const authenticationControllerFactory = (): IAuthenticationControllerFactory => {
   const typeormUserRepository = new TypeormUserRepository();
-  const jwtAuthenticate = new JWTAuthenticate();
-  const bcryptEncryptor = new BcryptEncryptor();
+  const jwtAuthenticate = new JWTAuthenticateAdapter();
+  const bcryptEncryptor = new BcryptEncryptorAdapter();
   const createAuthenticationController = new CreateAuthenticationController(
     typeormUserRepository,
     jwtAuthenticate,

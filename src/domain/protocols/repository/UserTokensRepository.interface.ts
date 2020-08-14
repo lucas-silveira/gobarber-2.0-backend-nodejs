@@ -1,16 +1,7 @@
-import IUserTokensVO from '@domain/valueObjects/UserTokens.vo';
+import IUserTokensVO from '@domain/valueobjects/UserTokensVO.interface';
 
 export interface IUserTokensRepository {
   generate: (userId: string) => Promise<string>;
-  findByToken: (
-    token: string,
-  ) => Promise<IUserTokensRepository.FindByTokenOutput | null>;
-  findByUserId: (
-    userId: string,
-  ) => Promise<IUserTokensRepository.FindByUserIdOutput | null>;
-}
-
-export namespace IUserTokensRepository {
-  export type FindByTokenOutput = IUserTokensVO;
-  export type FindByUserIdOutput = IUserTokensVO;
+  findByToken: (token: string) => Promise<IUserTokensVO | null>;
+  findByUserId: (userId: string) => Promise<IUserTokensVO | null>;
 }
