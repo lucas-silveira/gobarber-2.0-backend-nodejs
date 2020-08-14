@@ -11,11 +11,17 @@ class User implements IUserEntity {
 
   public readonly password: string;
 
-  constructor(name: string, email: string, password: string) {
-    this.id = '';
+  constructor(
+    id: string,
+    name: string,
+    email: string,
+    avatar: string,
+    password: string,
+  ) {
+    this.id = id;
     this.name = name;
     this.email = email;
-    this.avatar = '';
+    this.avatar = avatar;
     this.password = password;
   }
 }

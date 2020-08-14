@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import authenticationControllerFactory from '@application/controllers/authentication/AuthenticationController.factory';
+import authenticationControllerFactory from '@application/controllers/Authentication/AuthenticationController.factory';
 
 const { verifyAuthentication } = authenticationControllerFactory();
 

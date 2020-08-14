@@ -7,8 +7,8 @@ class Appointment implements IAppointmentEntity {
 
   public readonly date: Date;
 
-  constructor(provider_id: string, date: Date) {
-    this.id = '';
+  constructor(id: string, provider_id: string, date: Date) {
+    this.id = id;
     this.provider_id = provider_id;
     this.date = date;
   }

@@ -1,14 +1,29 @@
 import { Router } from 'express';
 
 import upload from '@infra/configs/upload';
-import userControllerFactory from '@application/controllers/users/UserController.factory';
+import userControllerFactory from '@application/controllers/User/UserController.factory';
 import { authenticationMiddleware } from '../middlewares';
 
 const usersRouter = Router();
-const { createUser, updateAvatar } = userControllerFactory();
+const {
+  createUser,
+  updateAvatar,
+  passwordRecovery,
+  resetPassword,
+} = userControllerFactory();
 
 usersRouter.post('/', async (request, response) => {
   const user = await createUser.handle(request.body);
+  return response.json(user);
+});
+
+usersRouter.post('/recovery-password', async (request, response) => {
+  const user = await passwordRecovery.handle(request.body);
+  return response.json(user);
+});
+
+usersRouter.post('/reset-password', async (request, response) => {
+  const user = await resetPassword.handle(request.body);
   return response.json(user);
 });
 
