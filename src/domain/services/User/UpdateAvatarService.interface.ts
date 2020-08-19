@@ -1,6 +1,9 @@
-export interface IUpdateAvatarService {
-  execute: (data: IUpdateAvatarService.Input) => Promise<void>;
-}
+import IService from '../Service.interface';
+
+export type IUpdateAvatarService = IService<
+  IUpdateAvatarService.Input,
+  Promise<void>
+>;
 
 export namespace IUpdateAvatarService {
   export type Input = {

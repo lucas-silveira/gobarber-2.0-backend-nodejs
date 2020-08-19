@@ -1,10 +1,10 @@
 import IUserEntity from '@domain/entities/UserEntity.interface';
+import IService from '../Service.interface';
 
-export interface ICreateUserService {
-  execute: (
-    user: ICreateUserService.Input,
-  ) => Promise<ICreateUserService.Output>;
-}
+export type ICreateUserService = IService<
+  ICreateUserService.Input,
+  Promise<ICreateUserService.Output>
+>;
 
 export namespace ICreateUserService {
   export type Input = {
