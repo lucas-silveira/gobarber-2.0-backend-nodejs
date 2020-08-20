@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
 import { cloneDeep } from 'lodash';
-import { IUserTokensRepository } from '@domain/protocols/repository/UserTokenRepository.interface';
-import IUserTokensVO from '@domain/valueobjects/UserTokenVO.interface';
+import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
+import IRecoveryTokenVO from '@domain/valueobjects/RecoveryTokenVO.interface';
 
-class FakeUserTokensRepository implements IUserTokensRepository {
-  private userTokens: IUserTokensVO[];
+class FakeUserTokensRepository implements IRecoveryTokenRepository {
+  private userTokens: IRecoveryTokenVO[];
 
   constructor() {
     this.userTokens = [];
@@ -23,13 +23,13 @@ class FakeUserTokensRepository implements IUserTokensRepository {
     return Promise.resolve(token);
   }
 
-  public async findByUserId(userId: string): Promise<IUserTokensVO | null> {
+  public async findByUserId(userId: string): Promise<IRecoveryTokenVO | null> {
     const userToken = this.userTokens.find(user => user.user_id === userId);
 
     return Promise.resolve(cloneDeep(userToken) || null);
   }
 
-  public async findByToken(token: string): Promise<IUserTokensVO | null> {
+  public async findByToken(token: string): Promise<IRecoveryTokenVO | null> {
     const userToken = this.userTokens.find(user => user.token === token);
 
     return Promise.resolve(cloneDeep(userToken) || null);

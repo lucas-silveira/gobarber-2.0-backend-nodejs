@@ -1,6 +1,6 @@
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
-import { IUserTokensRepository } from '@domain/protocols/repository/UserTokenRepository.interface';
+import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import { IResetPasswordController } from './ResetPasswordController.interface';
@@ -8,7 +8,7 @@ import { IResetPasswordController } from './ResetPasswordController.interface';
 class ResetPassword implements IResetPasswordController {
   private userRepository: IUserRepository;
 
-  private userTokensRepository: IUserTokensRepository;
+  private userTokensRepository: IRecoveryTokenRepository;
 
   private encryptor: IEncryptor;
 
@@ -16,7 +16,7 @@ class ResetPassword implements IResetPasswordController {
 
   constructor(
     userRepository: IUserRepository,
-    userTokensRepository: IUserTokensRepository,
+    userTokensRepository: IRecoveryTokenRepository,
     encryptor: IEncryptor,
     dateHandler: IDateHandler,
   ) {

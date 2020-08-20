@@ -1,12 +1,12 @@
 import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
-import FakeUserTokensRepository from '@infra/repositories/UserToken/FakeUserToken.repository';
+import FakeRecoveryTokenRepository from '@infra/repositories/UserToken/FakeRecoveryToken.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
 import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateUserService from '@domain/services/User/CreateUser.service';
 import ResetPasswordController from './ResetPassword.controller';
 
 let fakeUserRepository: FakeUserRepository;
-let fakeUserTokensRepository: FakeUserTokensRepository;
+let fakeRecoveryTokenRepository: FakeRecoveryTokenRepository;
 let bcryptEncryptor: BcryptEncryptorAdapter;
 let dateFnsDateHandler: DateFnsDateHandlerAdapter;
 let createUserService: CreateUserService;
@@ -15,7 +15,7 @@ let resetPasswordController: ResetPasswordController;
 describe('ResetPasswordController', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
-    fakeUserTokensRepository = new FakeUserTokensRepository();
+    fakeRecoveryTokenRepository = new FakeRecoveryTokenRepository();
     bcryptEncryptor = new BcryptEncryptorAdapter();
     dateFnsDateHandler = new DateFnsDateHandlerAdapter();
     createUserService = new CreateUserService(
@@ -24,7 +24,7 @@ describe('ResetPasswordController', () => {
     );
     resetPasswordController = new ResetPasswordController(
       fakeUserRepository,
-      fakeUserTokensRepository,
+      fakeRecoveryTokenRepository,
       bcryptEncryptor,
       dateFnsDateHandler,
     );
@@ -38,7 +38,7 @@ describe('ResetPasswordController', () => {
       password: '123456',
     });
     const userCreated = await fakeUserRepository.findById(user.id);
-    const token = await fakeUserTokensRepository.generate(user.id);
+    const token = await fakeRecoveryTokenRepository.generate(user.id);
 
     await resetPasswordController.handle({
       token,
@@ -60,7 +60,7 @@ describe('ResetPasswordController', () => {
   });
 
   it('should not be able to reset password with incorrect user id.', async () => {
-    const token = await fakeUserTokensRepository.generate('123');
+    const token = await fakeRecoveryTokenRepository.generate('123');
 
     expect(
       resetPasswordController.handle({
@@ -77,7 +77,7 @@ describe('ResetPasswordController', () => {
       email: userEmail,
       password: '123456',
     });
-    const token = await fakeUserTokensRepository.generate(user.id);
+    const token = await fakeRecoveryTokenRepository.generate(user.id);
 
     jest.spyOn(Date, 'now').mockImplementationOnce(() => {
       const customDate = new Date();

@@ -1,19 +1,19 @@
 import { IEmailService } from '@domain/protocols/service/EmailService.interface';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
-import { IUserTokensRepository } from '@domain/protocols/repository/UserTokenRepository.interface';
+import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
 import { IPasswordRecoveryController } from './PasswordRecoveryController.interface';
 
 class PasswordRecovery implements IPasswordRecoveryController {
   private userRepository: IUserRepository;
 
-  private userTokensRepository: IUserTokensRepository;
+  private userTokensRepository: IRecoveryTokenRepository;
 
   private emailService: IEmailService;
 
   constructor(
     userRepository: IUserRepository,
-    userTokensRepository: IUserTokensRepository,
+    userTokensRepository: IRecoveryTokenRepository,
     emailService: IEmailService,
   ) {
     this.userRepository = userRepository;
