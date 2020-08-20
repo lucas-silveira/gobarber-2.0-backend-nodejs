@@ -7,7 +7,7 @@ import DiskStorageHandlerAdapter from '@infra/utils/storageHandler/DiskStorageHa
 import CreateUserController from './CreateUser.controller';
 import IUserControllerFactory from './UserControllerFactory.interface';
 import UpdateAvatarController from './UpdateAvatar.controller';
-import PasswordRecoveryController from './PasswordRecovery.controller';
+import RecoveryPasswordController from './RecoveryPassword.controller';
 import ResetPasswordController from './ResetPassword.controller';
 
 const userControllerFactory = (): IUserControllerFactory => {
@@ -27,7 +27,7 @@ const userControllerFactory = (): IUserControllerFactory => {
   const updateAvatarController = new UpdateAvatarController(
     updateAvatarService,
   );
-  const passwordRecoveryController = new PasswordRecoveryController(
+  const recoveryPasswordController = new RecoveryPasswordController(
     typeormUserRepository,
   );
   const resetPasswordController = new ResetPasswordController(
@@ -39,7 +39,7 @@ const userControllerFactory = (): IUserControllerFactory => {
   return {
     createUser: createUserController,
     updateAvatar: updateAvatarController,
-    passwordRecovery: passwordRecoveryController,
+    recoveryPassword: recoveryPasswordController,
     resetPassword: resetPasswordController,
   };
 };

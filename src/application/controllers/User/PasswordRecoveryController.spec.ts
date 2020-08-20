@@ -3,7 +3,7 @@ import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
 import FakeRecoveryTokenRepository from '@infra/repositories/UserToken/FakeRecoveryToken.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
 import CreateUserService from '@domain/services/User/CreateUser.service';
-import PasswordRecoveryController from './PasswordRecovery.controller';
+import RecoveryPasswordController from './RecoveryPassword.controller';
 
 describe('PasswordChangeController', () => {
   it('should be able to recovery password using the email', async () => {
@@ -15,7 +15,7 @@ describe('PasswordChangeController', () => {
       bcryptEncryptorAdapter,
     );
     const emailService = new FakeEmailHandlerService();
-    const passwordRecoveryController = new PasswordRecoveryController(
+    const recoveryPasswordController = new RecoveryPasswordController(
       fakeUserRepository,
       fakeRecoveryTokenRepository,
       emailService,
@@ -34,7 +34,7 @@ describe('PasswordChangeController', () => {
       password: '123456',
     });
 
-    await passwordRecoveryController.handle({
+    await recoveryPasswordController.handle({
       email: userEmail,
     });
 
@@ -46,14 +46,14 @@ describe('PasswordChangeController', () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeRecoveryTokenRepository = new FakeRecoveryTokenRepository();
     const emailService = new FakeEmailHandlerService();
-    const passwordRecoveryController = new PasswordRecoveryController(
+    const recoveryPasswordController = new RecoveryPasswordController(
       fakeUserRepository,
       fakeRecoveryTokenRepository,
       emailService,
     );
 
     expect(
-      passwordRecoveryController.handle({
+      recoveryPasswordController.handle({
         email: 'user@provider.com',
       }),
     ).rejects.toBeInstanceOf(Error);
