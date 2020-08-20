@@ -1,6 +1,9 @@
-export interface ICreateUserController {
-  handle: (data: ICreateUserController.Input) => Promise<void>;
-}
+import IController from '../Controller.interface';
+
+export type ICreateUserController = IController<
+  ICreateUserController.Input,
+  Promise<void>
+>;
 
 export namespace ICreateUserController {
   export type Input = {

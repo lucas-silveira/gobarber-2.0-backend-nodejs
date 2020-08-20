@@ -1,6 +1,9 @@
-export interface IResetPasswordController {
-  handle: (dto: IResetPasswordController.Input) => Promise<void>;
-}
+import IController from '../Controller.interface';
+
+export type IResetPasswordController = IController<
+  IResetPasswordController.Input,
+  Promise<void>
+>;
 
 export namespace IResetPasswordController {
   export type Input = {

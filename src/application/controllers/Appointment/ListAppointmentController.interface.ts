@@ -1,6 +1,9 @@
-export interface IListAppointmentController {
-  handle: () => Promise<IListAppointmentController.Output[]>;
-}
+import IController from '../Controller.interface';
+
+export type IListAppointmentController = IController<
+  any,
+  Promise<IListAppointmentController.Output[]>
+>;
 
 export namespace IListAppointmentController {
   export type Output = {

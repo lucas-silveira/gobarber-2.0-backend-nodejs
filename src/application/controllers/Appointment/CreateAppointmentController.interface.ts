@@ -1,6 +1,9 @@
-export interface ICreateAppointmentController {
-  handle: (data: ICreateAppointmentController.Input) => Promise<void>;
-}
+import IController from '../Controller.interface';
+
+export type ICreateAppointmentController = IController<
+  ICreateAppointmentController.Input,
+  Promise<void>
+>;
 
 export namespace ICreateAppointmentController {
   export type Input = {

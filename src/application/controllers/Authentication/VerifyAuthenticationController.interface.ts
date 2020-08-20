@@ -1,6 +1,9 @@
-export interface IVerifyAuthenticationController {
-  handle: (token: string) => IVerifyAuthenticationController.Output;
-}
+import IController from '../Controller.interface';
+
+export type IVerifyAuthenticationController = IController<
+  string,
+  IVerifyAuthenticationController.Output
+>;
 
 export namespace IVerifyAuthenticationController {
   export type Output = {

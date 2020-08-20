@@ -1,8 +1,9 @@
-export interface ICreateAuthenticationController {
-  handle: (
-    data: ICreateAuthenticationController.Input,
-  ) => Promise<ICreateAuthenticationController.Output>;
-}
+import IController from '../Controller.interface';
+
+export type ICreateAuthenticationController = IController<
+  ICreateAuthenticationController.Input,
+  Promise<ICreateAuthenticationController.Output>
+>;
 
 export namespace ICreateAuthenticationController {
   export type Input = {
