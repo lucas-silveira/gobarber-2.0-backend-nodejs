@@ -2,11 +2,10 @@ import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapter';
 import CreateUserService from '@domain/services/User/CreateUser.service';
-import CreateAuthenticationService from '@domain/services/Authentication/CreateAuthentication.service';
-import VerifyAuthenticationService from '@domain/services/Authentication/VerifyAuthentication.service';
-import VerifyAuthenticationController from './VerifyAuthentication.controller';
+import CreateAuthenticationService from './CreateAuthentication.service';
+import VerifyAuthenticationService from './VerifyAuthentication.service';
 
-describe('VerifyAuthenticationController', () => {
+describe('VerifyAuthenticationService', () => {
   it('should be able to verify token and return user id', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const jwtAuthenticate = new JWTAuthenticateAdapter();
@@ -15,7 +14,7 @@ describe('VerifyAuthenticationController', () => {
       fakeUserRepository,
       bcryptEncryptor,
     );
-    const createAuthenticationService = new CreateAuthenticationService(
+    const createAuthentication = new CreateAuthenticationService(
       fakeUserRepository,
       jwtAuthenticate,
       bcryptEncryptor,
@@ -24,28 +23,34 @@ describe('VerifyAuthenticationController', () => {
       jwtAuthenticate,
     );
 
-    const verifyAuthenticationController = new VerifyAuthenticationController(
-      verifyAuthenticationService,
-    );
-
+    const userName = 'User';
     const userEmail = 'user@provider.com';
     const userPassword = '123456';
 
-    await createUserService.execute({
-      name: 'User',
+    const user = await createUserService.execute({
+      name: userName,
       email: userEmail,
       password: userPassword,
     });
 
-    const { token } = await createAuthenticationService.execute({
+    const authenticate = await createAuthentication.execute({
       email: userEmail,
       password: userPassword,
     });
 
-    const authResponse = verifyAuthenticationController.handle(
-      `Bearer ${token}`,
+    const verifiedToken = verifyAuthenticationService.execute(
+      `Bearer ${authenticate.token}`,
     );
 
-    expect(authResponse).toHaveProperty('userId');
+    expect(verifiedToken).toBe(user.id);
+  });
+
+  it('should not be able to verify token with invalid token', async () => {
+    const jwtAuthenticate = new JWTAuthenticateAdapter();
+    const verifyAuthentication = new VerifyAuthenticationService(
+      jwtAuthenticate,
+    );
+
+    expect(() => verifyAuthentication.execute(`Bearer 123`)).toThrow(Error);
   });
 });

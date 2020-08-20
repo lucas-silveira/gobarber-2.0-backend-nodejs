@@ -1,32 +1,18 @@
-import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
-import authConfig from '@infra/configs/auth';
-import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
+import { IVerifyAuthenticationService } from '@domain/services/Authentication/VerifyAuthenticationService.interface';
 import { IVerifyAuthenticationController } from './VerifyAuthenticationController.interface';
 
 class VerifyAuthenticationController
   implements IVerifyAuthenticationController {
-  private readonly authenticate: IAuthenticateUtil;
+  private verifyAuthenticationService: IVerifyAuthenticationService;
 
-  constructor(authenticate: IAuthenticateUtil) {
-    this.authenticate = authenticate;
+  constructor(verifyAuthenticationService: IVerifyAuthenticationService) {
+    this.verifyAuthenticationService = verifyAuthenticationService;
   }
 
-  public handle(authHeader = ''): IVerifyAuthenticationController.Output {
-    const [, token] = authHeader.split(' ');
-    const { secretKey } = authConfig.jwt;
+  public handle(token = ''): IVerifyAuthenticationController.Output {
+    const userId = this.verifyAuthenticationService.execute(token);
 
-    const authIsValid = this.authenticate.verifyAndReturnUserID(
-      token,
-      secretKey,
-    );
-
-    if (!authIsValid)
-      throw new ErrorExcepetion(
-        'unauthorized',
-        'You must be authenticated to access this feature.',
-      );
-
-    return authIsValid;
+    return { userId };
   }
 }
 

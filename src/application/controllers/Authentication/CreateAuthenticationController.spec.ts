@@ -1,7 +1,8 @@
 import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
-import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapter';
-import CreateUser from '@domain/services/User/CreateUser.service';
+import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
+import CreateAuthenticationService from '@domain/services/Authentication/CreateAuthentication.service';
+import CreateUserService from '@domain/services/User/CreateUser.service';
 import CreateAuthenticationController from './CreateAuthentication.controller';
 
 describe('CreateAuthenticationController', () => {
@@ -9,74 +10,34 @@ describe('CreateAuthenticationController', () => {
     const fakeUserRepository = new FakeUserRepository();
     const jwtAuthenticate = new JWTAuthenticateAdapter();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
-    const createAuthenticationController = new CreateAuthenticationController(
+    const createUserService = new CreateUserService(
+      fakeUserRepository,
+      bcryptEncryptor,
+    );
+    const createAuthenticationService = new CreateAuthenticationService(
       fakeUserRepository,
       jwtAuthenticate,
       bcryptEncryptor,
     );
+    const createAuthenticationController = new CreateAuthenticationController(
+      createAuthenticationService,
+    );
 
-    const userName = 'User';
     const userEmail = 'user@provider.com';
     const userPassword = '123456';
 
-    const user = await createUser.execute({
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-    });
-
-    const authenticate = await createAuthenticationController.handle({
-      email: userEmail,
-      password: userPassword,
-    });
-
-    expect(authenticate).toHaveProperty('token');
-    expect(authenticate.user).toEqual(user);
-  });
-
-  it('should not be able to authenticate with no existing user', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticateAdapter();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createAuthenticationController = new CreateAuthenticationController(
-      fakeUserRepository,
-      jwtAuthenticate,
-      bcryptEncryptor,
-    );
-
-    expect(
-      createAuthenticationController.handle({
-        email: 'user@provider.com',
-        password: '123456',
-      }),
-    ).rejects.toBeInstanceOf(Error);
-  });
-
-  it('should not be able to authenticate with wrong password', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticateAdapter();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createUser = new CreateUser(fakeUserRepository, bcryptEncryptor);
-    const createAuthenticationController = new CreateAuthenticationController(
-      fakeUserRepository,
-      jwtAuthenticate,
-      bcryptEncryptor,
-    );
-
-    const userEmail = 'user@provider.com';
-
-    await createUser.execute({
+    const user = await createUserService.execute({
       name: 'User',
       email: userEmail,
-      password: '123456',
+      password: userPassword,
     });
 
-    await expect(
-      createAuthenticationController.handle({
-        email: userEmail,
-        password: '123',
-      }),
-    ).rejects.toBeInstanceOf(Error);
+    const authResponse = await createAuthenticationController.handle({
+      email: userEmail,
+      password: userPassword,
+    });
+
+    expect(authResponse).toHaveProperty('token');
+    expect(authResponse.user).toEqual(user);
   });
 });
