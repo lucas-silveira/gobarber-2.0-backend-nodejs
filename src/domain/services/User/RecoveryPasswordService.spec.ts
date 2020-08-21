@@ -3,9 +3,9 @@ import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
 import FakeRecoveryTokenRepository from '@infra/repositories/UserToken/FakeRecoveryToken.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
 import CreateUserService from '@domain/services/User/CreateUser.service';
-import RecoveryPasswordController from './RecoveryPassword.controller';
+import RecoveryPasswordService from './RecoveryPassword.service';
 
-describe('PasswordChangeController', () => {
+describe('PasswordChangeService', () => {
   it('should be able to recovery password using the email', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeRecoveryTokenRepository = new FakeRecoveryTokenRepository();
@@ -15,7 +15,7 @@ describe('PasswordChangeController', () => {
       bcryptEncryptorAdapter,
     );
     const emailService = new FakeEmailHandlerService();
-    const recoveryPasswordController = new RecoveryPasswordController(
+    const recoveryPasswordService = new RecoveryPasswordService(
       fakeUserRepository,
       fakeRecoveryTokenRepository,
       emailService,
@@ -34,7 +34,7 @@ describe('PasswordChangeController', () => {
       password: '123456',
     });
 
-    await recoveryPasswordController.handle({
+    await recoveryPasswordService.execute({
       email: userEmail,
     });
 
@@ -46,14 +46,14 @@ describe('PasswordChangeController', () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeRecoveryTokenRepository = new FakeRecoveryTokenRepository();
     const emailService = new FakeEmailHandlerService();
-    const recoveryPasswordController = new RecoveryPasswordController(
+    const recoveryPasswordService = new RecoveryPasswordService(
       fakeUserRepository,
       fakeRecoveryTokenRepository,
       emailService,
     );
 
     expect(
-      recoveryPasswordController.handle({
+      recoveryPasswordService.execute({
         email: 'user@provider.com',
       }),
     ).rejects.toBeInstanceOf(Error);

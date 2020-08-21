@@ -1,55 +1,19 @@
-import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
-import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
-import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
-import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
-import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
+import { IResetPasswordService } from '@domain/services/User/ResetPasswordService.interface';
 import { IResetPasswordController } from './ResetPasswordController.interface';
 
-class ResetPassword implements IResetPasswordController {
-  private userRepository: IUserRepository;
+class ResetPasswordController implements IResetPasswordController {
+  private resetPasswordService: IResetPasswordService;
 
-  private userTokensRepository: IRecoveryTokenRepository;
-
-  private encryptor: IEncryptor;
-
-  private dateHandler: IDateHandler;
-
-  constructor(
-    userRepository: IUserRepository,
-    userTokensRepository: IRecoveryTokenRepository,
-    encryptor: IEncryptor,
-    dateHandler: IDateHandler,
-  ) {
-    this.userRepository = userRepository;
-    this.userTokensRepository = userTokensRepository;
-    this.encryptor = encryptor;
-    this.dateHandler = dateHandler;
+  constructor(resetPasswordService: IResetPasswordService) {
+    this.resetPasswordService = resetPasswordService;
   }
 
   public async handle({
     token,
     password,
   }: IResetPasswordController.Input): Promise<void> {
-    const userToken = await this.userTokensRepository.findByToken(token);
-    if (!userToken) {
-      throw new ErrorExcepetion('error', 'Token does not exists.');
-    }
-
-    if (
-      this.dateHandler.differenceInHours(Date.now(), userToken.created_at) > 2
-    ) {
-      throw new ErrorExcepetion('error', 'Token expired.');
-    }
-
-    const user = await this.userRepository.findById(userToken.user_id);
-    if (!user) {
-      throw new ErrorExcepetion('error', 'User does not exists.');
-    }
-
-    const hashedPassword = await this.encryptor.makeHash(password, 8);
-    user.password = hashedPassword;
-    await this.userRepository.update(user);
+    await this.resetPasswordService.execute({ token, password });
   }
 }
 
-export default ResetPassword;
+export default ResetPasswordController;

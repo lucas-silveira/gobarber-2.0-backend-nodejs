@@ -1,43 +1,18 @@
-import { IEmailService } from '@domain/protocols/service/EmailService.interface';
-import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
-import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
-import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
-import { IPasswordRecoveryController } from './PasswordRecoveryController.interface';
+import { IRecoveryPasswordService } from '@domain/services/User/RecoveryPasswordService.interface';
+import { IRecoveryPasswordController } from './RecoveryPasswordController.interface';
 
-class PasswordRecovery implements IPasswordRecoveryController {
-  private userRepository: IUserRepository;
+class PasswordRecoveryController implements IRecoveryPasswordController {
+  private recoveryPasswordService: IRecoveryPasswordService;
 
-  private userTokensRepository: IRecoveryTokenRepository;
-
-  private emailService: IEmailService;
-
-  constructor(
-    userRepository: IUserRepository,
-    userTokensRepository: IRecoveryTokenRepository,
-    emailService: IEmailService,
-  ) {
-    this.userRepository = userRepository;
-    this.userTokensRepository = userTokensRepository;
-    this.emailService = emailService;
+  constructor(recoveryPasswordService: IRecoveryPasswordService) {
+    this.recoveryPasswordService = recoveryPasswordService;
   }
 
   public async handle({
     email,
-  }: IPasswordRecoveryController.Input): Promise<void> {
-    const user = await this.userRepository.findByEmail(email);
-
-    if (!user) {
-      throw new ErrorExcepetion('error', 'User does not exists.');
-    }
-
-    const token = await this.userTokensRepository.generate(user.id);
-
-    await this.emailService.sendMail({
-      email,
-      subject: 'Recuperação de senha',
-      message: `Recuperação de senha. ${token}`,
-    });
+  }: IRecoveryPasswordController.Input): Promise<void> {
+    await this.recoveryPasswordService.execute({ email });
   }
 }
 
-export default PasswordRecovery;
+export default PasswordRecoveryController;
