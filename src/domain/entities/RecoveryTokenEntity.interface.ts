@@ -1,4 +1,4 @@
-export default interface IRecoveryTokenVO {
+export default interface IRecoveryTokenEntity {
   id: string;
   token: string;
   user_id: string;

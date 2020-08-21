@@ -1,14 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
-import { cloneDeep } from 'lodash';
 import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
-import IRecoveryTokenVO from '@domain/valueobjects/RecoveryTokenVO.interface';
+import RecoveryTokenEntity from '@domain/entities/RecoveryToken.entity';
+import IRecoveryTokenEntity from '@domain/entities/RecoveryTokenEntity.interface';
 
-class FakeUserTokensRepository implements IRecoveryTokenRepository {
-  private userTokens: IRecoveryTokenVO[];
+class FakeRecoveryTokenRepository implements IRecoveryTokenRepository {
+  private recoveryToken: IRecoveryTokenEntity[];
 
   constructor() {
-    this.userTokens = [];
+    this.recoveryToken = [];
   }
 
   public async generate(userId: string): Promise<string> {
@@ -19,21 +19,41 @@ class FakeUserTokensRepository implements IRecoveryTokenRepository {
       user_id: userId,
       created_at: new Date(),
     };
-    this.userTokens.push(newUserToken);
+    this.recoveryToken.push(newUserToken);
     return Promise.resolve(token);
   }
 
-  public async findByUserId(userId: string): Promise<IRecoveryTokenVO | null> {
-    const userToken = this.userTokens.find(user => user.user_id === userId);
+  public async findByUserId(
+    userId: string,
+  ): Promise<IRecoveryTokenEntity | null> {
+    const recoveryToken = this.recoveryToken.find(
+      user => user.user_id === userId,
+    );
 
-    return Promise.resolve(cloneDeep(userToken) || null);
+    if (!recoveryToken) return null;
+
+    return new RecoveryTokenEntity(
+      recoveryToken.id,
+      recoveryToken.token,
+      recoveryToken.user_id,
+      recoveryToken.created_at,
+    );
   }
 
-  public async findByToken(token: string): Promise<IRecoveryTokenVO | null> {
-    const userToken = this.userTokens.find(user => user.token === token);
+  public async findByToken(
+    token: string,
+  ): Promise<IRecoveryTokenEntity | null> {
+    const recoveryToken = this.recoveryToken.find(user => user.token === token);
 
-    return Promise.resolve(cloneDeep(userToken) || null);
+    if (!recoveryToken) return null;
+
+    return new RecoveryTokenEntity(
+      recoveryToken.id,
+      recoveryToken.token,
+      recoveryToken.user_id,
+      recoveryToken.created_at,
+    );
   }
 }
 
-export default FakeUserTokensRepository;
+export default FakeRecoveryTokenRepository;

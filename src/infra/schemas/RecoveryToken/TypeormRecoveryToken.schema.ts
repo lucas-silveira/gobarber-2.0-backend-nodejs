@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('user_tokens')
-class UserTokensSchema extends BaseEntity {
+class RecoveryTokenSchema extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -27,4 +27,4 @@ class UserTokensSchema extends BaseEntity {
   updated_at: Date;
 }
 
-export default UserTokensSchema;
+export default RecoveryTokenSchema;
