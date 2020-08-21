@@ -16,19 +16,35 @@ class FakeUserRepository implements IUserRepository {
   }
 
   public async findById(id: string): Promise<IUserEntity | null> {
-    const user = this.users.find(usr => usr.id === id);
+    const userDB = this.users.find(usr => usr.id === id);
 
-    if (!user) return null;
+    if (!userDB) return null;
 
-    return new User(user.id, user.name, user.email, user.avatar, user.password);
+    const user = new User();
+
+    user.id = userDB.id;
+    user.name = userDB.name;
+    user.email = userDB.email;
+    user.avatar = userDB.avatar;
+    user.password = userDB.password;
+
+    return user;
   }
 
   public async findByEmail(email: string): Promise<IUserEntity | null> {
-    const user = this.users.find(usr => usr.email === email);
+    const userDB = this.users.find(usr => usr.email === email);
 
-    if (!user) return null;
+    if (!userDB) return null;
 
-    return new User(user.id, user.name, user.email, user.avatar, user.password);
+    const user = new User();
+
+    user.id = userDB.id;
+    user.name = userDB.name;
+    user.email = userDB.email;
+    user.avatar = userDB.avatar;
+    user.password = userDB.password;
+
+    return user;
   }
 
   public async create({
@@ -43,14 +59,18 @@ class FakeUserRepository implements IUserRepository {
       avatar: '',
       id: faker.random.uuid(),
     };
+
     this.users.push(newUser);
-    return new User(
-      newUser.id,
-      newUser.name,
-      newUser.email,
-      newUser.avatar,
-      newUser.password,
-    );
+
+    const user = new User();
+
+    user.id = newUser.id;
+    user.name = newUser.name;
+    user.email = newUser.email;
+    user.avatar = newUser.avatar;
+    user.password = newUser.password;
+
+    return user;
   }
 
   public async update(user: IUserEntity): Promise<IUserEntity> {

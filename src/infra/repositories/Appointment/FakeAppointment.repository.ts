@@ -21,31 +21,36 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
   }
 
   public async findByDate(date: Date): Promise<IAppointmentEntity | null> {
-    const appointment = this.appointments.find(appmnt =>
+    const appointmentDB = this.appointments.find(appmnt =>
       this.dateHandler.isEqual(appmnt.date, date),
     );
 
-    if (!appointment) return null;
+    if (!appointmentDB) return null;
 
-    return new Appointment(
-      appointment.id,
-      appointment.provider_id,
-      appointment.date,
-    );
+    const appointment = new Appointment();
+
+    appointment.id = appointmentDB.id;
+    appointment.provider_id = appointmentDB.provider_id;
+    appointment.date = appointmentDB.date;
+
+    return appointment;
   }
 
   public async create({
     provider_id,
     date,
   }: IAppointmentRepository.createInput): Promise<IAppointmentEntity> {
-    const appointment = { provider_id, date, id: faker.random.uuid() };
-    this.appointments.push(appointment);
+    const newAppointment = { provider_id, date, id: faker.random.uuid() };
 
-    return new Appointment(
-      appointment.id,
-      appointment.provider_id,
-      appointment.date,
-    );
+    this.appointments.push(newAppointment);
+
+    const appointment = new Appointment();
+
+    appointment.id = newAppointment.id;
+    appointment.provider_id = newAppointment.provider_id;
+    appointment.date = newAppointment.date;
+
+    return appointment;
   }
 }
 

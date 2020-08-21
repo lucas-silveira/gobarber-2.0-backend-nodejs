@@ -9,34 +9,38 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
   }
 
   public async findByDate(date: Date): Promise<IAppointmentEntity | null> {
-    const appointment = await TypeormAppointmentSchema.findOne({
+    const appointmentDB = await TypeormAppointmentSchema.findOne({
       where: { date },
     });
 
-    if (!appointment) return null;
+    if (!appointmentDB) return null;
 
-    return new Appointment(
-      appointment.id,
-      appointment.provider_id,
-      appointment.date,
-    );
+    const appointment = new Appointment();
+
+    appointment.id = appointmentDB.id;
+    appointment.provider_id = appointmentDB.provider_id;
+    appointment.date = appointmentDB.date;
+
+    return appointment;
   }
 
   public async create({
     provider_id,
     date,
   }: IAppointmentRepository.createInput): Promise<IAppointmentEntity> {
-    const appointment = TypeormAppointmentSchema.create({
+    const newAppointment = TypeormAppointmentSchema.create({
       provider_id,
       date,
     });
-    await TypeormAppointmentSchema.save(appointment);
+    await TypeormAppointmentSchema.save(newAppointment);
 
-    return new Appointment(
-      appointment.id,
-      appointment.provider_id,
-      appointment.date,
-    );
+    const appointment = new Appointment();
+
+    appointment.id = newAppointment.id;
+    appointment.provider_id = newAppointment.provider_id;
+    appointment.date = newAppointment.date;
+
+    return appointment;
   }
 }
 

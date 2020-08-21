@@ -1,17 +1,11 @@
 import IAppointmentEntity from './AppointmentEntity.interface';
 
 class Appointment implements IAppointmentEntity {
-  public readonly id: string;
+  public id: string;
 
-  public readonly provider_id: string;
+  public provider_id: string;
 
-  public readonly date: Date;
-
-  constructor(id: string, provider_id: string, date: Date) {
-    this.id = id;
-    this.provider_id = provider_id;
-    this.date = date;
-  }
+  public date: Date;
 }
 
 export default Appointment;

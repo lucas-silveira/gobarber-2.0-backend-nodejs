@@ -1,29 +1,15 @@
 import IUserEntity from './UserEntity.interface';
 
 class User implements IUserEntity {
-  public readonly id: string;
+  public id: string;
 
-  public readonly name: string;
+  public name: string;
 
-  public readonly email: string;
+  public email: string;
 
-  public readonly avatar: string;
+  public avatar: string;
 
-  public readonly password: string;
-
-  constructor(
-    id: string,
-    name: string,
-    email: string,
-    avatar: string,
-    password: string,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.avatar = avatar;
-    this.password = password;
-  }
+  public password: string;
 }
 
 export default User;

@@ -9,19 +9,35 @@ class TypeormUserRepository implements IUserRepository {
   }
 
   public async findById(id: string): Promise<IUserEntity | null> {
-    const user = await TypeormUserSchema.findOne({ where: { id } });
+    const userDB = await TypeormUserSchema.findOne({ where: { id } });
 
-    if (!user) return null;
+    if (!userDB) return null;
 
-    return new User(user.id, user.name, user.email, user.avatar, user.password);
+    const user = new User();
+
+    user.id = userDB.id;
+    user.name = userDB.name;
+    user.email = userDB.email;
+    user.avatar = userDB.avatar;
+    user.password = userDB.password;
+
+    return user;
   }
 
   public async findByEmail(email: string): Promise<IUserEntity | null> {
-    const user = await TypeormUserSchema.findOne({ where: { email } });
+    const userDB = await TypeormUserSchema.findOne({ where: { email } });
 
-    if (!user) return null;
+    if (!userDB) return null;
 
-    return new User(user.id, user.name, user.email, user.avatar, user.password);
+    const user = new User();
+
+    user.id = userDB.id;
+    user.name = userDB.name;
+    user.email = userDB.email;
+    user.avatar = userDB.avatar;
+    user.password = userDB.password;
+
+    return user;
   }
 
   public async create({
@@ -29,14 +45,23 @@ class TypeormUserRepository implements IUserRepository {
     email,
     password,
   }: IUserRepository.createInput): Promise<IUserEntity> {
-    const user = TypeormUserSchema.create({
+    const userDB = TypeormUserSchema.create({
       name,
       email,
       password,
     });
-    await TypeormUserSchema.save(user);
 
-    return new User(user.id, user.name, user.email, user.avatar, user.password);
+    await TypeormUserSchema.save(userDB);
+
+    const user = new User();
+
+    user.id = userDB.id;
+    user.name = userDB.name;
+    user.email = userDB.email;
+    user.avatar = userDB.avatar;
+    user.password = userDB.password;
+
+    return user;
   }
 
   public async update(user: IUserEntity): Promise<IUserEntity> {
