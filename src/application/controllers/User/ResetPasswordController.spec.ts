@@ -1,7 +1,6 @@
 import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
-import FakeRecoveryTokenRepository from '@infra/repositories/UserToken/FakeRecoveryToken.repository';
+import FakeRecoveryTokenRepository from '@infra/repositories/RecoveryToken/FakeRecoveryToken.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
-import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import CreateUserService from '@domain/services/User/CreateUser.service';
 import ResetPasswordService from '@domain/services/User/ResetPassword.service';
 import ResetPasswordController from './ResetPassword.controller';
@@ -11,7 +10,6 @@ describe('ResetPasswordController', () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeRecoveryTokenRepository = new FakeRecoveryTokenRepository();
     const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const dateFnsDateHandler = new DateFnsDateHandlerAdapter();
     const createUserService = new CreateUserService(
       fakeUserRepository,
       bcryptEncryptor,
@@ -20,7 +18,6 @@ describe('ResetPasswordController', () => {
       fakeUserRepository,
       fakeRecoveryTokenRepository,
       bcryptEncryptor,
-      dateFnsDateHandler,
     );
     const resetPasswordController = new ResetPasswordController(
       resetPasswordService,

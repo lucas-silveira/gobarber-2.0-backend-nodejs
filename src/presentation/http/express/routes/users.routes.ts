@@ -8,7 +8,7 @@ const usersRouter = Router();
 const {
   createUser,
   updateAvatar,
-  passwordRecovery,
+  recoveryPassword,
   resetPassword,
 } = userControllerFactory();
 
@@ -18,7 +18,7 @@ usersRouter.post('/', async (request, response) => {
 });
 
 usersRouter.post('/recovery-password', async (request, response) => {
-  const user = await passwordRecovery.handle(request.body);
+  const user = await recoveryPassword.handle(request.body);
   return response.json(user);
 });
 

@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
+import { container } from 'tsyringe';
 import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
 import RecoveryTokenEntity from '@domain/entities/RecoveryToken.entity';
 import IRecoveryTokenEntity from '@domain/entities/RecoveryTokenEntity.interface';
 
 class FakeRecoveryTokenRepository implements IRecoveryTokenRepository {
-  private recoveryToken: IRecoveryTokenEntity[];
+  private recoveryToken: Omit<IRecoveryTokenEntity, 'isExpired'>[];
 
   constructor() {
     this.recoveryToken = [];
@@ -26,33 +27,39 @@ class FakeRecoveryTokenRepository implements IRecoveryTokenRepository {
   public async findByUserId(
     userId: string,
   ): Promise<IRecoveryTokenEntity | null> {
-    const recoveryToken = this.recoveryToken.find(
+    const recoveryTokenDB = this.recoveryToken.find(
       user => user.user_id === userId,
     );
 
-    if (!recoveryToken) return null;
+    if (!recoveryTokenDB) return null;
 
-    return new RecoveryTokenEntity(
-      recoveryToken.id,
-      recoveryToken.token,
-      recoveryToken.user_id,
-      recoveryToken.created_at,
-    );
+    const recoveryToken = container.resolve(RecoveryTokenEntity);
+
+    recoveryToken.id = recoveryTokenDB.id;
+    recoveryToken.token = recoveryTokenDB.token;
+    recoveryToken.user_id = recoveryTokenDB.user_id;
+    recoveryToken.created_at = recoveryTokenDB.created_at;
+
+    return recoveryToken;
   }
 
   public async findByToken(
     token: string,
   ): Promise<IRecoveryTokenEntity | null> {
-    const recoveryToken = this.recoveryToken.find(user => user.token === token);
-
-    if (!recoveryToken) return null;
-
-    return new RecoveryTokenEntity(
-      recoveryToken.id,
-      recoveryToken.token,
-      recoveryToken.user_id,
-      recoveryToken.created_at,
+    const recoveryTokenDB = this.recoveryToken.find(
+      user => user.token === token,
     );
+
+    if (!recoveryTokenDB) return null;
+
+    const recoveryToken = container.resolve(RecoveryTokenEntity);
+
+    recoveryToken.id = recoveryTokenDB.id;
+    recoveryToken.token = recoveryTokenDB.token;
+    recoveryToken.user_id = recoveryTokenDB.user_id;
+    recoveryToken.created_at = recoveryTokenDB.created_at;
+
+    return recoveryToken;
   }
 }
 

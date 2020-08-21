@@ -3,4 +3,6 @@ export default interface IRecoveryTokenEntity {
   token: string;
   user_id: string;
   created_at: Date;
+
+  isExpired: () => boolean;
 }

@@ -2,7 +2,6 @@ import TypeormUserRepository from '@infra/repositories/User/TypeormUser.reposito
 import CreateUserService from '@domain/services/User/CreateUser.service';
 import UpdateAvatarService from '@domain/services/User/UpdateAvatar.service';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
-import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import DiskStorageHandlerAdapter from '@infra/utils/storageHandler/DiskStorageHandler.adapter';
 import RecoveryPasswordService from '@domain/services/User/RecoveryPassword.service';
 import ResetPasswordService from '@domain/services/User/ResetPassword.service';
@@ -16,7 +15,6 @@ const userControllerFactory = (): IUserControllerFactory => {
   const typeormUserRepository = new TypeormUserRepository();
   const bcryptEncryptor = new BcryptEncryptorAdapter();
   const diskStorageHandler = new DiskStorageHandlerAdapter();
-  const dateFnsDateHandler = new DateFnsDateHandlerAdapter();
   const createUserService = new CreateUserService(
     typeormUserRepository,
     bcryptEncryptor,
@@ -35,7 +33,6 @@ const userControllerFactory = (): IUserControllerFactory => {
   const resetPasswordService = new ResetPasswordService(
     typeormUserRepository,
     bcryptEncryptor,
-    dateFnsDateHandler,
   );
   const recoveryPasswordController = new RecoveryPasswordController(
     recoveryPasswordService,

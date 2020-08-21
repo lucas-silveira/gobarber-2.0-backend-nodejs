@@ -1,19 +1,31 @@
+import { injectable, inject } from 'tsyringe';
+import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import IRecoveryTokenEntity from './RecoveryTokenEntity.interface';
 
+@injectable()
 class RecoveryTokenEntity implements IRecoveryTokenEntity {
-  public readonly id: string;
+  private dateHandler: IDateHandler;
 
-  public readonly token: string;
+  public id: string;
 
-  public readonly user_id: string;
+  public token: string;
 
-  public readonly created_at: Date;
+  public user_id: string;
 
-  constructor(id: string, token: string, user_id: string, created_at: Date) {
-    this.id = id;
-    this.token = token;
-    this.user_id = user_id;
-    this.created_at = created_at;
+  public created_at: Date;
+
+  constructor(
+    @inject('DateHandler')
+    dateHandler: IDateHandler,
+  ) {
+    this.dateHandler = dateHandler;
+  }
+
+  public isExpired(): boolean {
+    if (this.dateHandler.differenceInHours(Date.now(), this.created_at) > 2) {
+      return true;
+    }
+    return false;
   }
 }
 

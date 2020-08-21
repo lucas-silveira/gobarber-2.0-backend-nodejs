@@ -1,6 +1,6 @@
 import FakeEmailHandlerService from '@infra/services/emailHandler/FakeEmailHandler.service';
 import FakeUserRepository from '@infra/repositories/User/FakeUser.repository';
-import FakeRecoveryTokenRepository from '@infra/repositories/UserToken/FakeRecoveryToken.repository';
+import FakeRecoveryTokenRepository from '@infra/repositories/RecoveryToken/FakeRecoveryToken.repository';
 import BcryptEncryptorAdapter from '@infra/utils/encryptor/BcryptEncryptor.adapter';
 import CreateUserService from '@domain/services/User/CreateUser.service';
 import RecoveryPasswordService from '@domain/services/User/RecoveryPassword.service';
