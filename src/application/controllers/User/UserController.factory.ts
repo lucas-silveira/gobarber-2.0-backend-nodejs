@@ -4,6 +4,8 @@ import UpdateAvatarService from '@domain/services/User/UpdateAvatar.service';
 import BcryptEncryptorAdapter from '@utils/encryptor/BcryptEncryptor.adapter';
 import DateFnsDateHandlerAdapter from '@utils/dateHandler/DateFnsDateHandler.adapter';
 import DiskStorageHandlerAdapter from '@infra/utils/storageHandler/DiskStorageHandler.adapter';
+import RecoveryPasswordService from '@domain/services/User/RecoveryPassword.service';
+import ResetPasswordService from '@domain/services/User/ResetPassword.service';
 import CreateUserController from './CreateUser.controller';
 import IUserControllerFactory from './UserControllerFactory.interface';
 import UpdateAvatarController from './UpdateAvatar.controller';
@@ -27,13 +29,19 @@ const userControllerFactory = (): IUserControllerFactory => {
   const updateAvatarController = new UpdateAvatarController(
     updateAvatarService,
   );
-  const recoveryPasswordController = new RecoveryPasswordController(
+  const recoveryPasswordService = new RecoveryPasswordService(
     typeormUserRepository,
   );
-  const resetPasswordController = new ResetPasswordController(
+  const resetPasswordService = new ResetPasswordService(
     typeormUserRepository,
     bcryptEncryptor,
     dateFnsDateHandler,
+  );
+  const recoveryPasswordController = new RecoveryPasswordController(
+    recoveryPasswordService,
+  );
+  const resetPasswordController = new ResetPasswordController(
+    resetPasswordService,
   );
 
   return {
