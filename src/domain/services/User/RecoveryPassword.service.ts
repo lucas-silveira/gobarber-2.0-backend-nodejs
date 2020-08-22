@@ -1,24 +1,29 @@
-import { IEmailService } from '@domain/protocols/service/EmailService.interface';
+import { injectable, inject } from 'tsyringe';
+import { IEmailHandlerService } from '@domain/protocols/service/EmailHandlerService.interface';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
 import { IRecoveryPasswordService } from './RecoveryPasswordService.interface';
 
+@injectable()
 class PasswordRecoveryService implements IRecoveryPasswordService {
   private userRepository: IUserRepository;
 
-  private userTokensRepository: IRecoveryTokenRepository;
+  private recoveryTokenRepository: IRecoveryTokenRepository;
 
-  private emailService: IEmailService;
+  private emailHandlerService: IEmailHandlerService;
 
   constructor(
+    @inject('UserRepository')
     userRepository: IUserRepository,
-    userTokensRepository: IRecoveryTokenRepository,
-    emailService: IEmailService,
+    @inject('RecoveryTokenRepository')
+    recoveryTokenRepository: IRecoveryTokenRepository,
+    @inject('EmailHandlerService')
+    emailHandlerService: IEmailHandlerService,
   ) {
     this.userRepository = userRepository;
-    this.userTokensRepository = userTokensRepository;
-    this.emailService = emailService;
+    this.recoveryTokenRepository = recoveryTokenRepository;
+    this.emailHandlerService = emailHandlerService;
   }
 
   public async execute({
@@ -30,9 +35,9 @@ class PasswordRecoveryService implements IRecoveryPasswordService {
       throw new ErrorExcepetion('error', 'User does not exists.');
     }
 
-    const token = await this.userTokensRepository.generate(user.id);
+    const token = await this.recoveryTokenRepository.generate(user.id);
 
-    await this.emailService.sendMail({
+    await this.emailHandlerService.sendMail({
       email,
       subject: 'Recuperação de senha',
       message: `Recuperação de senha. ${token}`,

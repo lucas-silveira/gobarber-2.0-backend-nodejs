@@ -1,14 +1,18 @@
+import { injectable, inject } from 'tsyringe';
 import { ICreateAppointmentService } from '@domain/services/Appointment/CreateAppointmentService.interface';
 import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
 import { ICreateAppointmentController } from './CreateAppointmentController.interface';
 
+@injectable()
 class CreateAppointmentController implements ICreateAppointmentController {
   private createAppointmentService: ICreateAppointmentService;
 
   private dateHandler: IDateHandler;
 
   constructor(
+    @inject('CreateAppointmentService')
     createAppointmentService: ICreateAppointmentService,
+    @inject('DateHandler')
     dateHandler: IDateHandler,
   ) {
     this.createAppointmentService = createAppointmentService;

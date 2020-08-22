@@ -1,9 +1,11 @@
+import { injectable, inject } from 'tsyringe';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
 import { ICreateAuthenticationService } from './CreateAuthenticationService.interface';
 
+@injectable()
 class CreateUserService implements ICreateAuthenticationService {
   private userRepository: IUserRepository;
 
@@ -12,8 +14,11 @@ class CreateUserService implements ICreateAuthenticationService {
   private encryptor: IEncryptor;
 
   constructor(
+    @inject('UserRepository')
     userRepository: IUserRepository,
+    @inject('AuthenticateUtil')
     authenticate: IAuthenticateUtil,
+    @inject('Encryptor')
     encryptor: IEncryptor,
   ) {
     this.userRepository = userRepository;

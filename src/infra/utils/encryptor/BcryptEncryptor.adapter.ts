@@ -2,7 +2,7 @@ import { hash, compare } from 'bcryptjs';
 
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
 
-class BcryptEncryptor implements IEncryptor {
+class BcryptEncryptorAdapter implements IEncryptor {
   public async makeHash(
     data: string,
     strength: string | number,
@@ -15,4 +15,4 @@ class BcryptEncryptor implements IEncryptor {
   }
 }
 
-export default BcryptEncryptor;
+export default BcryptEncryptorAdapter;

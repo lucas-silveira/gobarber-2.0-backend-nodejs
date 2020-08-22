@@ -1,10 +1,15 @@
+import { injectable, inject } from 'tsyringe';
 import { IResetPasswordService } from '@domain/services/User/ResetPasswordService.interface';
 import { IResetPasswordController } from './ResetPasswordController.interface';
 
+@injectable()
 class ResetPasswordController implements IResetPasswordController {
   private resetPasswordService: IResetPasswordService;
 
-  constructor(resetPasswordService: IResetPasswordService) {
+  constructor(
+    @inject('ResetPasswordService')
+    resetPasswordService: IResetPasswordService,
+  ) {
     this.resetPasswordService = resetPasswordService;
   }
 

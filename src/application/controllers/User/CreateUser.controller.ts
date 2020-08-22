@@ -1,10 +1,15 @@
 import { ICreateUserService } from '@domain/services/User/CreateUserService.interface';
+import { injectable, inject } from 'tsyringe';
 import { ICreateUserController } from './CreateUserController.interface';
 
+@injectable()
 class CreateUserController implements ICreateUserController {
   private createUserService: ICreateUserService;
 
-  constructor(createUserService: ICreateUserService) {
+  constructor(
+    @inject('CreateUserService')
+    createUserService: ICreateUserService,
+  ) {
     this.createUserService = createUserService;
   }
 

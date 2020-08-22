@@ -1,15 +1,19 @@
+import { injectable, inject } from 'tsyringe';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IStorageHandler } from '@domain/protocols/utils/StorageHandler.interface';
 import { IUpdateAvatarService } from './UpdateAvatarService.interface';
 
+@injectable()
 class UpdateAvatarService implements IUpdateAvatarService {
   private userRepository: IUserRepository;
 
   private storageHandler: IStorageHandler;
 
   constructor(
+    @inject('UserRepository')
     userRepository: IUserRepository,
+    @inject('StorageHandler')
     storageHandler: IStorageHandler,
   ) {
     this.userRepository = userRepository;

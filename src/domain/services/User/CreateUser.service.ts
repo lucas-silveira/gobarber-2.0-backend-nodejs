@@ -1,14 +1,21 @@
+import { injectable, inject } from 'tsyringe';
 import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { ICreateUserService } from './CreateUserService.interface';
 
+@injectable()
 class CreateUserService implements ICreateUserService {
   private userRepository: IUserRepository;
 
   private encryptor: IEncryptor;
 
-  constructor(userRepository: IUserRepository, encryptor: IEncryptor) {
+  constructor(
+    @inject('UserRepository')
+    userRepository: IUserRepository,
+    @inject('Encryptor')
+    encryptor: IEncryptor,
+  ) {
     this.userRepository = userRepository;
     this.encryptor = encryptor;
   }

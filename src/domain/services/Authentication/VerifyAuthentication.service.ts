@@ -1,11 +1,16 @@
+import { injectable, inject } from 'tsyringe';
 import { IAuthenticateUtil } from '@domain/protocols/utils/Authenticate.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IVerifyAuthenticationService } from './VerifyAuthenticationService.interface';
 
+@injectable()
 class VerifyAuthenticationService implements IVerifyAuthenticationService {
   private readonly authenticate: IAuthenticateUtil;
 
-  constructor(authenticate: IAuthenticateUtil) {
+  constructor(
+    @inject('AuthenticateUtil')
+    authenticate: IAuthenticateUtil,
+  ) {
     this.authenticate = authenticate;
   }
 

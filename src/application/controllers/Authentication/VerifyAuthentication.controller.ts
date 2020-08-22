@@ -1,11 +1,16 @@
+import { injectable, inject } from 'tsyringe';
 import { IVerifyAuthenticationService } from '@domain/services/Authentication/VerifyAuthenticationService.interface';
 import { IVerifyAuthenticationController } from './VerifyAuthenticationController.interface';
 
+@injectable()
 class VerifyAuthenticationController
   implements IVerifyAuthenticationController {
   private verifyAuthenticationService: IVerifyAuthenticationService;
 
-  constructor(verifyAuthenticationService: IVerifyAuthenticationService) {
+  constructor(
+    @inject('VerifyAuthenticationService')
+    verifyAuthenticationService: IVerifyAuthenticationService,
+  ) {
     this.verifyAuthenticationService = verifyAuthenticationService;
   }
 

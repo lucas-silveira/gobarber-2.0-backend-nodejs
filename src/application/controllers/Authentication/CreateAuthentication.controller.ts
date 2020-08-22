@@ -1,11 +1,16 @@
+import { injectable, inject } from 'tsyringe';
 import { ICreateAuthenticationService } from '@domain/services/Authentication/CreateAuthenticationService.interface';
 import { ICreateAuthenticationController } from './CreateAuthenticationController.interface';
 
+@injectable()
 class CreateAuthenticationController
   implements ICreateAuthenticationController {
   private createAuthenticationService: ICreateAuthenticationService;
 
-  constructor(createAuthenticationService: ICreateAuthenticationService) {
+  constructor(
+    @inject('CreateAuthenticationService')
+    createAuthenticationService: ICreateAuthenticationService,
+  ) {
     this.createAuthenticationService = createAuthenticationService;
   }
 

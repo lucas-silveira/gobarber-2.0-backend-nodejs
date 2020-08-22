@@ -1,7 +1,7 @@
-import { IEmailService } from '@domain/protocols/service/EmailService.interface';
+import { IEmailHandlerService } from '@domain/protocols/service/EmailHandlerService.interface';
 
-class FakeEmailHandlerService implements IEmailService {
-  private messages: IEmailService.Input[];
+class FakeEmailHandlerService implements IEmailHandlerService {
+  private messages: IEmailHandlerService.Input[];
 
   constructor() {
     this.messages = [];
@@ -11,7 +11,7 @@ class FakeEmailHandlerService implements IEmailService {
     email,
     subject,
     message,
-  }: IEmailService.Input): Promise<void> {
+  }: IEmailHandlerService.Input): Promise<void> {
     this.messages.push({ email, subject, message });
     return Promise.resolve();
   }
