@@ -19,12 +19,12 @@ usersRouter.post('/', async (request, response) => {
 
 usersRouter.post('/recovery-password', async (request, response) => {
   const user = await recoveryPassword.handle(request.body);
-  return response.json(user);
+  return response.status(204).json(user);
 });
 
 usersRouter.post('/reset-password', async (request, response) => {
   const user = await resetPassword.handle(request.body);
-  return response.json(user);
+  return response.status(204).json(user);
 });
 
 usersRouter.patch(

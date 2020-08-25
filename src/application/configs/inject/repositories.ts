@@ -4,7 +4,7 @@ import TypeormAppointmentRepository from '@infra/repositories/Appointment/Typeor
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import TypeormUserRepository from '@infra/repositories/User/TypeormUser.repository';
 import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
-import FakeRecoveryTokenRepository from '@infra/repositories/RecoveryToken/FakeRecoveryToken.repository';
+import TypeormRecoveryTokenRepository from '@infra/repositories/RecoveryToken/TypeormRecoveryToken.repository';
 
 container.registerSingleton<IAppointmentRepository>(
   'AppointmentRepository',
@@ -16,5 +16,5 @@ container.registerSingleton<IUserRepository>(
 );
 container.registerSingleton<IRecoveryTokenRepository>(
   'RecoveryTokenRepository',
-  FakeRecoveryTokenRepository,
+  TypeormRecoveryTokenRepository,
 );

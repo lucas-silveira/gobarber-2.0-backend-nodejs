@@ -8,7 +8,7 @@ import {
   Generated,
 } from 'typeorm';
 
-@Entity('user_tokens')
+@Entity('recovery_tokens')
 class RecoveryTokenSchema extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
