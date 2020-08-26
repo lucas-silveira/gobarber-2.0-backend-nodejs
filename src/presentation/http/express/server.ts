@@ -3,7 +3,7 @@ import cors from 'cors';
 import 'express-async-errors';
 import 'reflect-metadata';
 
-import '@infra/configs/typeorm/database';
+import '@infra/configs/database';
 import '@application/configs/inject';
 import { config as uploadConfig } from '@infra/configs/upload';
 import { IErrorExcepetion } from '@domain/protocols/utils/ErrorExcepetion.interface';
