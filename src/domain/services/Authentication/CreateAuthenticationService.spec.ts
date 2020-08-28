@@ -4,21 +4,29 @@ import JWTAuthenticateAdapter from '@utils/authentication/JWTAuthenticate.adapte
 import CreateUserService from '@domain/services/User/CreateUser.service';
 import CreateAuthenticationService from './CreateAuthentication.service';
 
+let fakeUserRepository: FakeUserRepository;
+let jwtAuthenticate: JWTAuthenticateAdapter;
+let bcryptEncryptor: BcryptEncryptorAdapter;
+let createUserService: CreateUserService;
+let createAuthenticationService: CreateAuthenticationService;
+
 describe('CreateAuthenticationService', () => {
-  it('should be able to authenticate', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticateAdapter();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createUserService = new CreateUserService(
+  beforeEach(() => {
+    fakeUserRepository = new FakeUserRepository();
+    jwtAuthenticate = new JWTAuthenticateAdapter();
+    bcryptEncryptor = new BcryptEncryptorAdapter();
+    createUserService = new CreateUserService(
       fakeUserRepository,
       bcryptEncryptor,
     );
-    const createAuthenticationService = new CreateAuthenticationService(
+    createAuthenticationService = new CreateAuthenticationService(
       fakeUserRepository,
       jwtAuthenticate,
       bcryptEncryptor,
     );
+  });
 
+  it('should be able to authenticate', async () => {
     const userName = 'User';
     const userEmail = 'user@provider.com';
     const userPassword = '123456';
@@ -39,16 +47,7 @@ describe('CreateAuthenticationService', () => {
   });
 
   it('should not be able to authenticate with no existing user', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticateAdapter();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createAuthenticationService = new CreateAuthenticationService(
-      fakeUserRepository,
-      jwtAuthenticate,
-      bcryptEncryptor,
-    );
-
-    expect(
+    await expect(
       createAuthenticationService.execute({
         email: 'user@provider.com',
         password: '123456',
@@ -57,19 +56,6 @@ describe('CreateAuthenticationService', () => {
   });
 
   it('should not be able to authenticate with wrong password', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const jwtAuthenticate = new JWTAuthenticateAdapter();
-    const bcryptEncryptor = new BcryptEncryptorAdapter();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      bcryptEncryptor,
-    );
-    const createAuthenticationService = new CreateAuthenticationService(
-      fakeUserRepository,
-      jwtAuthenticate,
-      bcryptEncryptor,
-    );
-
     const userEmail = 'user@provider.com';
 
     await createUserService.execute({

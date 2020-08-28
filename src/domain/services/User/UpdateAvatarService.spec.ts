@@ -4,20 +4,25 @@ import FakeStorageHandlerAdapter from '@utils/storageHandler/FakeStorageHandler.
 import CreateUserService from './CreateUser.service';
 import UpdateAvatarService from './UpdateAvatar.service';
 
+let fakeUserRepository: FakeUserRepository;
+let encryptor: BcryptEncryptorAdapter;
+let fakeStorageHandler: FakeStorageHandlerAdapter;
+let createUserService: CreateUserService;
+let updateAvatarService: UpdateAvatarService;
+
 describe('UpdateUserAvatarService', () => {
-  it('should be able to update user avatar', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const encryptor = new BcryptEncryptorAdapter();
-    const fakeStorageHandler = new FakeStorageHandlerAdapter();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      encryptor,
-    );
-    const updateAvatarService = new UpdateAvatarService(
+  beforeEach(() => {
+    fakeUserRepository = new FakeUserRepository();
+    encryptor = new BcryptEncryptorAdapter();
+    fakeStorageHandler = new FakeStorageHandlerAdapter();
+    createUserService = new CreateUserService(fakeUserRepository, encryptor);
+    updateAvatarService = new UpdateAvatarService(
       fakeUserRepository,
       fakeStorageHandler,
     );
+  });
 
+  it('should be able to update user avatar', async () => {
     const userName = 'User';
     const userEmail = 'user@provider.com';
     const userPassword = '123456';
@@ -28,7 +33,7 @@ describe('UpdateUserAvatarService', () => {
       password: userPassword,
     });
 
-    expect(
+    await expect(
       updateAvatarService.execute({
         userId: user.id,
         avatarName: 'avatar.jpg',
@@ -37,14 +42,7 @@ describe('UpdateUserAvatarService', () => {
   });
 
   it('should not be able to update user avatar with incorrect user id', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const fakeStorageHandler = new FakeStorageHandlerAdapter();
-    const updateAvatarService = new UpdateAvatarService(
-      fakeUserRepository,
-      fakeStorageHandler,
-    );
-
-    expect(
+    await expect(
       updateAvatarService.execute({
         userId: '1',
         avatarName: 'avatar.jpg',
@@ -53,18 +51,6 @@ describe('UpdateUserAvatarService', () => {
   });
 
   it('should delete old avatar when updating a new avatar', async () => {
-    const fakeUserRepository = new FakeUserRepository();
-    const encryptor = new BcryptEncryptorAdapter();
-    const fakeStorageHandler = new FakeStorageHandlerAdapter();
-    const createUserService = new CreateUserService(
-      fakeUserRepository,
-      encryptor,
-    );
-    const updateAvatarService = new UpdateAvatarService(
-      fakeUserRepository,
-      fakeStorageHandler,
-    );
-
     const deleteFileSpy = jest.spyOn(fakeStorageHandler, 'deleteFile');
 
     const userName = 'User';
