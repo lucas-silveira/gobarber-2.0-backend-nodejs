@@ -13,6 +13,8 @@ import { IResetPasswordService } from '@domain/services/User/ResetPasswordServic
 import ResetPasswordService from '@domain/services/User/ResetPassword.service';
 import { ICreateUserService } from '@domain/services/User/CreateUserService.interface';
 import CreateUserService from '@domain/services/User/CreateUser.service';
+import UpdateUserProfileService from '@domain/services/User/UpdateUserProfile.service';
+import { IUpdateUserProfileService } from '@domain/services/User/UpdateUserProfileService.interface';
 
 // Authentication
 container.register<ICreateAuthenticationService>(
@@ -36,6 +38,10 @@ container.register<IUpdateAvatarService>(
 
 // User
 container.register<ICreateUserService>('CreateUserService', CreateUserService);
+container.register<IUpdateUserProfileService>(
+  'UpdateUserProfileService',
+  UpdateUserProfileService,
+);
 container.register<IRecoveryPasswordService>(
   'RecoveryPasswordService',
   RecoveryPasswordService,
