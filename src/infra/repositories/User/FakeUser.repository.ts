@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker';
+import { plainToClass } from 'class-transformer';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import IUserEntity from '@domain/entities/UserEntity.interface';
 import User from '@domain/entities/User.entity';
@@ -20,15 +21,7 @@ class FakeUserRepository implements IUserRepository {
 
     if (!userDB) return null;
 
-    const user = new User();
-
-    user.id = userDB.id;
-    user.name = userDB.name;
-    user.email = userDB.email;
-    user.avatar = userDB.avatar;
-    user.password = userDB.password;
-
-    return user;
+    return plainToClass(User, userDB);
   }
 
   public async findByEmail(email: string): Promise<IUserEntity | null> {
@@ -36,15 +29,7 @@ class FakeUserRepository implements IUserRepository {
 
     if (!userDB) return null;
 
-    const user = new User();
-
-    user.id = userDB.id;
-    user.name = userDB.name;
-    user.email = userDB.email;
-    user.avatar = userDB.avatar;
-    user.password = userDB.password;
-
-    return user;
+    return plainToClass(User, userDB);
   }
 
   public async create({
@@ -62,15 +47,7 @@ class FakeUserRepository implements IUserRepository {
 
     this.users.push(newUser);
 
-    const user = new User();
-
-    user.id = newUser.id;
-    user.name = newUser.name;
-    user.email = newUser.email;
-    user.avatar = newUser.avatar;
-    user.password = newUser.password;
-
-    return user;
+    return plainToClass(User, newUser);
   }
 
   public async update(user: IUserEntity): Promise<IUserEntity> {

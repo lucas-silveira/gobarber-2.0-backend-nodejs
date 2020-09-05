@@ -1,3 +1,4 @@
+import { plainToClass } from 'class-transformer';
 import TypeormUserSchema from '@infra/schemas/User/TypeormUser.schema';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import IUserEntity from '@domain/entities/UserEntity.interface';
@@ -13,15 +14,7 @@ class TypeormUserRepository implements IUserRepository {
 
     if (!userDB) return null;
 
-    const user = new User();
-
-    user.id = userDB.id;
-    user.name = userDB.name;
-    user.email = userDB.email;
-    user.avatar = userDB.avatar;
-    user.password = userDB.password;
-
-    return user;
+    return plainToClass(User, userDB);
   }
 
   public async findByEmail(email: string): Promise<IUserEntity | null> {
@@ -29,15 +22,7 @@ class TypeormUserRepository implements IUserRepository {
 
     if (!userDB) return null;
 
-    const user = new User();
-
-    user.id = userDB.id;
-    user.name = userDB.name;
-    user.email = userDB.email;
-    user.avatar = userDB.avatar;
-    user.password = userDB.password;
-
-    return user;
+    return plainToClass(User, userDB);
   }
 
   public async create({
@@ -53,15 +38,7 @@ class TypeormUserRepository implements IUserRepository {
 
     await TypeormUserSchema.save(userDB);
 
-    const user = new User();
-
-    user.id = userDB.id;
-    user.name = userDB.name;
-    user.email = userDB.email;
-    user.avatar = userDB.avatar;
-    user.password = userDB.password;
-
-    return user;
+    return plainToClass(User, userDB);
   }
 
   public async update(user: IUserEntity): Promise<IUserEntity> {

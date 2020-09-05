@@ -1,3 +1,4 @@
+import { plainToClass } from 'class-transformer';
 import TypeormAppointmentSchema from '@infra/schemas/Appointment/TypeormAppointment.schema';
 import { IAppointmentRepository } from '@domain/protocols/repository/AppointmentRepository.interface';
 import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
@@ -15,13 +16,7 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
 
     if (!appointmentDB) return null;
 
-    const appointment = new Appointment();
-
-    appointment.id = appointmentDB.id;
-    appointment.provider_id = appointmentDB.provider_id;
-    appointment.date = appointmentDB.date;
-
-    return appointment;
+    return plainToClass(Appointment, appointmentDB);
   }
 
   public async create({
@@ -34,13 +29,7 @@ class TypeormAppointmentRepository implements IAppointmentRepository {
     });
     await TypeormAppointmentSchema.save(newAppointment);
 
-    const appointment = new Appointment();
-
-    appointment.id = newAppointment.id;
-    appointment.provider_id = newAppointment.provider_id;
-    appointment.date = newAppointment.date;
-
-    return appointment;
+    return plainToClass(Appointment, newAppointment);
   }
 }
 
