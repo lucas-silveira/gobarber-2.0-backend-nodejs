@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { container } from 'tsyringe';
+import { plainToClassFromExist } from 'class-transformer';
 import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
 import RecoveryTokenEntity from '@domain/entities/RecoveryToken.entity';
 import IRecoveryTokenEntity from '@domain/entities/RecoveryTokenEntity.interface';
@@ -27,12 +28,7 @@ class TypeormRecoveryTokenRepository implements IRecoveryTokenRepository {
 
     const recoveryToken = container.resolve(RecoveryTokenEntity);
 
-    recoveryToken.id = recoveryTokenDB.id;
-    recoveryToken.token = recoveryTokenDB.token;
-    recoveryToken.user_id = recoveryTokenDB.user_id;
-    recoveryToken.created_at = recoveryTokenDB.created_at;
-
-    return recoveryToken;
+    return plainToClassFromExist(recoveryToken, recoveryTokenDB);
   }
 
   public async findByToken(
@@ -46,12 +42,7 @@ class TypeormRecoveryTokenRepository implements IRecoveryTokenRepository {
 
     const recoveryToken = container.resolve(RecoveryTokenEntity);
 
-    recoveryToken.id = recoveryTokenDB.id;
-    recoveryToken.token = recoveryTokenDB.token;
-    recoveryToken.user_id = recoveryTokenDB.user_id;
-    recoveryToken.created_at = recoveryTokenDB.created_at;
-
-    return recoveryToken;
+    return plainToClassFromExist(recoveryToken, recoveryTokenDB);
   }
 }
 
