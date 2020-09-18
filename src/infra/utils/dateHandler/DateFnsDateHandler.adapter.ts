@@ -1,6 +1,6 @@
 import { startOfHour, parseISO, isEqual, differenceInHours } from 'date-fns';
 
-import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
+import { IDateHandler } from '@domain/protocols/utils/DateHandler.interface';
 
 class DateFnsDateHandlerAdapter implements IDateHandler {
   public startOfHour(date: Date): Date {

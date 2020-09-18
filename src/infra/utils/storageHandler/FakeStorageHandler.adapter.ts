@@ -12,7 +12,10 @@ class FakeStorageHandlerAdapter implements IStorageHandler {
     Promise.resolve();
   }
 
-  public async hasFile(folder: string, filename: string): Promise<boolean> {
+  public async checkFileExistss(
+    folder: string,
+    filename: string,
+  ): Promise<boolean> {
     const filepath = `${folder}/${filename}`;
     const fileFound = this.storage.find(
       storageFile => storageFile === filepath,

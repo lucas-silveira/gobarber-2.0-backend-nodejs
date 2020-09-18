@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
+import { IDateHandler } from '@domain/protocols/utils/DateHandler.interface';
 import { IAppointmentRepository } from '@domain/protocols/repository/AppointmentRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { ICreateAppointmentService } from './CreateAppointmentService.interface';

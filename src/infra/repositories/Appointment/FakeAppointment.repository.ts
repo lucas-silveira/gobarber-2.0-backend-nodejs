@@ -2,7 +2,7 @@
 import faker from 'faker';
 import { plainToClass } from 'class-transformer';
 import { IAppointmentRepository } from '@domain/protocols/repository/AppointmentRepository.interface';
-import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
+import { IDateHandler } from '@domain/protocols/utils/DateHandler.interface';
 import DateFnsDateHandler from '@infra/utils/dateHandler/DateFnsDateHandler.adapter';
 import IAppointmentEntity from '@domain/entities/AppointmentEntity.interface';
 import Appointment from '@domain/entities/Appointment.entity';

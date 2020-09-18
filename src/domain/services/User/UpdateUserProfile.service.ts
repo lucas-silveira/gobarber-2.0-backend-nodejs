@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
-import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
+import { IEncryptor } from '@domain/protocols/utils/Encryptor.interface';
 import { IUpdateUserProfileService } from './UpdateUserProfileService.interface';
 
 @injectable()

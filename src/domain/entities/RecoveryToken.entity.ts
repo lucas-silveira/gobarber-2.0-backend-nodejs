@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import IDateHandler from '@domain/protocols/utils/DateHandler.interface';
+import { IDateHandler } from '@domain/protocols/utils/DateHandler.interface';
 import IRecoveryTokenEntity from './RecoveryTokenEntity.interface';
 
 @injectable()

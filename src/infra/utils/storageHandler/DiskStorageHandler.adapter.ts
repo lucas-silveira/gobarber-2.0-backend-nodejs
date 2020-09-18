@@ -17,7 +17,10 @@ class DiskStorageHandlerAdapter implements IStorageHandler {
     return fs.promises.rename(sourceFilepath, targetFilepath);
   }
 
-  public async hasFile(folder: string, filename: string): Promise<boolean> {
+  public async checkFileExistss(
+    folder: string,
+    filename: string,
+  ): Promise<boolean> {
     const filepath = path.join(this.storage, folder, filename);
     try {
       await fs.promises.stat(filepath);

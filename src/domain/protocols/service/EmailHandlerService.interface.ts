@@ -1,11 +1,13 @@
-export interface IEmailHandlerService {
-  sendMail: (dto: IEmailHandlerService.Input) => Promise<void>;
+export interface ISendMail {
+  sendMail: (dto: ISendMail.Message) => Promise<void>;
 }
 
-export namespace IEmailHandlerService {
-  export type Input = {
+export namespace ISendMail {
+  export type Message = {
     email: string;
     subject: string;
     message: string;
   };
 }
+
+export type IEmailHandlerService = ISendMail;

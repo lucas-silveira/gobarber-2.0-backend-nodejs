@@ -1,4 +1,7 @@
-import { IEmailHandlerService } from '@domain/protocols/service/EmailHandlerService.interface';
+import {
+  IEmailHandlerService,
+  ISendMail,
+} from '@domain/protocols/service/EmailHandlerService.interface';
 import transporter from '@infra/configs/email';
 
 class MailtrapEmailHandlerService implements IEmailHandlerService {
@@ -6,7 +9,7 @@ class MailtrapEmailHandlerService implements IEmailHandlerService {
     email,
     subject,
     message,
-  }: IEmailHandlerService.Input): Promise<void> {
+  }: ISendMail.Message): Promise<void> {
     await transporter.sendMail({
       from: 'Equipe GoBarber <equipe@gobarber.com.br>',
       to: email,

@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import { IUserRepository } from '@domain/protocols/repository/UserRepository.interface';
 import ErrorExcepetion from '@utils/ErrorExcepetion/ErrorExcepetion';
 import { IRecoveryTokenRepository } from '@domain/protocols/repository/RecoveryTokenRepository.interface';
-import IEncryptor from '@domain/protocols/utils/Encryptor.interface';
+import { IEncryptor } from '@domain/protocols/utils/Encryptor.interface';
 import { IResetPasswordService } from './ResetPasswordService.interface';
 
 @injectable()
